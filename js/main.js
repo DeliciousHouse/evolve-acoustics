@@ -1,11 +1,22 @@
 // JavaScript for interactive elements
 $(document).ready(function() {
-    // Example: Smooth scrolling for navigation links
-    $('nav a').on('click', function(event) {
-        event.preventDefault();
-        const target = $(this).attr('href');
-        $('html, body').animate({
-            scrollTop: $(target).offset().top
-        }, 500);
+    // Mobile menu toggle
+    $('.menu-toggle').click(function() {
+        $('.nav-links').toggleClass('active');
+    });
+
+    // Mobile dropdown toggle
+    $('.dropdown > a').click(function(e) {
+        if ($(window).width() <= 768) {
+            e.preventDefault();
+            $(this).siblings('.dropdown-content').toggleClass('active');
+        }
+    });
+
+    // Close mobile menu when clicking outside
+    $(document).click(function(event) {
+        if (!$(event.target).closest('.menu-toggle, .nav-links').length) {
+            $('.nav-links').removeClass('active');
+        }
     });
 });
