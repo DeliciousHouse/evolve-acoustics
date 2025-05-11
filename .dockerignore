@@ -1,0 +1,33 @@
+# Git files
+.git
+.github
+.gitignore
+
+# Docker files
+.dockerignore
+Dockerfile
+
+# Node.js/npm files (if you add them in the future)
+node_modules
+npm-debug.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.idea
+.vscode
+
+# README and documentation
+README.md
+LICENSE
+*.md
+
+# Build scripts or other automation files you might add later
+*.sh
+
+# Any backup files
+*~
+*.bak
+*.swp

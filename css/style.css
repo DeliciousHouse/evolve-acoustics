@@ -227,6 +227,18 @@ nav ul li a:hover {
     overflow: hidden;
 }
 
+/* Testimonials Preview Section */
+.testimonials-preview {
+    padding: 60px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    margin: 15px auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
 .services h2 {
     text-align: center;
     margin-bottom: 40px;
@@ -741,6 +753,7 @@ footer {
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
+        z-index: 1000;
     }
 
     .nav-links {
@@ -749,7 +762,7 @@ footer {
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.9); /* Match header but darker */
+        background-color: rgba(0, 0, 0, 0.95); /* Match header but darker */
         z-index: 100;
         box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     }
@@ -774,6 +787,7 @@ footer {
     }
 
     .dropdown-content {
+        display: none;
         position: static;
         background-image: url('../assets/images/mahogany_texture.webp');
         background-size: cover;
@@ -790,6 +804,10 @@ footer {
     /* Use active class for mobile toggle instead */
     .dropdown-content.active {
         display: block;
+    }
+
+    .dropdown > a::after {
+        float: right;
     }
 }
 
