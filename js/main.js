@@ -7,8 +7,8 @@ $(document).ready(function() {
         $('.nav-links').toggleClass('active');
     });
 
-    // Mobile dropdown toggle
-    $('.dropdown > a').click(function(e) {
+    // Mobile dropdown toggle for touch devices
+    $('.dropdown > a').on('click touchstart', function(e) {
         if ($(window).width() <= 768) {
             e.preventDefault();
             e.stopPropagation();
@@ -20,6 +20,7 @@ $(document).ready(function() {
     $(document).on('click touchstart', function(event) {
         if (!$(event.target).closest('.menu-toggle, .nav-links').length) {
             $('.nav-links').removeClass('active');
+            $('.dropdown-content').removeClass('active');
         }
     });
 });
