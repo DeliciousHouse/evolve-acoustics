@@ -12,8 +12,19 @@ git fetch origin
 echo "Checking git status..."
 git status
 
-# Check if local branch is behind remote
-if git status | grep -q "Your branch is behind"; then
+# Check if branches have diverged or if local branch is behind remote
+if git status | grep -q "Your branch and 'origin/main' have diverged"; then
+    echo "Your branch has diverged from the remote. Performing a merge..."
+    # Configure git to use merge strategy for pull (only for this session)
+    git config pull.rebase false
+    git pull origin main
+
+    # Check if pull was successful
+    if [ $? -ne 0 ]; then
+        echo "Error pulling changes. You may have conflicts to resolve."
+        exit 1
+    fi
+elif git status | grep -q "Your branch is behind"; then
     echo "Your local branch is behind the remote. Pulling latest changes..."
     git pull origin main
 
@@ -84,13 +95,6 @@ if [ $? -eq 0 ]; then
         echo "Pushing Docker image to registry..."
         docker push ${DOCKER_IMAGE}
         docker push ${DOCKER_LATEST}
-
-        echo "Stopping and removing old container..."
-        docker stop evolve-acoustics || true
-        docker rm evolve-acoustics || true
-
-        echo "Starting new container..."
-        docker run -d --name evolve-acoustics -p 8082:80 --restart unless-stopped --network docker-stack ${DOCKER_LATEST}
 
         echo "Deployment process completed successfully!"
     else
