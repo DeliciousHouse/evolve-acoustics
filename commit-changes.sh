@@ -8,9 +8,13 @@ cd /home/bkam/evolve-acoustics
 echo "Checking git status..."
 git status
 
-# Store changed files for commit message
-CHANGED_FILES=$(git diff --name-only)
-HTML_CHANGES=$(git diff --name-only | grep -c "\.html$" || true)
+# First add all changes so we can analyze them properly
+echo "Adding all changes to git..."
+git add .
+
+# Now store changed files for commit message (using --cached to see staged changes)
+CHANGED_FILES=$(git diff --cached --name-only)
+HTML_CHANGES=$(git diff --cached --name-only | grep -c "\.html$" || true)
 
 # Generate commit message dynamically
 COMMIT_MSG="Website updates:\n\n"
@@ -32,10 +36,6 @@ fi
 if [ "$COMMIT_MSG" == "Website updates:\n\n" ]; then
     COMMIT_MSG+="- General website improvements and fixes\n"
 fi
-
-# Add all changed files to git
-echo "Adding all changes to git..."
-git add .
 
 # Commit the changes with the dynamic message
 echo "Committing changes with message:"

@@ -289,30 +289,116 @@ nav ul li a:hover {
 
 /* Service Pages Styling */
 .service-page-content {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 2rem;
+}
+
+.service-page-content h1 {
     text-align: center;
-    padding: 20px;
+    margin-bottom: 2rem;
 }
 
 .service-page-content p {
     color: #eae1e1;
-    margin: 20px auto 40px;
-    max-width: 700px;
     line-height: 1.7;
     font-size: 18px;
+    margin-bottom: 1rem;
 }
 
-.service-page-content img {
+.service-intro {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.service-intro img {
     width: 100%;
-    height: 350px;
-    object-fit: cover;
-    object-position: center;
+    height: auto;
     border-radius: 8px;
-    margin: 20px auto;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    max-width: 800px;
-    display: block;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.service-intro img:hover {
+    transform: scale(1.02);
+}
+
+.service-section {
+    margin-bottom: 3rem;
+}
+
+.service-section h2 {
+    color: #4fd5ff;
+    border-left: 4px solid #4fd5ff;
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.service-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.service-list li {
+    padding: 1.2rem 1.5rem 1.2rem 4rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    position: relative;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    color: #eae1e1;
+}
+
+.service-list li:hover {
+    background-color: rgba(79, 213, 255, 0.1);
+    transform: translateY(-5px);
+}
+
+.service-list li:before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 1.2rem;
+    top: 1.2rem;
+    color: #4fd5ff;
+    font-size: 1.5rem;
+}
+
+/* Custom icons for each list item */
+.service-list li:nth-child(1):before { content: "\f500"; } /* measurement icon */
+.service-list li:nth-child(2):before { content: "\f0e7"; } /* problem icon */
+.service-list li:nth-child(3):before { content: "\f1b2"; } /* modeling icon */
+.service-list li:nth-child(4):before { content: "\f303"; } /* design icon */
+.service-list li:nth-child(5):before { content: "\f53f"; } /* materials icon */
+.service-list li:nth-child(6):before { content: "\f562"; } /* testing icon */
+
+.cta-container {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #4fd5ff;
+    color: #1a1a1a;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cta-button:hover {
+    background-color: #23b8e5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 213, 255, 0.3);
 }
 
 .service-image-gallery {

@@ -20,6 +20,23 @@
     }
 }
 
+@media (min-width: 768px) {
+    .service-intro {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+    }
+
+    .service-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .service-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     nav ul {
         display: block;
@@ -29,6 +46,29 @@
     nav ul li {
         display: block;
         margin: 10px 0;
+    }
+
+    .service-page-content {
+        padding: 1.5rem;
+    }
+
+    .service-intro {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .service-list {
+        grid-template-columns: 1fr;
+    }
+
+    .service-list li {
+        padding: 1rem 1rem 1rem 3.5rem;
+    }
+
+    .service-list li:before {
+        font-size: 1.3rem;
+        top: 1rem;
+        left: 1rem;
     }
 
     .hero {
