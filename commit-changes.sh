@@ -23,7 +23,7 @@ git commit -m "Fix social media icons display and CSP configuration
 
 # Push the changes to GitHub
 echo "Pushing changes to GitHub repository..."
-git push origin master  # Assuming you're using the 'master' branch
+git push origin main  # Assuming you're using the 'master' branch
 
 # Check if push was successful
 if [ $? -eq 0 ]; then
