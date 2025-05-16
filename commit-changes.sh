@@ -4,9 +4,25 @@
 # Navigate to project directory
 cd /home/bkam/evolve-acoustics
 
+# First, fetch changes from remote repository
+echo "Fetching latest changes from remote repository..."
+git fetch origin
+
 # Check git status to see what files have been modified
 echo "Checking git status..."
 git status
+
+# Check if local branch is behind remote
+if git status | grep -q "Your branch is behind"; then
+    echo "Your local branch is behind the remote. Pulling latest changes..."
+    git pull origin main
+
+    # Check if pull was successful
+    if [ $? -ne 0 ]; then
+        echo "Error pulling changes. You may have conflicts to resolve."
+        exit 1
+    fi
+fi
 
 # First add all changes so we can analyze them properly
 echo "Adding all changes to git..."
@@ -56,8 +72,8 @@ if [ $? -eq 0 ]; then
 
     # Generate a version tag based on date and time
     VERSION_TAG=$(date '+%Y%m%d-%H%M%S')
-    DOCKER_IMAGE="evolve-acoustics:${VERSION_TAG}"
-    DOCKER_LATEST="evolve-acoustics:latest"
+    DOCKER_IMAGE="bkamai/evolve-acoustics:${VERSION_TAG}"
+    DOCKER_LATEST="bkamai/evolve-acoustics:latest"
 
     echo "Building Docker image with tag: ${DOCKER_IMAGE}"
     docker build -t ${DOCKER_IMAGE} -t ${DOCKER_LATEST} .
@@ -65,13 +81,16 @@ if [ $? -eq 0 ]; then
     if [ $? -eq 0 ]; then
         echo "Docker image built successfully!"
 
-        # Push to Docker registry if configured
-        # Uncomment and modify the following lines if pushing to a registry
-        # echo "Pushing Docker image to registry..."
-        # docker tag ${DOCKER_IMAGE} your-registry/evolve-acoustics:${VERSION_TAG}
-        # docker tag ${DOCKER_LATEST} your-registry/evolve-acoustics:latest
-        # docker push your-registry/evolve-acoustics:${VERSION_TAG}
-        # docker push your-registry/evolve-acoustics:latest
+        echo "Pushing Docker image to registry..."
+        docker push ${DOCKER_IMAGE}
+        docker push ${DOCKER_LATEST}
+
+        echo "Stopping and removing old container..."
+        docker stop evolve-acoustics || true
+        docker rm evolve-acoustics || true
+
+        echo "Starting new container..."
+        docker run -d --name evolve-acoustics -p 8082:80 --restart unless-stopped --network docker-stack ${DOCKER_LATEST}
 
         echo "Deployment process completed successfully!"
     else
