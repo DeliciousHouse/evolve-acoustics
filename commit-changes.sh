@@ -96,6 +96,23 @@ if [ $? -eq 0 ]; then
         docker push ${DOCKER_IMAGE}
         docker push ${DOCKER_LATEST}
 
+        # Navigate to docker-stack directory
+        echo -e "\n=== Updating Docker Compose deployment ==="
+        echo "Changing to docker-stack directory..."
+        cd ~/docker/docker-stack
+
+        echo "Stopping evolve-acoustics container..."
+        docker compose stop evolve-acoustics
+
+        echo "Removing evolve-acoustics container..."
+        docker compose rm -f evolve-acoustics
+
+        echo "Pulling latest evolve-acoustics image..."
+        docker compose pull evolve-acoustics
+
+        echo "Starting updated evolve-acoustics container..."
+        docker compose up -d evolve-acoustics
+
         echo "Deployment process completed successfully!"
     else
         echo "Error building Docker image. Please check the Dockerfile and try again."
