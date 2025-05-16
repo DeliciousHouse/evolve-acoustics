@@ -52,6 +52,14 @@
         padding: 1.5rem;
     }
 
+    .service-page-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .service-section h2 {
+        font-size: 1.5rem;
+    }
+
     .service-intro {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -69,6 +77,15 @@
         font-size: 1.3rem;
         top: 1rem;
         left: 1rem;
+    }
+
+    .challenge-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-button {
+        padding: 0.8rem 1.4rem;
+        font-size: 1rem;
     }
 
     .hero {

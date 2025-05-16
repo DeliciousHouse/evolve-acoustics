@@ -295,15 +295,18 @@ nav ul li a:hover {
 }
 
 .service-page-content h1 {
+    font-size: 2.4rem;
+    margin-bottom: 1.5rem;
+    color: #4fd5ff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     text-align: center;
-    margin-bottom: 2rem;
 }
 
 .service-page-content p {
-    color: #eae1e1;
-    line-height: 1.7;
-    font-size: 18px;
-    margin-bottom: 1rem;
+    color: #f5f5f5;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    margin-bottom: 1.2rem;
 }
 
 .service-intro {
@@ -330,10 +333,11 @@ nav ul li a:hover {
 }
 
 .service-section h2 {
+    font-size: 1.8rem;
     color: #4fd5ff;
     border-left: 4px solid #4fd5ff;
     padding-left: 1rem;
-    margin-bottom: 1.5rem;
+    margin: 2rem 0 1rem;
 }
 
 .service-list {
@@ -346,12 +350,21 @@ nav ul li a:hover {
 }
 
 .service-list li {
+    font-size: 1.05rem;
+    line-height: 1.5;
     padding: 1.2rem 1.5rem 1.2rem 4rem;
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 8px;
     position: relative;
     transition: transform 0.3s ease, background-color 0.3s ease;
     color: #eae1e1;
+}
+
+/* Step highlight styling */
+.step-highlight {
+    color: #4fd5ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
 }
 
 .service-list li:hover {
@@ -377,8 +390,57 @@ nav ul li a:hover {
 .service-list li:nth-child(5):before { content: "\f53f"; } /* materials icon */
 .service-list li:nth-child(6):before { content: "\f562"; } /* testing icon */
 
+/* Challenge grid and cards */
+.challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.challenge-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.challenge-card:hover {
+    transform: translateY(-5px);
+    background-color: rgba(79, 213, 255, 0.1);
+}
+
+.challenge-card i {
+    font-size: 2.5rem;
+    color: #4fd5ff;
+    margin-bottom: 1rem;
+}
+
+.challenge-card h3 {
+    color: #4fd5ff;
+    margin-bottom: 0.8rem;
+}
+
+/* Mid-page CTA */
+.mid-page-cta {
+    background-color: rgba(79, 213, 255, 0.1);
+    border-left: 4px solid #4fd5ff;
+    padding: 2rem;
+    border-radius: 0 8px 8px 0;
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.mid-page-cta h3 {
+    color: #4fd5ff;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+/* Call to Action styling */
 .cta-container {
-    margin-top: 2rem;
+    margin: 2.5rem 0;
     text-align: center;
 }
 
@@ -386,19 +448,40 @@ nav ul li a:hover {
     display: inline-block;
     background-color: #4fd5ff;
     color: #1a1a1a;
-    padding: 0.8rem 1.5rem;
+    padding: 0.9rem 1.8rem;
     border-radius: 4px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-size: 1.1rem;
 }
 
 .cta-button:hover {
     background-color: #23b8e5;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(79, 213, 255, 0.3);
+}
+
+/* Animation for CTA button */
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(79, 213, 255, 0.7);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(79, 213, 255, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(79, 213, 255, 0);
+    }
 }
 
 .service-image-gallery {
