@@ -22,6 +22,30 @@
     .blog-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .design-aspects {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .applications-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+
+    .process-steps {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .testimonial-highlight blockquote {
+        font-size: 1rem;
+    }
 }
 
 @media (min-width: 768px) {
@@ -199,6 +223,38 @@
     .blog-pagination a {
         height: 35px;
         min-width: 35px;
+    }
+
+    .service-intro {
+        margin-bottom: 2rem;
+    }
+
+    .service-section {
+        margin-bottom: 2rem;
+    }
+
+    .service-section h2 {
+        font-size: 1.4rem;
+        margin: 1.5rem 0 0.8rem;
+    }
+
+    .application-card h3 {
+        padding: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .application-card img {
+        height: 160px;
+    }
+
+    .application-card p {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .testimonial-highlight {
+        padding: 1.2rem;
+        margin: 2rem 0;
     }
 }
 

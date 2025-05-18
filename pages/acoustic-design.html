@@ -13,10 +13,10 @@
 <body>
     <header>
         <img src="../assets/images/logo_light.png" alt="Evolve Acoustics Logo" class="logo-img">
-        <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
-        <div class="nav-links">
-            <nav>
-                <ul>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-menu">&#9776;</button>
+        <div class="nav-links" id="main-menu">
+            <nav aria-label="Main Navigation">
+                <ul role="menubar">
                     <li><a href="../index.html">Home</a></li>
                     <li><a href="about-us.html">About Us</a></li>
                     <li class="dropdown">
@@ -37,14 +37,125 @@
     </header>
     <main>
         <div class="service-page-content">
-            <h1>Acoustic Design</h1>
-            <p>Our Acoustic Design services blend functionality with aesthetic appeal to create beautiful sound environments.</p>
-            <img src="../assets/images/Conference-room.webp" alt="Acoustic Design" />
-
-            <div class="service-image-gallery">
-                <img src="../assets/images/IMG_4520-1-scaled-1.webp" alt="Acoustic Design" />
-                <img src="../assets/images/IMG_2304-scaled-1.webp" alt="Acoustic Design" />
+            <div class="service-intro">
+                <div class="service-intro-text">
+                    <h1>Acoustic Design</h1>
+                    <p class="service-tagline">Where functionality meets aesthetic appeal to create beautiful sound environments that transform spaces.</p>
+                    <p>At Evolve Acoustics, we believe that acoustic treatments should enhance your space visually while delivering outstanding sonic performance. Our designs seamlessly integrate with your interior aesthetics while solving even the most challenging acoustic issues.</p>
+                </div>
+                <img src="../assets/images/Conference-room.webp" alt="Conference room with acoustic design elements" class="service-intro-image" />
             </div>
+
+            <section class="service-section process-section">
+                <h2>Our Design Process</h2>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h3>Initial Consultation</h3>
+                        <p>We begin with understanding your acoustic needs, aesthetic preferences, and how the space will be used.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h3>Space Analysis</h3>
+                        <p>Using advanced acoustic modeling techniques, we identify problem frequencies, reflection points, and unique acoustic challenges.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h3>Concept Development</h3>
+                        <p>We create tailored solutions that balance acoustic performance with visual appeal, considering your design preferences.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h3>Material Selection</h3>
+                        <p>We select materials and finishes that complement your interior while providing optimal acoustic properties.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <h3>Design Presentation</h3>
+                        <p>We present detailed plans including 3D renderings and material samples so you can visualize the final result.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="service-section">
+                <h2>The Perfect Balance of Form & Function</h2>
+                <p>Our acoustic designs consider both aesthetic and functional aspects to create harmonious environments where sound is perfectly controlled.</p>
+
+                <div class="design-aspects">
+                    <div class="aspect-column">
+                        <h3>Aesthetic Considerations</h3>
+                        <ul class="service-list">
+                            <li>Custom fabric selections to match your color palette</li>
+                            <li>Printed acoustic art panels featuring your chosen imagery</li>
+                            <li>Sculptural and dimensional acoustic treatments</li>
+                            <li>Hidden acoustic solutions for minimal visual impact</li>
+                            <li>Elegant material finishes including wood, fabric, and metal</li>
+                        </ul>
+                    </div>
+
+                    <div class="aspect-column">
+                        <h3>Functional Benefits</h3>
+                        <ul class="service-list">
+                            <li>Enhanced speech intelligibility for better conversations</li>
+                            <li>Improved music fidelity and listening experience</li>
+                            <li>Reduced noise and echo for greater comfort</li>
+                            <li>Better focus and productivity in work environments</li>
+                            <li>Optimized sound for specific activities and uses</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="service-section applications-section">
+                <h2>Acoustic Design Applications</h2>
+                <p>Our designs adapt to different environments with specialized solutions for each unique space:</p>
+
+                <div class="applications-grid">
+                    <div class="application-card">
+                        <h3>Home Theaters</h3>
+                        <img src="../assets/images/IMG_4520-1-scaled-1.webp" alt="Home Theater Acoustic Design" />
+                        <p>Experience cinema-quality sound with treatments that enhance bass response, eliminate reflections, and create the perfect listening environment.</p>
+                        <p><strong>Benefits:</strong> Immersive audio experience, controlled reverberation, optimal surround sound performance</p>
+                    </div>
+
+                    <div class="application-card">
+                        <h3>Recording Studios</h3>
+                        <img src="../assets/images/IMG_340.webp" alt="Recording Studio Acoustic Design" />
+                        <p>Professional sound environments with precisely tuned acoustics for recording, mixing, and production with exceptional clarity.</p>
+                        <p><strong>Benefits:</strong> Accurate monitoring, controlled sound reflection, professional recording quality</p>
+                    </div>
+
+                    <div class="application-card">
+                        <h3>Offices & Workspaces</h3>
+                        <img src="../assets/images/IMG_2304-scaled-1.webp" alt="Office Acoustic Design" />
+                        <p>Create productive work environments with solutions that reduce noise distractions while maintaining an open, collaborative atmosphere.</p>
+                        <p><strong>Benefits:</strong> Improved focus, reduced stress, better communication, enhanced privacy</p>
+                    </div>
+
+                    <div class="application-card">
+                        <h3>Restaurants & Hospitality</h3>
+                        <img src="../assets/images/death_and_co.webp" alt="Restaurant Acoustic Design" />
+                        <p>Balance the lively ambiance with comfortable sound levels, allowing conversation to flow without overwhelming noise.</p>
+                        <p><strong>Benefits:</strong> Comfortable dining experience, better customer satisfaction, increased table turnover</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="service-section testimonial-highlight">
+                <blockquote>
+                    "Evolve Acoustics transformed our open-plan office from an echo chamber into a comfortable, productive space. The acoustic panels are not just functional—they've become a design feature that everyone compliments."
+                    <cite>— Michael R., Chief Operating Officer</cite>
+                </blockquote>
+            </section>
+
+            <section class="service-section cta-section">
+                <h2>Ready to Transform Your Space?</h2>
+                <p>Let's create an acoustic design that perfectly balances visual appeal with sonic excellence.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="cta-button primary-cta">Schedule a Consultation</a>
+                    <a href="gallery.html" class="cta-button secondary-cta">View Our Gallery</a>
+                </div>
+            </section>
         </div>
     </main>
     <footer>
