@@ -18,6 +18,10 @@
     .service-container {
         min-width: 220px;
     }
+
+    .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (min-width: 768px) {
@@ -118,6 +122,27 @@
     main img {
         margin: 15px auto;
     }
+
+    .blog-header h1 {
+        font-size: 2rem;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .blog-card-image {
+        height: 220px;
+    }
+
+    .blog-cta {
+        padding: 1.5rem;
+    }
+
+    .blog-cta h3 {
+        font-size: 1.3rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -152,6 +177,28 @@
 
     main {
         padding: 30px 15px;
+    }
+
+    .blog-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .blog-card-image {
+        height: 180px;
+    }
+
+    .blog-card h2 {
+        font-size: 1.2rem;
+    }
+
+    .category-tag {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .blog-pagination a {
+        height: 35px;
+        min-width: 35px;
     }
 }
 
