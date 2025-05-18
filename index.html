@@ -13,10 +13,10 @@
 <body>
     <header>
         <img src="assets/images/logo_light.png" alt="Evolve Acoustics Logo" class="logo-img">
-        <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
-        <div class="nav-links">
-            <nav>
-                <ul>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-menu">&#9776;</button>
+        <div class="nav-links" id="main-menu">
+            <nav aria-label="Main Navigation">
+                <ul role="menubar">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="pages/about-us.html">About Us</a></li>
                     <li class="dropdown">

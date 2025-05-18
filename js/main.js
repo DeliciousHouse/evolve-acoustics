@@ -5,6 +5,13 @@ $(document).ready(function() {
         e.preventDefault();
         e.stopPropagation();
         $('.nav-links').toggleClass('active');
+
+        // Add aria attributes for accessibility
+        if ($('.nav-links').hasClass('active')) {
+            $(this).attr('aria-expanded', 'true');
+        } else {
+            $(this).attr('aria-expanded', 'false');
+        }
     });
 
     // Mobile dropdown toggle for touch devices
