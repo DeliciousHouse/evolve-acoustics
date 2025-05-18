@@ -29,47 +29,136 @@
                     </li>
                     <li><a href="gallery.html">Gallery</a></li>
                     <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+
     <main>
-        <h1>Acoustic Insights Blog</h1>
+        <div class="blog-container">
+            <div class="blog-header">
+                <h1>Acoustic Knowledge Center</h1>
+                <p>Insights, tips, and industry trends from our acoustic experts</p>
 
-        <div class="blog-grid">
-            <div class="blog-post">
-                <img src="../assets/images/IMG_5558-scaled-1.webp" alt="Understanding Room Acoustics" class="blog-image">
-                <div class="blog-content">
-                    <h2>Understanding Room Acoustics: The Science Behind Perfect Sound</h2>
-                    <p class="blog-date">April 12, 2025</p>
-                    <p>Room acoustics is the science of how sound behaves in enclosed spaces. When designing a room for optimal sound quality, we consider factors like...</p>
-                    <a href="#" class="read-more">Read More</a>
+                <div class="blog-filters">
+                    <div class="blog-search">
+                        <input type="text" placeholder="Search articles..." id="blog-search-input">
+                        <button type="button" id="blog-search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="blog-categories">
+                        <span>Filter by: </span>
+                        <a href="#" class="category-tag active" data-category="all">All</a>
+                        <a href="#" class="category-tag" data-category="acoustics">Acoustics</a>
+                        <a href="#" class="category-tag" data-category="design">Design</a>
+                        <a href="#" class="category-tag" data-category="installation">Installation</a>
+                        <a href="#" class="category-tag" data-category="technology">Technology</a>
+                    </div>
                 </div>
             </div>
 
-            <div class="blog-post">
-                <img src="../assets/images/IMG_2304-scaled-1.webp" alt="Acoustic Treatment Types" class="blog-image">
-                <div class="blog-content">
-                    <h2>The Different Types of Acoustic Treatment and When to Use Them</h2>
-                    <p class="blog-date">March 28, 2025</p>
-                    <p>From absorption panels to diffusers, each type of acoustic treatment serves a specific purpose. This guide will help you understand when to use each...</p>
-                    <a href="#" class="read-more">Read More</a>
+            <div class="blog-grid">
+                <!-- Blog Post 1 -->
+                <div class="blog-card" data-category="acoustics design">
+                    <div class="blog-card-image">
+                        <img src="../assets/images/restaurant-acoustics.jpg" alt="Restaurant Acoustics" class="blog-image">
+                        <div class="blog-category"><span>Acoustics</span></div>
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-date">August 15, 2023</span>
+                        <h2>Restaurant Acoustics: Creating the Perfect Dining Atmosphere</h2>
+                        <p>Discover how proper acoustic treatment can enhance the dining experience, reduce noise levels, and create an intimate atmosphere for your restaurant guests.</p>
+                        <div class="blog-card-footer">
+                            <a href="blog-restaurant-acoustics.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            <div class="blog-social">
+                                <a href="#" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog Post 2 -->
+                <div class="blog-card" data-category="technology">
+                    <div class="blog-card-image">
+                        <img src="../assets/images/acoustic-panels.jpg" alt="Acoustic Panels" class="blog-image">
+                        <div class="blog-category"><span>Technology</span></div>
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-date">July 23, 2023</span>
+                        <h2>The Science Behind Acoustic Panels: How They Work</h2>
+                        <p>Learn about the physics of sound absorption, the materials used in modern acoustic panels, and how they effectively reduce echo and reverberation in various spaces.</p>
+                        <div class="blog-card-footer">
+                            <a href="blog-acoustic-panels.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            <div class="blog-social">
+                                <a href="#" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog Post 3 -->
+                <div class="blog-card" data-category="installation">
+                    <div class="blog-card-image">
+                        <img src="../assets/images/home-studio.jpg" alt="Home Studio" class="blog-image">
+                        <div class="blog-category"><span>Installation</span></div>
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-date">June 10, 2023</span>
+                        <h2>DIY Home Studio Acoustic Treatment on a Budget</h2>
+                        <p>Transform your home recording space with these cost-effective acoustic treatment solutions. Get professional sound quality without breaking the bank.</p>
+                        <div class="blog-card-footer">
+                            <a href="blog-diy-studio.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            <div class="blog-social">
+                                <a href="#" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog Post 4 -->
+                <div class="blog-card" data-category="design">
+                    <div class="blog-card-image">
+                        <img src="../assets/images/office-design.jpg" alt="Office Acoustics" class="blog-image">
+                        <div class="blog-category"><span>Design</span></div>
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-date">May 5, 2023</span>
+                        <h2>Modern Office Design: Balancing Aesthetics and Acoustics</h2>
+                        <p>Open-plan offices are popular, but they present unique acoustic challenges. Learn how to design a workspace that looks great and sounds even better.</p>
+                        <div class="blog-card-footer">
+                            <a href="blog-office-design.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            <div class="blog-social">
+                                <a href="#" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="blog-post">
-                <img src="../assets/images/IMG_4520-1-scaled-1.webp" alt="Home Acoustics" class="blog-image">
-                <div class="blog-content">
-                    <h2>Improving Home Acoustics: Simple Solutions for Better Sound</h2>
-                    <p class="blog-date">March 15, 2025</p>
-                    <p>You don't need a professional studio to benefit from good acoustics. Here are some simple, cost-effective ways to improve the sound quality in your home...</p>
-                    <a href="#" class="read-more">Read More</a>
-                </div>
+            <div class="blog-pagination">
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#" class="next">Next <i class="fas fa-chevron-right"></i></a>
+            </div>
+
+            <div class="blog-cta">
+                <h3>Want to learn more about acoustic solutions for your space?</h3>
+                <p>Our team of experts is ready to help with your acoustic needs.</p>
+                <a href="contact.html" class="cta-button">Request a Consultation</a>
             </div>
         </div>
     </main>
+
     <footer>
         <div class="footer-content">
             <div class="footer-section">
@@ -103,20 +192,72 @@
                 <div class="social-links">
                     <a href="https://m.facebook.com/p/Evolve-Acoustics-100071110328356/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.instagram.com/evolve_acoustics/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.google.com/search?sca_esv=ec1c0fa4563bd641&hl=en-US&sxsrf=AHTn8zq1TtNCT5kiSvqQWKOn9RG2fjLubg:1744976201418&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzeMbShOoETNZOlr-9O_bgC4iyFuoK6U-8H97kFqyOQi3CiRy3GXyss_pI4-BrWy9bfRlQFWCMz7flrHQo6nk7szYUsjpGNcFmZ4cCTBOmBIwjp8VVA%3D%3D&q=Evolve+Acoustics+Reviews&sa=X&ved=2ahUKEwjV8YH1vuGMAxWHL0QIHXUYBcYQ0bkNegQIJhAE&biw=1746&bih=974&dpr=2" target="_blank" aria-label="Google Reviews"><i class="fab fa-google"></i></a>
-                    <a href="https://www.yelp.com/biz/evolve-acoustics-reseda?uid=xnm0es5LYO0QL8NN7bHe2g&utm_source=ashare" target="_blank" aria-label="Yelp"><i class="fab fa-yelp"></i></a>
+                    <a href="https://www.google.com/search?q=Evolve+Acoustics+Reviews" target="_blank" aria-label="Google Reviews"><i class="fab fa-google"></i></a>
+                    <a href="https://www.yelp.com/biz/evolve-acoustics-reseda" target="_blank" aria-label="Yelp"><i class="fab fa-yelp"></i></a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2023 Evolve Acoustics. All rights reserved.</p>
+            <p>&copy; 2022 Evolve Acoustics. All rights reserved.</p>
             <p class="attribution">Designed and Developed by HID Consult</p>
         </div>
     </footer>
-    <script src="../js/main.js"></script>
 
-    <!-- Elfsight All-in-One Chat | Evolve-Acoustics Chat -->
-    <script src="https://static.elfsight.com/platform/platform.js" async></script>
-    <div class="elfsight-app-5bec1035-3020-43d1-a3a2-b1a23e3c7efc" data-elfsight-app-lazy></div>
+    <script src="../js/main.js"></script>
+    <script>
+        // Blog filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryLinks = document.querySelectorAll('.category-tag');
+            const blogCards = document.querySelectorAll('.blog-card');
+            const searchInput = document.getElementById('blog-search-input');
+            const searchBtn = document.getElementById('blog-search-btn');
+
+            // Category filtering
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // Remove active class from all links
+                    categoryLinks.forEach(item => item.classList.remove('active'));
+
+                    // Add active class to clicked link
+                    this.classList.add('active');
+
+                    const category = this.dataset.category;
+
+                    blogCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category.includes(category)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Search functionality
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase();
+
+                blogCards.forEach(card => {
+                    const title = card.querySelector('h2').textContent.toLowerCase();
+                    const content = card.querySelector('p').textContent.toLowerCase();
+
+                    if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
