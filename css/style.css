@@ -365,7 +365,7 @@ nav ul li a:hover {
 .service-list li {
     font-size: 1.05rem;
     line-height: 1.5;
-    padding: 1.2rem 1.5rem 1.2rem 4rem;
+    padding: 1.2rem 1.5rem;
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 8px;
     position: relative;
@@ -1011,6 +1011,7 @@ main img {
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 8px;
     padding: 1.5rem;
+    padding-top: 2rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     position: relative;
     transition: transform 0.3s ease;
@@ -1803,4 +1804,166 @@ link[rel="icon"] {
     padding: 0 1.5rem;
     margin-top: 0.5rem;
     margin-bottom: 0;
+}
+
+/* Enhanced Layout Styles */
+.content-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid rgba(79, 213, 255, 0.7);
+}
+
+.content-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent);
+    pointer-events: none;
+}
+
+.highlight-card {
+    background-color: rgba(79, 213, 255, 0.1);
+    border-left: 4px solid rgba(79, 213, 255, 1);
+}
+
+.section-icon {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background-color: rgba(79, 213, 255, 0.7);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.section-icon i {
+    font-size: 24px;
+    color: #000;
+}
+
+/* Philosophy Section */
+.philosophy-principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.principle {
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.principle:hover {
+    transform: translateY(-5px);
+}
+
+.principle-icon {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(79, 213, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.principle-icon i {
+    font-size: 28px;
+    color: #4fd5ff;
+}
+
+.principle h3 {
+    color: #eae1e1;
+    margin: 0.5rem 0;
+    font-size: 1.3rem;
+}
+
+/* Process Step Icons */
+.step-icon {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background-color: rgba(79, 213, 255, 0.7);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.step-icon i {
+    font-size: 18px;
+    color: #000;
+}
+
+/* Aspect Headers */
+.aspect-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.aspect-header i {
+    font-size: 24px;
+    color: #4fd5ff;
+    margin-right: 1rem;
+}
+
+.service-list li {
+    display: flex;
+    align-items: flex-start;
+}
+
+.service-list li i {
+    color: #4fd5ff;
+    margin-right: 10px;
+    margin-top: 3px;
+    font-size: 1rem;
+    min-width: 20px;
+}
+
+/* Benefits Summary */
+.benefits-summary {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.benefit-item i {
+    color: #4fd5ff;
+    margin-right: 15px;
+    font-size: 1.2rem;
+}
+
+/* CTA Button Icons */
+.cta-button i {
+    margin-right: 8px;
 }
