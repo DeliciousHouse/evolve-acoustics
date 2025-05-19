@@ -4,12 +4,21 @@ $(document).ready(function() {
     $('.menu-toggle').click(function(e) {
         e.preventDefault();
         e.stopPropagation();
+
+        // Toggle mobile menu
         $('.nav-links').toggleClass('active');
 
         const isExpanded = $('.nav-links').hasClass('active');
 
-        // Update aria attributes for accessibility
+        // Update ARIA attributes
         $(this).attr('aria-expanded', isExpanded ? 'true' : 'false');
+
+        // Close all dropdown menus when closing the main menu
+        if (!isExpanded) {
+            $('.dropdown-content').removeClass('active');
+            $('.dropdown').removeClass('active');
+            $('.dropdown > a').attr('aria-expanded', 'false');
+        }
 
         // Focus on the first menu item if opening
         if (isExpanded) {
@@ -53,15 +62,17 @@ $(document).ready(function() {
             e.preventDefault(); // Prevents parent "Services" link navigation
             e.stopPropagation(); // Stops this event from bubbling to document
 
+            const $dropdown = $(this).parent('.dropdown');
             const $dropdownContent = $(this).siblings('.dropdown-content');
             const isExpanded = !$dropdownContent.hasClass('active');
 
-            // Close any other open dropdown menus first
+            // Close other dropdowns first
+            $('.dropdown').not($dropdown).removeClass('active');
             $('.dropdown-content.active').not($dropdownContent).removeClass('active');
-            // Also update aria-expanded for other parent links
             $('.dropdown > a').not(this).attr('aria-expanded', 'false');
 
             // Toggle current dropdown
+            $dropdown.toggleClass('active');
             $dropdownContent.toggleClass('active');
             $(this).attr('aria-expanded', isExpanded ? 'true' : 'false');
         }
@@ -82,9 +93,22 @@ $(document).ready(function() {
         if (!$(event.target).closest('.menu-toggle, .nav-links').length) {
             $('.nav-links').removeClass('active');
             $('.dropdown-content').removeClass('active'); // Ensure submenus also close
+            $('.dropdown').removeClass('active');
             // Reset aria-expanded attributes
             $('.menu-toggle').attr('aria-expanded', 'false');
             $('.dropdown > a').attr('aria-expanded', 'false'); // Reset services dropdown parent
+        }
+    });
+
+    // Handle escape key to close menu
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape' && $('.nav-links').hasClass('active')) {
+            $('.nav-links').removeClass('active');
+            $('.dropdown').removeClass('active');
+            $('.dropdown-content').removeClass('active');
+            $('.menu-toggle').attr('aria-expanded', 'false');
+            $('.dropdown > a').attr('aria-expanded', 'false');
+            $('.menu-toggle').focus();
         }
     });
 
