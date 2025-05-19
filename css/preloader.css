@@ -1,16 +1,32 @@
-/* Page Preloader with Wood Theme */
+/* Page Preloader - Fabric & Wood Integration */
 .preloader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #2a2d30;
+    background-color: #383838; /* Dark charcoal felt color - matching body */
     z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* Fabric background pattern for preloader */
+.preloader::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(45deg, rgba(255,255,255,0.015) 0%, rgba(255,255,255,0.015) 100%),
+        linear-gradient(135deg, rgba(0,0,0,0.015) 0%, rgba(0,0,0,0.015) 100%);
+    background-size: 80px 80px, 80px 80px;
+    opacity: 1;
+    z-index: -2;
 }
 
 /* Subtle wood grain overlay for preloader */
@@ -22,31 +38,32 @@
     width: 100%;
     height: 100%;
     background-image: url('../assets/images/mahogany_texture.webp');
-    background-size: cover;
-    background-position: center;
-    opacity: 0.1;
+    background-color: #4a3b32; /* A color sampled from mahogany */
+    background-blend-mode: color-burn; /* Creates a rich wood-tone effect */
+    opacity: 0.1; /* Subtle tinting effect - matching body */
     z-index: -1;
 }
 
 .preloader-spinner {
     width: 60px;
     height: 60px;
-    border: 5px solid rgba(255, 255, 255, 0.1);
-    border-top-color: #4fd5ff;
+    border: 5px solid rgba(42, 31, 26, 0.3); /* Darker wood-tone border */
+    border-top-color: #b98d5f; /* Wood tone accent color */
     border-radius: 50%;
     animation: spin 1s ease-in-out infinite;
     position: relative;
+    box-shadow: 0 0 20px rgba(222, 184, 135, 0.15); /* Subtle glow */
 }
 
 /* Add wood-inspired accent */
 .preloader-spinner::before {
     content: '';
     position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    border: 1px solid rgba(222, 184, 135, 0.3);
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    border: 2px solid rgba(70, 50, 35, 0.4); /* Richer wood tone border */
     border-radius: 50%;
     animation: pulse 2s ease-in-out infinite;
 }

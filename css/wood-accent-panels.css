@@ -1,0 +1,116 @@
+/* Wood Accent Panels for Fabric & Wood Integration */
+
+/* Base wood panel style */
+.wood-accent-panel {
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3);
+    border: 1px solid #443027; /* Dark wood border */
+    position: relative;
+    color: #f0e0d0; /* Creamy text on wood */
+    margin-bottom: 20px;
+}
+
+/* Text styling for wood panels */
+.wood-accent-panel h2,
+.wood-accent-panel h3,
+.wood-accent-panel h4,
+.wood-accent-panel p {
+    color: #f0e0d0; /* Creamy text on wood */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    position: relative;
+    z-index: 2;
+}
+
+/* Add a subtle overlay for better text readability */
+.wood-accent-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    z-index: 1;
+}
+
+/* Small decorative accent for panel corners */
+.wood-accent-panel::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    border-top: 2px solid rgba(222, 184, 135, 0.4);
+    border-right: 2px solid rgba(222, 184, 135, 0.4);
+    z-index: 2;
+}
+
+/* Variations */
+
+/* Lighter wood panel */
+.wood-accent-panel.light {
+    border-color: #5a4636;
+}
+
+.wood-accent-panel.light::before {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Darker wood panel */
+.wood-accent-panel.dark {
+    border-color: #2a1f1a;
+}
+
+.wood-accent-panel.dark::before {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Wood panel with border decorations */
+.wood-accent-panel.decorated {
+    border-width: 3px;
+    border-style: double;
+    border-color: #5a4636;
+}
+
+.wood-accent-panel.decorated::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    bottom: 5px;
+    left: 5px;
+    border: 1px solid rgba(222, 184, 135, 0.3);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Horizontal divider for wood panels */
+.wood-accent-divider {
+    height: 3px;
+    background: linear-gradient(
+        to right,
+        rgba(70, 50, 35, 0.9),
+        rgba(222, 184, 135, 0.8) 50%,
+        rgba(70, 50, 35, 0.9)
+    );
+    margin: 20px 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .wood-accent-panel {
+        padding: 15px;
+    }
+
+    .wood-accent-panel::after {
+        width: 15px;
+        height: 15px;
+    }
+}

@@ -1,4 +1,4 @@
-/* Mobile Menu Enhancements with Wood Theme */
+/* Mobile Menu Enhancements - Fabric & Wood Integration */
 
 /* Mobile Menu Responsive Styles */
 @media (max-width: 768px) {
@@ -6,6 +6,12 @@
         display: block;
         position: relative;
         z-index: 1000;
+        color: #f0e0d0; /* Creamy text that looks good on wood */
+        transition: color 0.3s ease;
+    }
+
+    .menu-toggle:hover {
+        color: #b98d5f; /* Wood tone highlight on hover */
     }
 
     .nav-links {
@@ -18,10 +24,11 @@
         background-size: cover;
         background-position: center;
         padding: 80px 20px 20px;
-        transition: right 0.3s ease-in-out;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        transition: right 0.3s ease-in-out, box-shadow 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.4), inset 2px 0 5px rgba(0, 0, 0, 0.3); /* Enhanced depth */
         z-index: 999;
         overflow-y: auto;
+        border-left: 2px solid #2a1f1a; /* Darker border for definition */
     }
 
     /* Add overlay for better readability */

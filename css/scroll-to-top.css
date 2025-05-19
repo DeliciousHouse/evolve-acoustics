@@ -1,4 +1,4 @@
-/* Scroll-to-Top Button with Wood Theme */
+/* Scroll-to-Top Button with Wood Theme - Fabric & Wood Integration */
 .scroll-to-top {
     position: fixed;
     bottom: 30px;
@@ -6,8 +6,8 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #fff;
+    background-color: rgba(42, 31, 26, 0.85); /* Darker, richer wood-like background */
+    color: #f0e0d0; /* Creamy text color that looks good on wood */
     text-align: center;
     line-height: 50px;
     font-size: 20px;
@@ -16,12 +16,12 @@
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 99;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(222, 184, 135, 0.15);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.1); /* Enhanced depth */
+    border: 2px solid #443027; /* Dark wood border */
     overflow: hidden;
 }
 
-/* Wood texture overlay for scroll button */
+/* Wood texture overlay for scroll button - enhanced for fabric & wood integration */
 .scroll-to-top::before {
     content: '';
     position: absolute;
@@ -32,34 +32,51 @@
     background-image: url('../assets/images/mahogany_texture.webp');
     background-size: cover;
     background-position: center;
-    opacity: 0.15;
+    background-color: #4a3b32; /* Add background color to enhance the texture */
+    background-blend-mode: overlay; /* Create richer texture */
+    opacity: 0.9; /* Higher opacity for more defined wood look */
     z-index: -1;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, background-blend-mode 0.3s ease;
 }
 
 .scroll-to-top:hover::before {
-    opacity: 0.25;
+    opacity: 1;
+    background-blend-mode: soft-light; /* Changing blend mode on hover for visual feedback */
 }
 
 .scroll-to-top.visible {
     opacity: 1;
     visibility: visible;
+    animation: subtle-pulse 2s infinite alternate;
+}
+
+@keyframes subtle-pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
 }
 
 .scroll-to-top:hover {
-    background-color: rgba(79, 213, 255, 0.8);
+    background-color: rgba(70, 50, 35, 0.95); /* Richer wood tone on hover */
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(222, 184, 135, 0.2);
+    color: #fff; /* Brighter text on hover */
 }
 
-/* Responsive styling for scroll-to-top button */
+/* Responsive styling for scroll-to-top button - enhanced for fabric & wood integration */
 @media (max-width: 768px) {
     .scroll-to-top {
         bottom: 20px;
         right: 20px;
-        width: 40px;
-        height: 40px;
+        width: 42px;
+        height: 42px;
         line-height: 40px;
         font-size: 18px;
+        border-width: 1px; /* Thinner border on mobile */
+    }
+
+    /* Adjust animation for mobile devices */
+    @keyframes subtle-pulse {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.03); } /* Reduced pulse effect on mobile */
     }
 }
