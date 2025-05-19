@@ -953,7 +953,7 @@ main img {
     transform: translateY(-1px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(222, 184, 135, 0.1);
 }
-
+```
 /* Blog Card Social Link Enhancements */
 .read-more {
     color: #4fd5ff;
