@@ -1,20 +1,19 @@
-/* General Styles - Dark Felt Body + Wood Elements & Tint */
+/* General Styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #383838; /* Dark charcoal felt color */
-    /* Using a subtle noise texture */
+    background-color: #3a3f44; /* Dark, slightly warm grey, good for wood to pop */
     background-image:
-        linear-gradient(45deg, rgba(255,255,255,0.015) 0%, rgba(255,255,255,0.015) 100%),
-        linear-gradient(135deg, rgba(0,0,0,0.015) 0%, rgba(0,0,0,0.015) 100%);
-    background-size: 80px 80px, 80px 80px;
-    color: #e8e8e8;
+        linear-gradient(45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.03) 75%, rgba(255, 255, 255, 0.03)),
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.03) 75%, rgba(255, 255, 255, 0.03));
+    background-size: 6px 6px;
+    color: #e0e0e0;
     margin: 0;
     padding: 0;
     position: relative;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); /* Enhance text readability */
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); /* Enhance text readability with the dark theme */
 }
 
-/* Use the mahogany texture to subtly "tint" or add warmth globally */
+/* Subtle wood grain overlay for the whole body */
 body::before {
     content: '';
     position: fixed;
@@ -24,13 +23,12 @@ body::before {
     height: 100%;
     pointer-events: none;
     background-image: url('../assets/images/mahogany_texture.webp');
-    background-color: #4a3b32; /* A color sampled from mahogany or a warm brown */
-    background-blend-mode: color-burn; /* Creates a rich wood-tone effect */
-    opacity: 0.1; /* Subtle tinting effect */
+    background-blend-mode: multiply; /* Multiply can darken and enrich the fabric */
+    opacity: 0.1; /* Adjust this for subtlety */
     z-index: -1;
 }
 
-/* Perforated pattern on main content area, adjusted to sit nicely on the body fabric/tint */
+/* Add acoustic panel pattern with small perforations */
 main::before, .services::before {
     content: '';
     position: absolute;
@@ -38,9 +36,9 @@ main::before, .services::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0.8px, transparent 1px);
-    background-size: 12px 12px; /* Larger dots */
-    opacity: 0.15; /* More subtle on a complex background */
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.08) 0.8px, transparent 1px);
+    background-size: 10px 10px;
+    opacity: 0.25;
     pointer-events: none;
     z-index: 0;
 }
@@ -50,13 +48,12 @@ header {
     background-size: cover;
     background-position: center;
     color: #fff;
-    padding: 20px;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.1); /* More depth */
-    border-bottom: 2px solid #2a1f1a; /* Darker border for definition */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 /* Optional: Add a subtle sheen or depth to header */
@@ -820,23 +817,6 @@ main img {
     align-items: center;
     gap: 1.5rem;
     margin: 2rem 0;
-    position: relative;
-}
-
-/* Add subtle decorative divider under filters */
-.blog-filters::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 10%;
-    right: 10%;
-    height: 1px;
-    background: linear-gradient(to right,
-        rgba(222, 184, 135, 0.01),
-        rgba(222, 184, 135, 0.3) 50%,
-        rgba(222, 184, 135, 0.01)
-    );
-    z-index: 1;
 }
 
 .blog-search {
@@ -855,30 +835,12 @@ main img {
     color: #ffffff;
     font-size: 1rem;
     transition: all 0.3s ease;
-    position: relative;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(222, 184, 135, 0.05);
-}
-
-/* Add subtle wood texture to search input */
-.blog-search::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(to right,
-        rgba(222, 184, 135, 0.01),
-        rgba(222, 184, 135, 0.2) 50%,
-        rgba(222, 184, 135, 0.01)
-    );
-    z-index: 1;
 }
 
 .blog-search input:focus {
     outline: none;
     border-color: #4fd5ff;
-    box-shadow: 0 0 0 3px rgba(79, 213, 255, 0.2), 0 1px 3px rgba(222, 184, 135, 0.05);
+    box-shadow: 0 0 0 3px rgba(79, 213, 255, 0.2);
 }
 
 .blog-search button {
@@ -891,12 +853,6 @@ main img {
     color: #4fd5ff;
     font-size: 1.1rem;
     cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.blog-search button:hover {
-    color: #b3e0ff;
-    text-shadow: 0 0 5px rgba(79, 213, 255, 0.5);
 }
 
 .blog-categories {
@@ -921,76 +877,566 @@ main img {
     text-decoration: none;
     font-size: 0.9rem;
     transition: all 0.3s ease;
+}
+
+.category-tag:hover, .category-tag.active {
+    background-color: #4fd5ff;
+    color: #1a1a1a;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.blog-card {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.blog-card-image {
     position: relative;
+    height: 200px;
     overflow: hidden;
 }
 
-/* Add subtle wood grain texture to category tags */
-.category-tag::before {
-    content: '';
+.blog-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.blog-card:hover .blog-image {
+    transform: scale(1.05);
+}
+
+.blog-category {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('../assets/images/mahogany_texture.webp');
-    background-size: 100px 100px;
-    background-position: center;
-    opacity: 0.03;
-    z-index: -1;
-    transition: opacity 0.3s ease;
+    top: 15px;
+    left: 15px;
 }
 
-.category-tag:hover::before,
-.category-tag.active::before {
-    opacity: 0.07;
+.blog-category span {
+    background-color: #4fd5ff;
+    color: #1a1a1a;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.category-tag:hover,
-.category-tag.active {
-    background-color: rgba(79, 213, 255, 0.2);
-    color: #ffffff;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(222, 184, 135, 0.1);
+.blog-card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
-```
-/* Blog Card Social Link Enhancements */
+
+.blog-date {
+    color: #b3e0ff;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-bottom: 0.8rem;
+}
+
+.blog-card h2 {
+    color: #4fd5ff;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.blog-card p {
+    color: #f5f5f5;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.blog-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .read-more {
     color: #4fd5ff;
     text-decoration: none;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    font-size: 0.95rem;
+    position: relative;
     transition: all 0.3s ease;
+}
+
+.read-more i {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
 }
 
 .read-more:hover {
     color: #b3e0ff;
+}
+
+.read-more:hover i {
     transform: translateX(3px);
 }
 
 .blog-social {
     display: flex;
-    gap: 10px;
+    gap: 0.8rem;
 }
 
 .blog-social a {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.1);
     color: #f5f5f5;
-    border-radius: 50%;
+    text-decoration: none;
     transition: all 0.3s ease;
+}
+
+.blog-social a:hover {
+    background-color: #4fd5ff;
+    color: #1a1a1a;
+    transform: translateY(-2px);
+}
+
+.blog-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 2rem 0;
+}
+
+.blog-pagination a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    min-width: 40px;
+    padding: 0 0.8rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f5f5f5;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.blog-pagination a.active,
+.blog-pagination a:hover {
+    background-color: #4fd5ff;
+    color: #1a1a1a;
+}
+
+.blog-pagination a.next {
+    padding-right: 1rem;
+}
+
+.blog-pagination a.next i {
+    margin-left: 5px;
+}
+
+.blog-cta {
+    background-color: rgba(79, 213, 255, 0.1);
+    border-left: 4px solid #4fd5ff;
+    padding: 2rem;
+    border-radius: 0 8px 8px 0;
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.blog-cta h3 {
+    color: #4fd5ff;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Acoustic Design Page Styles */
+.service-tagline {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #4fd5ff;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.process-step {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.5rem;
+    padding-top: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.process-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.step-number {
+    background-color: #4fd5ff;
+    color: #000;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.process-step h3 {
+    color: #eae1e1;
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+}
+
+.process-step p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.design-aspects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.aspect-column h3 {
+    color: #4fd5ff;
+    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
+}
+
+.applications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.application-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.application-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.application-card h3 {
+    color: #4fd5ff;
+    padding: 1.2rem;
+    margin: 0;
+    font-size: 1.3rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.application-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 0;
+}
+
+.application-card p {
+    padding: 1rem 1.5rem;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.application-card p:last-child {
+    padding-top: 0;
+    padding-bottom: 1.5rem;
+}
+
+.testimonial-highlight {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 3rem 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.testimonial-highlight blockquote {
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0 0 0 2rem;
+    position: relative;
+}
+
+.testimonial-highlight blockquote::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -15px;
+    font-size: 4rem;
+    color: #4fd5ff;
+    opacity: 0.5;
+    font-family: Georgia, serif;
+}
+
+.testimonial-highlight cite {
+    display: block;
+    margin-top: 1rem;
+    font-style: normal;
+    font-weight: bold;
+    text-align: right;
+    color: #eae1e1;
+}
+
+.cta-section {
+    text-align: center;
+    margin: 4rem 0 2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
     position: relative;
     overflow: hidden;
 }
 
-/* Add subtle wood texture to social links */
-.blog-social a::before {
+/* Add subtle wood grain texture to buttons */
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: 200px 200px;
+    background-position: center;
+    opacity: 0.08;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.cta-button:hover::before {
+    opacity: 0.12;
+}
+
+.primary-cta {
+    background-color: #4fd5ff;
+    color: #000;
+}
+
+.primary-cta:hover {
+    background-color: #3ac4ef;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(79, 213, 255, 0.4);
+}
+
+.secondary-cta {
+    background-color: transparent;
+    color: #4fd5ff;
+    border: 2px solid #4fd5ff;
+}
+
+.secondary-cta:hover {
+    background-color: rgba(79, 213, 255, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(79, 213, 255, 0.2);
+}
+
+footer {
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-position: center;
+    color: #dbd2d2;
+    padding: 40px 20px 20px;
+    margin-top: 40px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+    position: relative;
+    /* Enhanced wood effect with grain overlay */
+    background-blend-mode: multiply;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    margin-bottom: 20px;
+    flex: 1;
+    min-width: 200px;
+    padding-right: 20px;
+}
+
+.footer-logo .logo {
+    max-width: 180px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.footer-logo p {
+    font-style: italic;
+    color: #dbd2d2;
+    margin-top: 10px;
+}
+
+.footer-section, .footer-links, .footer-contact {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+    position: relative;
+}
+
+/* Add decorative wooden divider between footer sections */
+.footer-section:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 1px;
+    background: linear-gradient(to bottom,
+        rgba(255,255,255,0.01),
+        rgba(222, 184, 135, 0.2) 15%,
+        rgba(222, 184, 135, 0.15) 50%,
+        rgba(222, 184, 135, 0.2) 85%,
+        rgba(255,255,255,0.01)
+    );
+}
+
+.footer-section h3, .footer-links h3, .footer-contact h3 {
+    color: #4fd5ff;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 8px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    position: relative;
+}
+
+/* Add subtle wood accent to footer headers */
+.footer-section h3::after, .footer-links h3::after, .footer-contact h3::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(to right, rgba(222, 184, 135, 0.7), rgba(222, 184, 135, 0.1));
+}
+
+.footer-links ul, .footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links ul li, .footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-links ul li a, .footer-section ul li a {
+    color: #dbd2d2;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover, .footer-section ul li a:hover {
+    color: #4fd5ff;
+    text-decoration: underline;
+}
+
+.footer-contact p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-contact p i {
+    margin-right: 10px;
+    color: #4fd5ff;
+    width: 16px;
+    text-align: center;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.1);
+    color: #dbd2d2;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-links a::before {
     content: '';
     position: absolute;
     top: 0;
@@ -1000,49 +1446,799 @@ main img {
     background-image: url('../assets/images/mahogany_texture.webp');
     background-size: 100px 100px;
     background-position: center;
-    opacity: 0.03;
+    opacity: 0.2;
     z-index: -1;
     transition: opacity 0.3s ease;
 }
 
-.blog-social a:hover {
-    background-color: rgba(79, 213, 255, 0.15);
+.social-links a i {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-links a:hover {
+    background-color: #4fd5ff;
+    color: #106b96;
+    transform: translateY(-3px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+.social-links a:hover::before {
+    opacity: 0.4;
+}
+
+/* Ensure specific font awesome icons have proper coloring */
+.social-links .fab {
+    color: inherit;
+}
+
+.social-links a i.fab {
+    font-family: "Font Awesome 6 Brands" !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+    font-size: 18px !important;
+}
+
+.legal-links {
+    display: flex;
+    gap: 20px;
+}
+
+.legal-links a {
+    color: #dbd2d2;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.legal-links a:hover {
     color: #4fd5ff;
-    transform: translateY(-2px);
 }
 
-.blog-social a:hover::before {
-    opacity: 0.08;
-}
-
-/* Blog Grid Enhancement */
-.blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-}
-
-/* Enhance Blog Card Footer with Wood Accent */
-.blog-card-footer {
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    font-size: 14px;
     position: relative;
-    padding-top: 15px;
 }
 
-/* Add subtle divider above blog card footer */
-.blog-card-footer::before {
+/* Add subtle wood grain accent to the footer bottom */
+.footer-bottom::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right,
+        rgba(222, 184, 135, 0.05),
+        rgba(222, 184, 135, 0.3) 20%,
+        rgba(222, 184, 135, 0.5) 50%,
+        rgba(222, 184, 135, 0.3) 80%,
+        rgba(222, 184, 135, 0.05)
+    );
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+}
+
+.attribution {
+    color: rgba(219,210,210,0.7);
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        z-index: 1000;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-image: url('../assets/images/mahogany_texture.webp');
+        background-size: cover;
+        background-position: center;
+        background-color: rgba(0, 0, 0, 0.95);
+        z-index: 100;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2),
+                    inset 0 0 0 1px rgba(222, 184, 135, 0.1);
+        border-bottom: 1px solid rgba(222, 184, 135, 0.15);
+
+        /* Simplified visibility approach */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+    }
+
+    .nav-links.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    nav ul li {
+        margin: 0;
+        width: 100%;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 12px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        color: #f5f5f5;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .dropdown-content {
+        position: static;
+        background-image: url('../assets/images/mahogany_texture.webp');
+        background-size: cover;
+        background-position: center;
+        background-color: rgba(0, 0, 0, 0.8);
+        box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.3),
+                    inset 0 0 0 1px rgba(222, 184, 135, 0.1);
+        width: 100%;
+        padding-left: 20px;
+        border: none;
+        border-top: 1px solid rgba(222, 184, 135, 0.1);
+        border-bottom: 1px solid rgba(222, 184, 135, 0.1);
+
+        /* Simplified dropdown visibility */
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.3s, opacity 0.3s;
+    }
+
+    .dropdown:hover .dropdown-content {
+        /* Prevent hover behavior on mobile */
+        max-height: 0;
+        opacity: 0;
+    }
+
+    .dropdown-content.active {
+        max-height: 500px;
+        opacity: 1;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .dropdown > a::after {
+        content: '\f107';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        margin-left: 5px;
+        transition: transform 0.3s;
+        position: absolute;
+        right: 20px;
+    }
+
+    .dropdown.active > a::after {
+        transform: rotate(180deg);
+    }
+}
+
+/* Contact Page Styling */
+.contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin: 40px 0;
+}
+
+.contact-info, .contact-form {
+    flex: 1;
+    min-width: 300px;
+}
+
+.contact-info h2, .contact-form h2 {
+    color: #eae1e1;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    color: #f5f5f5;
+    margin-bottom: 30px;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.contact-method h3 {
+    color: #4fd5ff;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.contact-method p {
+    margin: 0;
+}
+
+.contact-method a {
+    color: #f5f5f5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-method a:hover {
+    color: #4fd5ff;
+}
+
+/* Form styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #eae1e1;
+    font-weight: 500;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: #eae1e1;
+    font-family: inherit;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(222, 184, 135, 0.05);
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: #4fd5ff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(79, 213, 255, 0.3);
+}
+
+.submit-btn {
+    background-color: #4fd5ff;
+    color: #333;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: 200px 200px;
+    background-position: center;
+    opacity: 0.08;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #3ac4f0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:hover::before {
+    opacity: 0.12;
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Legal Pages (Terms, Privacy) Styling */
+.legal-content {
+    color: #f5f5f5;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.legal-content section {
+    margin-bottom: 30px;
+}
+
+.legal-content h2 {
+    color: #eae1e1;
+    margin-bottom: 15px;
+    font-size: 22px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 10px;
+}
+
+.legal-content p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+/* Social Media Links Styling */
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: #f5f5f5;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-links a i {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-links a:hover {
+    background-color: #4fd5ff;
+    color: #333;
+    transform: translateY(-3px);
+}
+
+/* Ensure specific font awesome icons have proper coloring */
+.social-links .fab {
+    color: inherit !important;
+}
+
+.social-links .fa-facebook-f,
+.social-links .fa-instagram,
+.social-links .fa-google,
+.social-links .fa-yelp {
+    color: inherit !important;
+}
+
+/* Awesome icon display */
+.social-links a i.fab,
+.social-links a i.fa-facebook-f,
+.social-links a i.fa-instagram,
+social-links a i.fa-google,
+social-links a i.fa-yelp {
+    color: #dbd2d2 !important;
+    font-family: "Font Awesome 6 Brands" !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto !important;
+    line-height: 1 !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    -webkit-font-smoothing: antialiased !important;
+    display: inline-block !important;
+    font-size: 18px !important;
+}
+
+/* Unicode fallbacks in case font doesn't load */
+.social-links a i.fa-facebook-f:before {
+    content: "\f39e" !important;
+}
+.social-links a i.fa-instagram:before {
+    content: "\f16d" !important;
+}
+.social-links a i.fa-google:before {
+    content: "\f1a0" !important;
+}
+.social-links a i.fa-yelp:before {
+    content: "\f1e9" !important;
+}
+
+/* Update favicon size */
+link[rel="icon"] {
+    height: 32px;
+    width: 32px;
+}
+
+/* Image Caption Styles */
+.image-caption {
+    font-size: 0.9rem;
+    color: #c8c8c8;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+    text-align: center;
+}
+
+.service-intro .image-caption {
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+}
+
+/* Before & After Section */
+.before-after-section {
+    margin: 4rem 0;
+}
+
+.before-after-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.before-after-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.before-image, .after-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.before-image img, .after-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    margin: 0;
+    transition: transform 0.5s ease;
+}
+
+.before-image:hover img, .after-image:hover img {
+    transform: scale(1.05);
+}
+
+.overlay-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.before-image .overlay-label {
+    background-color: rgba(217, 83, 79, 0.8);
+}
+
+.after-image .overlay-label {
+    background-color: rgba(92, 184, 92, 0.8);
+}
+
+/* Image Carousel Styles */
+.image-carousel {
+    margin: 2rem 0;
+    position: relative;
+}
+
+.carousel-container {
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.carousel-slide {
+    display: none;
+    width: 100%;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+.carousel-control {
+    background-color: rgba(79, 213, 255, 0.2);
+    color: #4fd5ff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-control:hover {
+    background-color: rgba(79, 213, 255, 0.4);
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    background-color: #4fd5ff;
+    transform: scale(1.2);
+}
+
+/* Application Card Image Styles */
+.application-card .image-caption {
+    padding: 0 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Enhanced Layout Styles */
+.content-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid rgba(79, 213, 255, 0.7);
+}
+
+.content-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent);
+    pointer-events: none;
+}
+
+.highlight-card {
+    background-color: rgba(79, 213, 255, 0.1);
+    border-left: 4px solid rgba(79, 213, 255, 1);
+}
+
+.section-icon {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background-color: rgba(79, 213, 255, 0.7);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.section-icon i {
+    font-size: 24px;
+    color: #000;
+}
+
+/* Philosophy Section */
+.philosophy-principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.principle {
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.principle:hover {
+    transform: translateY(-5px);
+}
+
+.principle-icon {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(79, 213, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.principle-icon i {
+    font-size: 28px;
+    color: #4fd5ff;
+}
+
+.principle h3 {
+    color: #eae1e1;
+    margin: 0.5rem 0;
+    font-size: 1.3rem;
+}
+
+/* Process Step Icons */
+.step-icon {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background-color: rgba(79, 213, 255, 0.7);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.step-icon i {
+    font-size: 18px;
+    color: #000;
+}
+
+/* Aspect Headers */
+.aspect-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.aspect-header i {
+    font-size: 24px;
+    color: #4fd5ff;
+    margin-right: 1rem;
+}
+
+.service-list li {
+    display: flex;
+    align-items: flex-start;
+}
+
+.service-list li i {
+    color: #4fd5ff;
+    margin-right: 10px;
+    margin-top: 3px;
+    font-size: 1rem;
+    min-width: 20px;
+}
+
+/* Benefits Summary */
+.benefits-summary {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.benefit-item i {
+    color: #4fd5ff;
+    margin-right: 15px;
+    font-size: 1.2rem;
+}
+
+/* CTA Button Icons */
+.cta-button i {
+    margin-right: 8px;
+}
+
+/* Improve readability for light text on dark backgrounds */
+p, li, a, span, div {
+    font-weight: 400;
+    letter-spacing: 0.015em;
+}
+
+/* Enhance headings with subtle text effects */
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: 0.02em;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Enhanced Section Backgrounds with Wood Accents */
+.services, .testimonials-preview, main, .blog-container, .contact-container {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle wood grain border effects for sections */
+.services::after, .testimonials-preview::after, main::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
     height: 1px;
     background: linear-gradient(to right,
         rgba(222, 184, 135, 0.01),
-        rgba(222, 184, 135, 0.15) 50%,
+        rgba(222, 184, 135, 0.3) 50%,
         rgba(222, 184, 135, 0.01)
+    );
+    z-index: 1;
+}
+
+/* Add subtle wood grain to section headers */
+main h1::after, .services h2::after, .testimonials-preview h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    margin: 15px auto 0;
+    background: linear-gradient(to right,
+        rgba(222, 184, 135, 0.2),
+        rgba(222, 184, 135, 0.6) 50%,
+        rgba(222, 184, 135, 0.2)
     );
 }
