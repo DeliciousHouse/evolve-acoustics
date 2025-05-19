@@ -1,0 +1,92 @@
+/* Blog Card Social Link Enhancements */
+.read-more {
+    color: #4fd5ff;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.read-more:hover {
+    color: #b3e0ff;
+    transform: translateX(3px);
+}
+
+.blog-social {
+    display: flex;
+    gap: 10px;
+}
+
+.blog-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f5f5f5;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add subtle wood texture to social links */
+.blog-social a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: 100px 100px;
+    background-position: center;
+    opacity: 0.03;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.blog-social a:hover {
+    background-color: rgba(79, 213, 255, 0.15);
+    color: #4fd5ff;
+    transform: translateY(-2px);
+}
+
+.blog-social a:hover::before {
+    opacity: 0.08;
+}
+
+/* Blog Grid Enhancement */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+/* Enhance Blog Card Footer with Wood Accent */
+.blog-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding-top: 15px;
+}
+
+/* Add subtle divider above blog card footer */
+.blog-card-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right,
+        rgba(222, 184, 135, 0.01),
+        rgba(222, 184, 135, 0.15) 50%,
+        rgba(222, 184, 135, 0.01)
+    );
+}

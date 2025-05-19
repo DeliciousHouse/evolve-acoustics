@@ -1,0 +1,204 @@
+/* Contact Page Enhancements with Wood Theme */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin: 2rem 0;
+    position: relative;
+}
+
+/* Add subtle decorative divider */
+.contact-container::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 5%;
+    right: 5%;
+    height: 1px;
+    background: linear-gradient(to right,
+        rgba(222, 184, 135, 0.01),
+        rgba(222, 184, 135, 0.3) 50%,
+        rgba(222, 184, 135, 0.01)
+    );
+    z-index: 1;
+}
+
+.contact-info {
+    position: relative;
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-left: 3px solid rgba(222, 184, 135, 0.3);
+    overflow: hidden;
+}
+
+/* Add subtle wood texture to contact info background */
+.contact-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.02;
+    z-index: -1;
+}
+
+.contact-info h2 {
+    color: #4fd5ff;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+
+/* Add subtle wood accent under heading */
+.contact-info h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(to right,
+        rgba(222, 184, 135, 0.2),
+        rgba(222, 184, 135, 0.6) 50%,
+        rgba(222, 184, 135, 0.2)
+    );
+}
+
+.contact-methods {
+    margin-top: 2rem;
+}
+
+.contact-method {
+    margin-bottom: 1.8rem;
+    position: relative;
+    padding-left: 2.5rem;
+}
+
+/* Add subtle wood-themed icons next to contact methods */
+.contact-method::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.5rem;
+    color: rgba(222, 184, 135, 0.7);
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.contact-method:nth-child(1)::before { content: "\f0e0"; } /* Email icon */
+.contact-method:nth-child(2)::before { content: "\f095"; } /* Phone icon */
+.contact-method:nth-child(3)::before { content: "\f3c5"; } /* Location icon */
+
+.contact-method h3 {
+    font-size: 1.2rem;
+    color: #eae1e1;
+    margin-bottom: 0.5rem;
+}
+
+.contact-method p {
+    color: #f5f5f5;
+    margin: 0;
+}
+
+.contact-method a {
+    color: #4fd5ff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.contact-method a:hover {
+    color: #b3e0ff;
+    text-decoration: underline;
+}
+
+.contact-form {
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border-right: 3px solid rgba(222, 184, 135, 0.3);
+    overflow: hidden;
+}
+
+/* Add subtle wood texture to contact form background */
+.contact-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.02;
+    z-index: -1;
+}
+
+/* Elfsight form customization - targeting the common elements */
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(222, 184, 135, 0.15) !important;
+    color: #f5f5f5 !important;
+    border-radius: 4px !important;
+    transition: all 0.3s ease !important;
+}
+
+.contact-form button[type="submit"] {
+    background-color: #4fd5ff !important;
+    color: #1a1a1a !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 0.9rem 1.8rem !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Add subtle wood texture to submit button */
+.contact-form button[type="submit"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: 200px 200px;
+    background-position: center;
+    opacity: 0.05;
+    z-index: -1;
+}
+
+.contact-form button[type="submit"]:hover {
+    background-color: #23b8e5 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(79, 213, 255, 0.3) !important;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
