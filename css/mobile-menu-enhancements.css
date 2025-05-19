@@ -1,0 +1,124 @@
+/* Mobile Menu Enhancements with Wood Theme */
+
+/* Mobile Menu Responsive Styles */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        position: relative;
+        z-index: 1000;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        width: 280px;
+        height: 100vh;
+        background-image: url('../assets/images/mahogany_texture.webp');
+        background-size: cover;
+        background-position: center;
+        padding: 80px 20px 20px;
+        transition: right 0.3s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        z-index: 999;
+        overflow-y: auto;
+    }
+
+    /* Add overlay for better readability */
+    .nav-links::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: -1;
+    }
+
+    /* Add subtle wood grain accent at the top */
+    .nav-links::after {
+        content: '';
+        position: absolute;
+        top: 70px;
+        left: 10%;
+        right: 10%;
+        height: 2px;
+        background: linear-gradient(to right,
+            rgba(222, 184, 135, 0.1),
+            rgba(222, 184, 135, 0.4) 50%,
+            rgba(222, 184, 135, 0.1)
+        );
+        z-index: 1;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul li {
+        width: 100%;
+        margin: 0;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Add subtle wood grain effect to menu items */
+    nav ul li::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right,
+            rgba(222, 184, 135, 0.01),
+            rgba(222, 184, 135, 0.15) 50%,
+            rgba(222, 184, 135, 0.01)
+        );
+    }
+
+    nav ul li a {
+        padding: 8px 0;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    nav ul li a:hover {
+        border-bottom: none;
+    }
+
+    /* Dropdown styles for mobile */
+    .dropdown-content {
+        position: static;
+        display: none;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        box-shadow: none;
+        padding: 0;
+        border-radius: 0;
+        margin-top: 10px;
+    }
+
+    .dropdown.active .dropdown-content {
+        display: block;
+    }
+
+    .dropdown > a::after {
+        float: right;
+        transition: transform 0.3s;
+        content: '\f107';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+    }
+
+    .dropdown.active > a::after {
+        transform: rotate(180deg);
+    }
+}
