@@ -30,4 +30,66 @@ $(document).ready(function() {
             $('.dropdown-content').removeClass('active');
         }
     });
+
+    // Image carousel functionality
+    if ($('.carousel-container').length) {
+        const $slides = $('.carousel-slide');
+        const $dotsContainer = $('.carousel-dots');
+        const slideCount = $slides.length;
+        let currentIndex = 0;
+
+        // Create dots for each slide
+        for (let i = 0; i < slideCount; i++) {
+            $dotsContainer.append(`<div class="carousel-dot" data-index="${i}" aria-label="Go to slide ${i+1}"></div>`);
+        }
+
+        // Initialize first slide and dot
+        $slides.first().addClass('active');
+        $('.carousel-dot').first().addClass('active');
+
+        // Function to show slide by index
+        function showSlide(index) {
+            $slides.removeClass('active');
+            $('.carousel-dot').removeClass('active');
+
+            $($slides[index]).addClass('active');
+            $($('.carousel-dot')[index]).addClass('active');
+            currentIndex = index;
+        }
+
+        // Next button
+        $('.carousel-control.next').click(function() {
+            const nextIndex = (currentIndex + 1) % slideCount;
+            showSlide(nextIndex);
+        });
+
+        // Previous button
+        $('.carousel-control.prev').click(function() {
+            const prevIndex = (currentIndex - 1 + slideCount) % slideCount;
+            showSlide(prevIndex);
+        });
+
+        // Dot navigation
+        $('.carousel-dot').click(function() {
+            const dotIndex = $(this).data('index');
+            showSlide(dotIndex);
+        });
+
+        // Auto-advance every 5 seconds
+        let carouselInterval = setInterval(function() {
+            const nextIndex = (currentIndex + 1) % slideCount;
+            showSlide(nextIndex);
+        }, 5000);
+
+        // Pause auto-advance on hover
+        $('.image-carousel').hover(
+            function() { clearInterval(carouselInterval); },
+            function() {
+                carouselInterval = setInterval(function() {
+                    const nextIndex = (currentIndex + 1) % slideCount;
+                    showSlide(nextIndex);
+                }, 5000);
+            }
+        );
+    }
 });

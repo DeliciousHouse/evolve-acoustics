@@ -1645,3 +1645,162 @@ link[rel="icon"] {
     height: 32px;
     width: 32px;
 }
+
+/* Image Caption Styles */
+.image-caption {
+    font-size: 0.9rem;
+    color: #c8c8c8;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+    text-align: center;
+}
+
+.service-intro .image-caption {
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+}
+
+/* Before & After Section */
+.before-after-section {
+    margin: 4rem 0;
+}
+
+.before-after-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.before-after-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.before-image, .after-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.before-image img, .after-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    margin: 0;
+    transition: transform 0.5s ease;
+}
+
+.before-image:hover img, .after-image:hover img {
+    transform: scale(1.05);
+}
+
+.overlay-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.before-image .overlay-label {
+    background-color: rgba(217, 83, 79, 0.8);
+}
+
+.after-image .overlay-label {
+    background-color: rgba(92, 184, 92, 0.8);
+}
+
+/* Image Carousel Styles */
+.image-carousel {
+    margin: 2rem 0;
+    position: relative;
+}
+
+.carousel-container {
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.carousel-slide {
+    display: none;
+    width: 100%;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+.carousel-control {
+    background-color: rgba(79, 213, 255, 0.2);
+    color: #4fd5ff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-control:hover {
+    background-color: rgba(79, 213, 255, 0.4);
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    background-color: #4fd5ff;
+    transform: scale(1.2);
+}
+
+/* Application Card Image Styles */
+.application-card .image-caption {
+    padding: 0 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
