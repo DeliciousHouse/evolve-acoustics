@@ -50,14 +50,15 @@ $(document).ready(function() {
     // Mobile dropdown toggle for touch devices with enhanced accessibility
     $('.dropdown > a').on('click touchstart', function(e) {
         if ($(window).width() <= 768) {
-            e.preventDefault();
-            e.stopPropagation();
+            e.preventDefault(); // Prevents parent "Services" link navigation
+            e.stopPropagation(); // Stops this event from bubbling to document
 
             const $dropdownContent = $(this).siblings('.dropdown-content');
             const isExpanded = !$dropdownContent.hasClass('active');
 
             // Close any other open dropdown menus first
             $('.dropdown-content.active').not($dropdownContent).removeClass('active');
+            // Also update aria-expanded for other parent links
             $('.dropdown > a').not(this).attr('aria-expanded', 'false');
 
             // Toggle current dropdown
@@ -66,11 +67,24 @@ $(document).ready(function() {
         }
     });
 
+    // Ensure submenu links navigate correctly on mobile and don't close the menu prematurely
+    $('.dropdown-content a').on('click touchstart', function(e) {
+        if ($(window).width() <= 768) {
+            e.stopPropagation(); // Prevent this click from closing the main menu
+                                 // The default link navigation will proceed as e.preventDefault() is NOT called here.
+                                 // You might want to explicitly navigate if issues persist:
+                                 // window.location.href = $(this).attr('href');
+        }
+    });
+
     // Close mobile menu when clicking outside
     $(document).on('click touchstart', function(event) {
         if (!$(event.target).closest('.menu-toggle, .nav-links').length) {
             $('.nav-links').removeClass('active');
-            $('.dropdown-content').removeClass('active');
+            $('.dropdown-content').removeClass('active'); // Ensure submenus also close
+            // Reset aria-expanded attributes
+            $('.menu-toggle').attr('aria-expanded', 'false');
+            $('.dropdown > a').attr('aria-expanded', 'false'); // Reset services dropdown parent
         }
     });
 
