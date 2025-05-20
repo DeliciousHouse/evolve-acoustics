@@ -56,28 +56,44 @@ $(document).ready(function() {
         }
     }
 
-    // Mobile dropdown toggle for touch devices with enhanced accessibility
+    // Mobile dropdown toggle with forced click handling
     $('.dropdown > a').on('click touchstart', function(e) {
         if ($(window).width() <= 768) {
-            e.preventDefault(); // Prevents parent "Services" link navigation
-            e.stopPropagation(); // Stops this event from bubbling to document
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Debug output
+            console.log('Dropdown clicked:', $(this).text());
 
             const $dropdown = $(this).parent('.dropdown');
             const $dropdownContent = $(this).siblings('.dropdown-content');
-            const isExpanded = !$dropdownContent.hasClass('active');
 
-            // Close other dropdowns first
-            $('.dropdown').not($dropdown).removeClass('active');
-            $('.dropdown-content.active').not($dropdownContent).removeClass('active');
-            $('.dropdown > a').not(this).attr('aria-expanded', 'false');
+            // Force redraw to ensure CSS transitions work correctly
+            $dropdown.css('display', 'none').height();
+            $dropdown.css('display', '');
 
-            // Toggle current dropdown
+            // Toggle classes
             $dropdown.toggleClass('active');
             $dropdownContent.toggleClass('active');
-            $(this).attr('aria-expanded', isExpanded ? 'true' : 'false');
 
-            // Add debugging to verify the event is firing
+            // Toggle ARIA attributes
+            const isExpanded = $dropdown.hasClass('active');
+            $(this).attr('aria-expanded', isExpanded);
+
+            // Close other dropdowns
+            $('.dropdown').not($dropdown).removeClass('active');
+            $('.dropdown-content.active').not($dropdownContent).removeClass('active');
+            $('.dropdown > a').not($(this)).attr('aria-expanded', 'false');
+
+            // Add more debugging
             console.log('Mobile dropdown clicked - Active state:', isExpanded, 'Element:', $(this).text());
+            console.log('Dropdown classes:', $dropdown.attr('class'));
+            console.log('Dropdown content classes:', $dropdownContent.attr('class'));
+
+            // Force display with inline style if active
+            if (isExpanded) {
+                $dropdownContent.css('display', 'block');
+            }
         }
     });
 
@@ -380,4 +396,13 @@ $(document).ready(function() {
             }, 5000);
         });
     }
+
+    // Testing code to verify jQuery is working correctly
+    console.log('jQuery version:', $.fn.jquery);
+    console.log('Dropdowns found:', $('.dropdown').length);
+    console.log('Dropdown links found:', $('.dropdown > a').length);
+
+    // Add temporary visual indicators for testing
+    $('.dropdown > a').css('border', '2px solid red');
+    $('.dropdown').addClass('dropdown-test');
 });

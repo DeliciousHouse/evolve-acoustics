@@ -7,6 +7,13 @@
         opacity: 0;
         visibility: hidden; /* Add visibility property */
         transition: max-height 0.3s, opacity 0.3s, visibility 0.3s;
+
+        /* More forceful display properties */
+        position: static !important; /* Force static positioning */
+        display: none !important; /* Force hide by default */
+        box-shadow: none !important; /* Remove box shadow */
+        background: rgba(0,0,0,0.1) !important; /* Subtle background */
+        margin-left: 15px !important; /* Indent the dropdown items */
     }
 
     .dropdown-content.active {
@@ -15,7 +22,7 @@
         visibility: visible; /* Ensure visibility is set to visible */
         padding-top: 5px;
         padding-bottom: 5px;
-        display: block; /* Force display */
+        display: block !important; /* Force display */
     }
 
     /* Ensure no hover effects on mobile interfere */
@@ -30,9 +37,24 @@
         max-height: 500px;
         opacity: 1;
         visibility: visible;
+        display: block !important; /* Force display when active */
     }
 
-    /* Add visual indicator for active dropdown */
+    /* Service dropdown specific styling if needed */
+    .dropdown:has(> a:contains("Services")).active > .dropdown-content {
+        display: block !important;
+        max-height: none !important;
+    }
+
+    /* Add clear visual indicator */
+    .dropdown > a::after {
+        content: "▼";
+        display: inline-block;
+        margin-left: 8px;
+        font-size: 10px;
+        transition: transform 0.3s;
+    }
+
     .dropdown.active > a::after {
         transform: rotate(180deg); /* Flip the arrow when active */
         transition: transform 0.3s ease;
@@ -47,5 +69,12 @@
     /* Debug outline to test the tap area */
     .dropdown.debug > a {
         outline: 2px dashed rgba(255, 0, 0, 0.5);
+    }
+
+    /* Force visible styles for test purposes */
+    .dropdown.active > a {
+        background-color: rgba(255,255,255,0.1) !important;
+        color: #fff !important;
+        font-weight: bold !important;
     }
 }
