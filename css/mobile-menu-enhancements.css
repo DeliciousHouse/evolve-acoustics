@@ -1,84 +1,109 @@
 /* Mobile Navigation Enhancement - Ensure dropdown is visible when active */
 @media (max-width: 768px) {
     .dropdown-content {
-        /* Simplified dropdown visibility */
+        /* Core visibility properties */
         max-height: 0;
         overflow: hidden;
         opacity: 0;
-        visibility: hidden; /* Add visibility property */
-        transition: max-height 0.3s, opacity 0.3s, visibility 0.3s;
+        visibility: hidden;
+        transition: max-height 0.35s ease, opacity 0.3s ease, visibility 0.3s ease;
 
-        /* More forceful display properties */
-        position: static !important; /* Force static positioning */
-        display: none !important; /* Force hide by default */
-        box-shadow: none !important; /* Remove box shadow */
-        background: rgba(0,0,0,0.1) !important; /* Subtle background */
-        margin-left: 15px !important; /* Indent the dropdown items */
+        /* Essential display properties */
+        position: static !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        background-color: rgba(26, 77, 109, 0.2) !important;
+        margin: 5px 0 5px 15px !important;
+        border-left: 2px solid #4fd5ff !important;
+        padding: 0 !important;
+
+        /* Force initial state */
+        display: block !important;
     }
 
+    /* Active state */
     .dropdown-content.active {
         max-height: 500px;
         opacity: 1;
-        visibility: visible; /* Ensure visibility is set to visible */
-        padding-top: 5px;
-        padding-bottom: 5px;
-        display: block !important; /* Force display */
+        visibility: visible;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
     }
 
-    /* Ensure no hover effects on mobile interfere */
-    .dropdown:hover .dropdown-content {
+    /* Override hover effects on mobile */
+    .dropdown:hover .dropdown-content:not(.active) {
         max-height: 0;
         opacity: 0;
         visibility: hidden;
     }
 
-    /* Only show active dropdowns */
-    .dropdown.active .dropdown-content {
-        max-height: 500px;
-        opacity: 1;
-        visibility: visible;
-        display: block !important; /* Force display when active */
-    }
-
-    /* Service dropdown specific styling if needed */
-    .dropdown:has(> a:contains("Services")).active > .dropdown-content {
+    /* Explicit styling for active dropdown */
+    .dropdown.active > .dropdown-content {
+        max-height: 500px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
         display: block !important;
-        max-height: none !important;
     }
 
-    /* Add clear visual indicator */
+    /* Services dropdown specific styling */
+    li.dropdown:has(a:contains("Services")).active > .dropdown-content {
+        display: block !important;
+    }
+
+    /* Clear dropdown indicator */
     .dropdown > a::after {
         content: "▼";
         display: inline-block;
         margin-left: 8px;
-        font-size: 10px;
-        transition: transform 0.3s;
+        font-size: 12px;
+        transition: transform 0.3s ease;
+        color: #4fd5ff;
     }
 
     .dropdown.active > a::after {
-        transform: rotate(180deg); /* Flip the arrow when active */
-        transition: transform 0.3s ease;
+        transform: rotate(180deg);
     }
 
-    /* Add tap highlight */
+    /* Enhanced tap target */
     .dropdown > a {
-        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
-        position: relative;
-        border: 2px solid #4fd5ff; /* Match logo accent color */
-        border-radius: 4px; /* Slight rounding of corners */
-        padding: 8px 12px; /* Add padding for better touch target */
-        margin-bottom: 2px; /* Small space between items */
+        -webkit-tap-highlight-color: rgba(79, 213, 255, 0.4);
+        display: block;
+        border: 2px solid #4fd5ff;
+        border-radius: 5px;
+        padding: 10px 15px;
+        margin: 5px 0;
+        font-weight: bold;
+        transition: all 0.2s ease;
     }
 
-    /* Debug outline to test the tap area */
-    .dropdown.debug > a {
-        outline: 2px dashed rgba(79, 213, 255, 0.5);
+    .dropdown > a:active {
+        background-color: rgba(79, 213, 255, 0.2);
     }
 
-    /* Force visible styles for test purposes */
+    /* Active dropdown styling */
     .dropdown.active > a {
-        background-color: rgba(79, 213, 255, 0.1) !important;
-        color: #4fd5ff !important;
-        font-weight: bold !important;
+        background-color: rgba(79, 213, 255, 0.15);
+        color: #4fd5ff;
+    }
+
+    /* Dropdown links styling */
+    .dropdown-content a {
+        padding: 10px 15px !important;
+        margin: 3px 0 !important;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        display: block;
+    }
+
+    .dropdown-content a:active,
+    .dropdown-content a:focus {
+        background-color: rgba(79, 213, 255, 0.2);
+    }
+
+    /* Current page indication */
+    .dropdown-content a.active {
+        background-color: rgba(79, 213, 255, 0.25);
+        color: #ffffff;
+        font-weight: bold;
     }
 }
