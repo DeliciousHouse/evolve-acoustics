@@ -402,7 +402,6 @@ $(document).ready(function() {
     console.log('Dropdowns found:', $('.dropdown').length);
     console.log('Dropdown links found:', $('.dropdown > a').length);
 
-    // Add temporary visual indicators for testing
-    $('.dropdown > a').css('border', '2px solid red');
+    // Add class for dropdown styling
     $('.dropdown').addClass('dropdown-test');
 });
