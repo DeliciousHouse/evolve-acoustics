@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/semantic-styles.css">
     <link rel="stylesheet" href="../css/mobile-menu-enhancements.css">
     <link rel="stylesheet" href="../css/service-page.css">
+    <link rel="stylesheet" href="../css/section-header-enhancements.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
@@ -319,33 +320,76 @@
     <script src="../js/main.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
+        // Enhanced animations with better performance
         AOS.init({
             duration: 800,
             easing: 'ease-in-out',
             once: true,
-            offset: 100
+            offset: 80,
+            delay: 100,
+            anchorPlacement: 'top-bottom'
         });
 
-        // Initialize accordion functionality
+        // Enhanced accordion functionality with better animations
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize both accordion and mobile menu dropdown functionality
+
+            // 1. Accordion functionality
             const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            // Close all accordions initially
+            document.querySelectorAll('.accordion-content').forEach(content => {
+                content.style.maxHeight = '0';
+            });
 
             accordionHeaders.forEach(header => {
                 header.addEventListener('click', function() {
                     const isExpanded = this.getAttribute('aria-expanded') === 'true';
                     const content = this.nextElementSibling;
 
-                    // Toggle the current accordion
+                    // Toggle the current accordion state
                     this.setAttribute('aria-expanded', !isExpanded);
 
-                    // Set appropriate max-height for animation
+                    // Apply height changes for smooth animation
                     if (!isExpanded) {
-                        content.style.maxHeight = content.scrollHeight + 'px';
+                        // Allow time for padding to be applied before height calculation
+                        setTimeout(() => {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                        }, 10);
                     } else {
                         content.style.maxHeight = '0';
                     }
+
+                    // Optional: Close other accordions when opening this one
+                    if (!isExpanded) {
+                        accordionHeaders.forEach(otherHeader => {
+                            if (otherHeader !== this && otherHeader.getAttribute('aria-expanded') === 'true') {
+                                otherHeader.setAttribute('aria-expanded', 'false');
+                                otherHeader.nextElementSibling.style.maxHeight = '0';
+                            }
+                        });
+                    }
                 });
             });
+
+            // 2. Mobile dropdown menu enhancement
+            // Mark the current page as active in the dropdown
+            if (window.innerWidth <= 768) {
+                const currentPage = window.location.pathname.split('/').pop();
+                document.querySelectorAll('.dropdown-content a').forEach(link => {
+                    if (link.getAttribute('href') === currentPage) {
+                        link.classList.add('active');
+                        // Also mark the parent dropdown if this is the current page
+                        const parentDropdown = link.closest('.dropdown');
+                        if (parentDropdown) {
+                            const dropdownToggle = parentDropdown.querySelector('a');
+                            if (dropdownToggle) {
+                                parentDropdown.classList.add('current-parent');
+                            }
+                        }
+                    }
+                });
+            }
         });
     </script>
 

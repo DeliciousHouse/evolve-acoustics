@@ -56,43 +56,56 @@ $(document).ready(function() {
         }
     }
 
-    // Mobile dropdown toggle with forced click handling
+    // Enhanced mobile dropdown toggle for better reliability
     $('.dropdown > a').on('click touchstart', function(e) {
         if ($(window).width() <= 768) {
             e.preventDefault();
             e.stopPropagation();
 
-            // Debug output
-            console.log('Dropdown clicked:', $(this).text());
-
             const $dropdown = $(this).parent('.dropdown');
             const $dropdownContent = $(this).siblings('.dropdown-content');
 
-            // Force redraw to ensure CSS transitions work correctly
+            // Force a reflow/repaint to ensure CSS transitions work correctly
             $dropdown.css('display', 'none').height();
             $dropdown.css('display', '');
 
-            // Toggle classes
+            // Toggle active state classes
             $dropdown.toggleClass('active');
             $dropdownContent.toggleClass('active');
 
-            // Toggle ARIA attributes
+            // Update ARIA attributes for accessibility
             const isExpanded = $dropdown.hasClass('active');
             $(this).attr('aria-expanded', isExpanded);
 
-            // Close other dropdowns
+            // Close other dropdowns for cleaner UI
             $('.dropdown').not($dropdown).removeClass('active');
             $('.dropdown-content.active').not($dropdownContent).removeClass('active');
             $('.dropdown > a').not($(this)).attr('aria-expanded', 'false');
 
-            // Add more debugging
-            console.log('Mobile dropdown clicked - Active state:', isExpanded, 'Element:', $(this).text());
-            console.log('Dropdown classes:', $dropdown.attr('class'));
-            console.log('Dropdown content classes:', $dropdownContent.attr('class'));
-
-            // Force display with inline style if active
+            // Force the display style to ensure visibility
             if (isExpanded) {
-                $dropdownContent.css('display', 'block');
+                // Ensure dropdown is visible with explicit styles
+                $dropdownContent.css({
+                    'display': 'block',
+                    'opacity': '1',
+                    'visibility': 'visible',
+                    'max-height': '500px'
+                });
+
+                // Mark parent as active too
+                $dropdown.addClass('dropdown-open');
+            } else {
+                // Reset styles when closing
+                setTimeout(function() {
+                    $dropdownContent.css({
+                        'display': '',
+                        'opacity': '',
+                        'visibility': '',
+                        'max-height': ''
+                    });
+                }, 300); // Match transition duration
+
+                $dropdown.removeClass('dropdown-open');
             }
         }
     });
