@@ -131,23 +131,8 @@ $(document).ready(function() {
         }
     });
 
-    // New scroll-to-top functionality
-    const scrollTopButton = $('#scroll-top-button');
-
-    // Show/hide scroll button based on scroll position
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 300) {
-            scrollTopButton.addClass('visible');
-        } else {
-            scrollTopButton.removeClass('visible');
-        }
-    });
-
-    // Smooth scroll to top on click
-    scrollTopButton.click(function() {
-        $('html, body').animate({scrollTop: 0}, 800);
-        return false;
-    });
+    // Scroll-to-top functionality removed as requested
+    // It was considered distracting and has been disabled
 
     // Floating contact button functionality
     const floatingContact = $('#floating-contact');
