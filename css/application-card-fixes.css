@@ -1,0 +1,62 @@
+/* Enhanced application card styles for acoustic installation page */
+
+.applications-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+/* Fix sizing issues that may cause content cut-off */
+.application-card {
+    flex: 1;
+    min-width: 240px;
+    max-width: 280px;
+    /* Set min-height to accommodate potential taller content */
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+/* Ensure images have consistent sizing */
+.application-figure img {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Ensure text content doesn't get cut off */
+.application-card p {
+    padding: 15px;
+    flex-grow: 1; /* Allow paragraphs to expand */
+}
+
+/* Additional space at the bottom of the card */
+.application-card p:last-child {
+    margin-bottom: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .applications-grid {
+        gap: 20px;
+    }
+
+    .application-card {
+        min-width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Fix mobile view issues */
+@media (max-width: 480px) {
+    .application-card {
+        min-height: 350px;
+    }
+
+    .application-figure img {
+        height: 180px;
+    }
+}
