@@ -75,6 +75,9 @@ $(document).ready(function() {
             $dropdown.toggleClass('active');
             $dropdownContent.toggleClass('active');
             $(this).attr('aria-expanded', isExpanded ? 'true' : 'false');
+
+            // Add debugging to verify the event is firing
+            console.log('Mobile dropdown clicked - Active state:', isExpanded, 'Element:', $(this).text());
         }
     });
 
