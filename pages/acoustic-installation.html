@@ -4,47 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acoustic Installation - Evolve Acoustics</title>
+    <meta name="description" content="Professional acoustic installation services by Evolve Acoustics. We ensure precise, clean, and effective installation of all acoustic treatments for optimal sound performance and aesthetics.">
     <link rel="icon" type="image/png" href="../assets/images/favicon.png">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/fontawesome/all.min.css"> <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/semantic-styles.css">
     <link rel="stylesheet" href="../css/mobile-menu-enhancements.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
+    </head>
 <body>
-    <header>
+    <header role="banner">
         <a href="../index.html" aria-label="Evolve Acoustics Home">
             <img src="../assets/images/logo_light.png" alt="Evolve Acoustics Logo" class="logo-img">
         </a>
-        <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
-        <div class="nav-links">
-            <nav>
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="about-us.html">About Us</a></li>
-                    <li class="dropdown">
-                        <a href="#" aria-haspopup="true" aria-expanded="false">Services</a>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-menu">&#9776;</button>
+        <div class="nav-links" id="main-menu">
+            <nav aria-label="Main Navigation">
+                <ul role="menubar">
+                    <li><a href="../index.html" role="menuitem">Home</a></li>
+                    <li><a href="about-us.html" role="menuitem">About Us</a></li>
+                    <li class="dropdown" role="none">
+                        <a href="#" role="menuitem" aria-haspopup="true" aria-expanded="false">Services</a>
                         <div class="dropdown-content" role="menu">
                             <a href="acoustic-consulting.html" role="menuitem">Acoustic Consulting</a>
                             <a href="acoustic-design.html" role="menuitem">Acoustic Design</a>
                             <a href="acoustic-installation.html" role="menuitem">Acoustic Installation</a>
                         </div>
                     </li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="gallery.html" role="menuitem">Gallery</a></li>
+                    <li><a href="testimonials.html" role="menuitem">Testimonials</a></li>
+                    <li><a href="blog.html" role="menuitem">Blog</a></li>
+                    <li><a href="contact.html" role="menuitem">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-    <main>
-        <div class="service-page-content">
-            <h1>Acoustic Installation</h1>
-            <p>Our Acoustic Installation services ensure that your sound environment is optimized for performance and aesthetics.</p>
-            <img src="../assets/images/IMG_5556-scaled-1.webp" alt="Acoustic Installation" />
-        </div>
-    </main>
+    <main role="main">
+        <div class="service-page-content" role="region" aria-label="Acoustic Installation Services">
+            <div class="service-intro">
+                <div class="service-intro-text">
+                    <h1>Acoustic Installation</h1>
+                    <p class="service-tagline">Precision, expertise, and seamless integration – bringing your acoustic design to life.</p>
+                </div>
+                <figure class="service-intro-figure">
+                    <img src="../assets/images/IMG_5556-scaled-1.webp" alt="Professional acoustic panel installation in progress" class="service-intro-image" loading="eager" />
+                    <figcaption>Expert installation of acoustic treatments for flawless performance and visual appeal.</figcaption>
+                </figure>
+            </div>
+
+            <section class="service-section philosophy-section content-card" data-aos="fade-up">
+                <div class="section-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h2>The Evolve Installation Standard</h2>
+                <p>At Evolve Acoustics, installation is more than just hanging panels. It's the critical final step where meticulous planning and design are transformed into tangible acoustic excellence. Our approach is built on:</p>
+                <div class="philosophy-principles">
+                    <div class="principle" data-aos="fade-up" data-aos-delay="100">
+                        <div class="principle-icon"><i class="fas fa-ruler-combined"></i></div>
+                        <h3>Precision & Accuracy</h3>
+                        <p>Every panel, diffuser, and trap is installed according to exact design specifications for optimal acoustic performance.</p>
+                    </div>
+                    <div class="principle" data-aos="fade-up" data-aos-delay="200">
+                        <div class="principle-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Safety & Durability</h3>
+                        <p>We use appropriate mounting hardware and techniques to ensure all treatments are secure, safe, and built to last.</p>
+                    </div>
+                    <div class="principle" data-aos="fade-up" data-aos-delay="300">
+                        <div class="principle-icon"><i class="fas fa-broom"></i></div>
+                        <h3>Cleanliness & Respect</h3>
+                        <p>Our team works efficiently, maintains a clean workspace, and respects your property throughout the installation process.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="service-section process-section content-card" data-aos="fade-up">
+                <div class="section-icon">
+                    <i class="fas fa-list-check"></i>
+                </div>
+                <h2>Our Meticulous Installation Process</h2>
+                <p>We follow a structured approach to ensure every installation is a success, delivering both acoustic performance and aesthetic integration:</p>
+                <div class="process-steps">
+                    <div class="process-step" data-aos="fade-right" data-aos-delay="100">
+                        <div class="step-icon"><i class="fas fa-clipboard-list"></i></div>
+                        <div class="step-number">1</div>
+                        <h3>Pre-Installation Review</h3>
+                        <p>Confirming design plans, site readiness, and coordinating logistics with you for a smooth start.</p>
+                    </div>
+                    <div class="process-step" data-aos="fade-right" data-aos-delay="200">
+                        <div class="step-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="step-number">2</div>
+                        <h3>Site Preparation & Layout</h3>
+                        <p>Careful marking of placement locations based on acoustic design, ensuring precision before any fixtures are made.</p>
+                    </div>
+                    <div class="process-step" data-aos="fade-right" data-aos-delay="300">
+                        <div class="step-icon"><i class="fas fa-hard-hat"></i></div>
+                        <div class="step-number">3</div>
+                        <h3>Professional Installation</h3>
+                        <p>Utilizing specialized tools and techniques for secure and visually appealing mounting of all acoustic elements.</p>
+                    </div>
+                    <div class="process-step" data-aos="fade-right" data-aos-delay="400">
+                        <div class="step-icon"><i class="fas fa-cogs"></i></div>
+                        <div class="step-number">4</div>
+                        <h3>System Integration (if applicable)</h3>
+                        <p>Ensuring acoustic treatments work harmoniously with existing or new audio/visual systems.</p>
+                    </div>
+                    <div class="process-step" data-aos="fade-right" data-aos-delay="500">
+                        <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="step-number">5</div>
+                        <h3>Final Inspection & Cleanup</h3>
+                        <p>A thorough walkthrough to ensure your complete satisfaction and a spotless environment post-installation.</p>
+                    </div>
+                </div>
+            </section>
     <footer>
         <div class="footer-content">
             <div class="footer-section">
