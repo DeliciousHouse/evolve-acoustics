@@ -1,0 +1,219 @@
+/* Blog Image Enhancements - Improves display of images in blog posts */
+
+/* Figure styling for blog images */
+.blog-content figure {
+    margin: 2rem auto;
+    max-width: 100%;
+    display: block;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: rgba(38, 70, 83, 0.5);
+}
+
+.blog-content figure:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.blog-content figure img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    border-radius: 8px 8px 0 0;
+}
+
+.blog-content figcaption {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    background-color: rgba(38, 70, 83, 0.9);
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* Center standalone images */
+.blog-section img {
+    display: block;
+    margin: 2rem auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Placeholder image styling */
+.placeholder-image {
+    position: relative;
+    background-color: rgba(38, 70, 83, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.placeholder-image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../assets/images/logo_light.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60px;
+    opacity: 0.2;
+    z-index: 1;
+}
+
+.placeholder-image::after {
+    content: "Image Coming Soon";
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: bold;
+    margin-top: 10px;
+    z-index: 2;
+}
+
+.blog-card-image .placeholder-image {
+    height: 200px;
+}
+
+.blog-content .placeholder-image {
+    height: 350px;
+    margin: 2rem auto;
+    max-width: 100%;
+}
+
+.related-post .placeholder-image {
+    height: 180px;
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+.blog-author .placeholder-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 1.5rem;
+}
+
+/* Blog Post Text Enhancements - Improve readability */
+.blog-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #f5f5f5;
+    margin-bottom: 1.5rem;
+}
+
+.blog-content h2 {
+    font-size: 1.8rem;
+    color: #4fd5ff;
+    margin: 2rem 0 1rem;
+}
+
+.blog-content h3 {
+    font-size: 1.5rem;
+    color: #4fd5ff;
+    margin: 1.8rem 0 1rem;
+}
+
+.blog-content ul, .blog-content ol {
+    padding-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.blog-content li {
+    margin-bottom: 0.7rem;
+    line-height: 1.7;
+}
+
+.blog-content strong {
+    color: #4fd5ff;
+    font-weight: 600;
+}
+
+.blog-content blockquote {
+    border-left: 4px solid #4fd5ff;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background-color: rgba(38, 70, 83, 0.5);
+    color: #f0f0f0;
+    font-style: italic;
+}
+
+/* Card styling in list view */
+.blog-card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Fix contrast issues */
+.blog-card h2 {
+    color: #4fd5ff;
+    font-weight: 600;
+}
+
+.blog-card p {
+    color: #f5f5f5;
+}
+
+.blog-date {
+    color: #cccccc;
+}
+
+/* Related posts image fixes */
+.related-post-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .blog-content figure {
+        margin: 1.5rem auto;
+    }
+
+    .blog-content figure img {
+        max-height: 350px;
+    }
+
+    .blog-content .placeholder-image {
+        height: 250px;
+    }
+
+    .blog-content p {
+        font-size: 1rem;
+    }
+
+    .blog-content h2 {
+        font-size: 1.6rem;
+    }
+
+    .blog-content h3 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-content figure img {
+        max-height: 250px;
+    }
+
+    .blog-content .placeholder-image {
+        height: 200px;
+    }
+
+    .blog-card-image .placeholder-image {
+        height: 180px;
+    }
+}
