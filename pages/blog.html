@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="../css/mobile-menu-enhancements.css">
+    <link rel="stylesheet" href="../css/single-blog-post.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -67,11 +68,54 @@
                         <a href="#" class="category-tag" data-category="design">Design</a>
                         <a href="#" class="category-tag" data-category="installation">Installation</a>
                         <a href="#" class="category-tag" data-category="technology">Technology</a>
+                        <a href="#" class="category-tag" data-category="home-theater">Home Theater</a>
                     </div>
                 </div>
             </div>
 
             <div class="blog-grid">
+                <!-- New Blog Post - Home Theater Acoustic Makeover -->
+                <div class="blog-card" data-category="acoustics design home-theater">
+                    <div class="blog-card-image">
+                        <img src="../assets/images/acoustic-treatment.jpg" alt="Home Theater Acoustic Treatment" class="blog-image">
+                        <div class="blog-category"><span>Home Theater</span></div>
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-date">May 21, 2025</span>
+                        <h2>5 Signs Your DIY Home Theater Needs an Acoustic Makeover</h2>
+                        <p>Has your DIY home theater lost its cinematic charm? Learn how to identify the telltale signs that your theater room needs an acoustic upgrade for a truly immersive experience.</p>
+                        <div class="blog-card-footer">
+                            <a href="blogs/5-signs-home-theater-acoustic-makeover.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            <div class="blog-social">
+                                <a href="#" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog Post - Home Theater Mistakes -->
+                <div class="blog-card" data-category="acoustics design installation home-theater">
+                    <div class="blog-card-image">
+                        <img src="../assets/images/home-theater.jpg" alt="Home Theater Setup" class="blog-image">
+                        <div class="blog-category"><span>Home Theater</span></div>
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-date">May 20, 2025</span>
+                        <h2>Top 7 DIY Home Theater Mistakes (And How Evolve Acoustics Helps You Avoid Them)</h2>
+                        <p>Building your DIY home theater is thrilling, but common pitfalls can quickly turn your cinema dream into a frustrating nightmare. Learn how to avoid these mistakes and create the perfect home theater experience.</p>
+                        <div class="blog-card-footer">
+                            <a href="blogs/diy-home-theater-mistakes.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            <div class="blog-social">
+                                <a href="#" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Blog Post 1 -->
                 <div class="blog-card" data-category="acoustics design">
                     <div class="blog-card-image">
@@ -224,6 +268,16 @@
             const blogCards = document.querySelectorAll('.blog-card');
             const searchInput = document.getElementById('blog-search-input');
             const searchBtn = document.getElementById('blog-search-btn');
+
+            // Fix the home-theater category
+            const homeTheaterItems = document.querySelectorAll('[data-category*="home-theater"]');
+            if (homeTheaterItems.length === 0) {
+                // Update our new blog post to include home-theater category
+                const homeTheaterPost = document.querySelector('.blog-card:first-child');
+                if (homeTheaterPost) {
+                    homeTheaterPost.dataset.category += " home-theater";
+                }
+            }
 
             // Category filtering
             categoryLinks.forEach(link => {
