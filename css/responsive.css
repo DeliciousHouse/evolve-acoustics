@@ -76,6 +76,32 @@
         font-size: 20px;
     }
 
+    .service-page-content {
+        padding-top: 2rem; /* Add a bit more top padding */
+    }
+
+    .service-intro {
+        margin-bottom: 3rem; /* Increase space after intro */
+    }
+
+    .service-section .section-icon {
+        width: 48px;
+        height: 48px;
+        top: -24px; /* Adjust protrusion */
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto; /* Ensure it's centered */
+    }
+
+    .service-section .section-icon i {
+        font-size: 20px;
+    }
+
+    /* Ensure first carded section has enough top margin if an icon is present */
+    .service-intro + .service-section.content-card {
+        margin-top: 40px; /* Add space above the first card that has an icon */
+    }
+
     .philosophy-principles {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 1.5rem;
@@ -103,7 +129,7 @@
     }
 
     .service-page-content {
-        padding: 2.5rem 1.5rem 1.5rem;
+        padding: 2.5rem 1rem 1.5rem;
         margin-top: 0.75rem;
     }
 
@@ -112,18 +138,36 @@
     }
 
     .service-section h2 {
-        font-size: 1.5rem;
+        font-size: 1.6rem; /* Adjusted from 1.5rem for better hierarchy */
     }
 
     .service-intro {
         grid-template-columns: 1fr;
         gap: 1.5rem;
         margin-top: 1.25rem;
+        margin-bottom: 50px; /* Increased space after intro section */
     }
 
     /* Add margin to first content card */
     .service-page-content .content-card:first-of-type {
         margin-top: 2rem;
+    }
+
+    .service-section .section-icon {
+        width: 40px;
+        height: 40px;
+        top: -20px; /* Icon sits less outside the card */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .service-section .section-icon i {
+        font-size: 18px; /* Adjust icon size if needed */
+    }
+
+    /* Specific adjustment for the first section-card after intro */
+    .service-intro + .service-section.content-card {
+        margin-top: 45px; /* Ensure icon has space above it */
     }
 
     .service-list {
@@ -282,7 +326,7 @@
     }
 
     main {
-        padding: 30px 15px;
+        padding: 20px 10px; /* Slightly reduced side padding */
     }
 
     .blog-header h1 {
@@ -308,50 +352,19 @@
     }
 
     .service-intro {
-        margin-bottom: 2rem;
+        margin-bottom: 40px;
     }
 
-    .service-section {
-        margin-bottom: 2rem;
-    }
-}
-
-/* Additional mobile adjustments for service pages */
-@media only screen and (max-width: 480px) {
-    .service-page-content {
-        padding: 3rem 1.2rem 1.2rem;
-        margin-top: 1rem;
-    }    .service-intro {
-        margin-top: 1.5rem;
+    .service-intro + .service-section.content-card {
+        margin-top: 35px; /* Adjust for very small screens */
     }
 
     .service-section h2 {
         font-size: 1.4rem;
-        margin: 1.5rem 0 0.8rem;
     }
 
-    /* Increase spacing for first content card on small screens */
-    .service-page-content .content-card:first-of-type {
-        margin-top: 2.5rem;
-    }
-
-    .application-card h3 {
-        padding: 1rem;
-        font-size: 1.2rem;
-    }
-
-    .application-card img {
-        height: 160px;
-    }
-
-    .application-card p {
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-    }
-
-    .testimonial-highlight {
-        padding: 1.2rem;
-        margin: 2rem 0;
+    .image-caption {
+        font-size: 0.8rem;
     }
 
     .carousel-slide img {
@@ -362,25 +375,9 @@
         height: 180px;
     }
 
-    .overlay-label {
-        top: 5px;
-        left: 5px;
-        font-size: 0.7rem;
-        padding: 0.2rem 0.5rem;
-    }
-
-    .carousel-controls {
-        gap: 0.5rem;
-    }
-
     .carousel-control {
         width: 30px;
         height: 30px;
-    }
-
-    .carousel-dot {
-        width: 8px;
-        height: 8px;
     }
 
     .content-card {

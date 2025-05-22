@@ -67,7 +67,7 @@
     border-radius: 10px;
     width: 100%;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: visible; /* Change from hidden to visible to prevent clipping the icon if it's slightly outside padding */
 }
 
 .content-card {
@@ -91,9 +91,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
     color: #264653;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10; /* Ensure it's above the card's pseudo-elements */
+}
+
+.section-icon i { /* Target the i element for font size */
+    font-size: 24px;
 }
 
 /* Philosophy Principles */
