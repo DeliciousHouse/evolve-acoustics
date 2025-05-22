@@ -1873,12 +1873,6 @@ social-links a i.fa-yelp {
     content: "\f1e9" !important;
 }
 
-/* Update favicon size */
-link[rel="icon"] {
-    height: 32px;
-    width: 32px;
-}
-
 /* Image Caption Styles */
 .image-caption {
     font-size: 0.9rem;
