@@ -1,0 +1,241 @@
+/* filepath: /home/bkam/evolve-acoustics/css/blog-wood-panels.css */
+/* Wood panel accents for blog posts - themed to match site's acoustic aesthetics */
+
+/* Wood panel background for blog content cards */
+.blog-section {
+    position: relative;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 3rem;
+    background-color: rgba(38, 70, 83, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Add subtle wood grain pattern to sections */
+.blog-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Add acoustic panel perforations to blog section headers */
+.blog-section h2 {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(79, 213, 255, 0.3);
+}
+
+.blog-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background-color: #4fd5ff;
+    border-radius: 2px;
+}
+
+/* Enhanced blog intro with wood panel styling */
+.blog-intro {
+    position: relative;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 3rem;
+    background-color: rgba(38, 70, 83, 0.6);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.blog-intro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Wood-themed blockquotes */
+.blog-content blockquote {
+    position: relative;
+    margin: 2rem 0;
+    padding: 2rem;
+    background-color: rgba(38, 70, 83, 0.6);
+    border-left: 4px solid #4fd5ff;
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+    color: #f5f5f5;
+    overflow: hidden;
+}
+
+.blog-content blockquote::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.blog-content blockquote p {
+    position: relative;
+    z-index: 1;
+}
+
+.blog-content blockquote cite {
+    display: block;
+    margin-top: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    color: #4fd5ff;
+    position: relative;
+    z-index: 1;
+}
+
+/* Wood-themed code blocks */
+.blog-content pre {
+    background-color: rgba(38, 70, 83, 0.7);
+    border-radius: 8px;
+    padding: 20px;
+    overflow-x: auto;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-content pre::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+.blog-content code {
+    font-family: 'Consolas', 'Monaco', 'Andale Mono', monospace;
+    color: #4fd5ff;
+    position: relative;
+    z-index: 1;
+}
+
+/* Enhanced CTA section */
+.blog-cta {
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.1;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+/* Enhanced blog author section */
+.blog-author {
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-author::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+/* Enhanced related posts */
+.related-post {
+    position: relative;
+    overflow: hidden;
+}
+
+.related-post::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .blog-section,
+    .blog-intro {
+        padding: 20px;
+    }
+
+    .blog-content blockquote {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-section,
+    .blog-intro {
+        padding: 15px;
+    }
+
+    .blog-content blockquote {
+        padding: 1.25rem;
+    }
+}
