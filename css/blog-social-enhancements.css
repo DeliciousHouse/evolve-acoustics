@@ -1,0 +1,165 @@
+/* filepath: /home/bkam/evolve-acoustics/css/blog-social-enhancements.css */
+/* Enhanced social media integration for blog posts */
+
+/* Styled social sharing buttons */
+.blog-share {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.blog-share span {
+    margin-right: 0.75rem;
+    font-weight: 500;
+    color: #e0e0e0;
+}
+
+.blog-share a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    line-height: 1;
+    text-align: center;
+    background-color: rgba(38, 70, 83, 0.7);
+    color: #e0e0e0;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover effects for social buttons */
+.blog-share a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Different color on hover for each social network */
+.blog-share a[aria-label="Share on Facebook"]:hover {
+    background-color: #4267B2;
+    color: #ffffff;
+}
+
+.blog-share a[aria-label="Share on Twitter"]:hover {
+    background-color: #1DA1F2;
+    color: #ffffff;
+}
+
+.blog-share a[aria-label="Share on LinkedIn"]:hover {
+    background-color: #0077B5;
+    color: #ffffff;
+}
+
+.blog-share a[aria-label="Share on Pinterest"]:hover {
+    background-color: #E60023;
+    color: #ffffff;
+}
+
+.blog-share a[aria-label="Share on Reddit"]:hover {
+    background-color: #FF4500;
+    color: #ffffff;
+}
+
+.blog-share a[aria-label="Share via Email"]:hover {
+    background-color: #4fd5ff;
+    color: #264653;
+}
+
+/* Ripple effect on button click */
+.blog-share a::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+.blog-share a:active::after {
+    width: 100px;
+    height: 100px;
+    opacity: 1;
+    transition: 0s;
+}
+
+/* Enhanced floating share bar for desktop */
+.blog-share-floating {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    background-color: rgba(38, 70, 83, 0.8);
+    border-radius: 30px;
+    padding: 10px 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.blog-share-floating a {
+    margin: 8px 0;
+}
+
+/* Share button with text label for clearer UX */
+.share-button-with-label {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: rgba(38, 70, 83, 0.7);
+    color: #e0e0e0;
+    border-radius: 25px;
+    margin-right: 0.75rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.share-button-with-label i {
+    margin-right: 8px;
+}
+
+.share-button-with-label:hover {
+    background-color: #4fd5ff;
+    color: #264653;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Hide floating share bar on smaller screens */
+@media (max-width: 1200px) {
+    .blog-share-floating {
+        display: none;
+    }
+}
+
+/* Adjust spacing on smaller screens */
+@media (max-width: 768px) {
+    .blog-share {
+        justify-content: center;
+    }
+
+    .blog-share span {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Smaller buttons on very small screens */
+@media (max-width: 480px) {
+    .blog-share a {
+        width: 34px;
+        height: 34px;
+    }
+}
