@@ -87,6 +87,11 @@
 }
 
 @media (max-width: 768px) {
+    /* Header adjustments for mobile */
+    header {
+        padding: 12px 15px;
+    }
+
     nav ul {
         display: block;
         text-align: center;
@@ -98,7 +103,8 @@
     }
 
     .service-page-content {
-        padding: 1.5rem;
+        padding: 2.5rem 1.5rem 1.5rem;
+        margin-top: 0.75rem;
     }
 
     .service-page-content h1 {
@@ -112,6 +118,12 @@
     .service-intro {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        margin-top: 1.25rem;
+    }
+
+    /* Add margin to first content card */
+    .service-page-content .content-card:first-of-type {
+        margin-top: 2rem;
     }
 
     .service-list {
@@ -302,10 +314,25 @@
     .service-section {
         margin-bottom: 2rem;
     }
+}
+
+/* Additional mobile adjustments for service pages */
+@media only screen and (max-width: 480px) {
+    .service-page-content {
+        padding: 3rem 1.2rem 1.2rem;
+        margin-top: 1rem;
+    }    .service-intro {
+        margin-top: 1.5rem;
+    }
 
     .service-section h2 {
         font-size: 1.4rem;
         margin: 1.5rem 0 0.8rem;
+    }
+
+    /* Increase spacing for first content card on small screens */
+    .service-page-content .content-card:first-of-type {
+        margin-top: 2.5rem;
     }
 
     .application-card h3 {
@@ -359,10 +386,17 @@
     .content-card {
         padding: 1.2rem;
         margin-bottom: 2rem;
+        padding-top: 2rem; /* Increase top padding for section icons */
     }
 
     .section-icon {
-        display: none;
+        top: -20px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .section-icon i {
+        font-size: 1.2rem;
     }
 
     .step-icon {
