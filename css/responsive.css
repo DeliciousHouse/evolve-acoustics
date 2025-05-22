@@ -349,6 +349,13 @@
     .blog-pagination a {
         height: 35px;
         min-width: 35px;
+        padding: 0 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .blog-pagination a.prev,
+    .blog-pagination a.next {
+        padding: 0 0.7rem;
     }
 
     .service-intro {

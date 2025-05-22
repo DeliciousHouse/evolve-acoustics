@@ -1048,12 +1048,17 @@ main img {
     color: #1a1a1a;
 }
 
-.blog-pagination a.next {
-    padding-right: 1rem;
+.blog-pagination a.next,
+.blog-pagination a.prev {
+    padding: 0 1rem;
 }
 
 .blog-pagination a.next i {
     margin-left: 5px;
+}
+
+.blog-pagination a.prev i {
+    margin-right: 5px;
 }
 
 .blog-cta {

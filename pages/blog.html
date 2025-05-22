@@ -432,12 +432,24 @@
 
     <script src="../js/main.js"></script>
     <script>
-        // Blog filtering functionality
+        // Blog filtering and pagination functionality
         document.addEventListener('DOMContentLoaded', function() {
             const categoryLinks = document.querySelectorAll('.category-tag');
             const blogCards = document.querySelectorAll('.blog-card');
             const searchInput = document.getElementById('blog-search-input');
             const searchBtn = document.getElementById('blog-search-btn');
+            const paginationContainer = document.querySelector('.blog-pagination');
+
+            // Pagination settings
+            const postsPerPage = 6;
+            let currentPage = 1;
+            let filteredCards = [...blogCards]; // Start with all cards
+
+            // Initialize pagination
+            function initPagination() {
+                updatePagination();
+                showPage(currentPage);
+            }
 
             // Fix the home-theater category
             const homeTheaterItems = document.querySelectorAll('[data-category*="home-theater"]');
@@ -462,13 +474,15 @@
 
                     const category = this.dataset.category;
 
-                    blogCards.forEach(card => {
-                        if (category === 'all' || card.dataset.category.includes(category)) {
-                            card.style.display = 'flex';
-                        } else {
-                            card.style.display = 'none';
-                        }
+                    // Filter cards based on category
+                    filteredCards = [...blogCards].filter(card => {
+                        return category === 'all' || card.dataset.category.includes(category);
                     });
+
+                    // Reset to first page and update pagination
+                    currentPage = 1;
+                    updatePagination();
+                    showPage(currentPage);
                 });
             });
 
@@ -476,16 +490,17 @@
             function performSearch() {
                 const searchTerm = searchInput.value.toLowerCase();
 
-                blogCards.forEach(card => {
+                // Filter cards based on search term
+                filteredCards = [...blogCards].filter(card => {
                     const title = card.querySelector('h2').textContent.toLowerCase();
                     const content = card.querySelector('p').textContent.toLowerCase();
-
-                    if (title.includes(searchTerm) || content.includes(searchTerm)) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
+                    return title.includes(searchTerm) || content.includes(searchTerm);
                 });
+
+                // Reset to first page and update pagination
+                currentPage = 1;
+                updatePagination();
+                showPage(currentPage);
             }
 
             searchBtn.addEventListener('click', performSearch);
@@ -494,6 +509,92 @@
                     performSearch();
                 }
             });
+
+            // Show the current page of blog posts
+            function showPage(page) {
+                // Hide all cards first
+                blogCards.forEach(card => {
+                    card.style.display = 'none';
+                });
+
+                // Calculate start and end indices
+                const startIndex = (page - 1) * postsPerPage;
+                const endIndex = startIndex + postsPerPage;
+
+                // Show only the cards for the current page
+                filteredCards.slice(startIndex, endIndex).forEach(card => {
+                    card.style.display = 'flex';
+                });
+
+                // Update active state on pagination links
+                const paginationLinks = document.querySelectorAll('.blog-pagination a');
+                paginationLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.textContent.trim() === page.toString()) {
+                        link.classList.add('active');
+                    }
+                });
+
+                // Scroll to top of blog section
+                document.querySelector('.blog-container').scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Update pagination links based on current filtered posts
+            function updatePagination() {
+                const totalPages = Math.ceil(filteredCards.length / postsPerPage);
+                let paginationHTML = '';
+
+                // No need for pagination if only one page
+                if (totalPages <= 1) {
+                    paginationContainer.style.display = 'none';
+                    return;
+                }
+
+                paginationContainer.style.display = 'flex';
+
+                // Previous button
+                if (currentPage > 1) {
+                    paginationHTML += `<a href="#" class="prev"><i class="fas fa-chevron-left"></i> Prev</a>`;
+                }
+
+                // Page number buttons
+                for (let i = 1; i <= totalPages; i++) {
+                    const activeClass = i === currentPage ? 'active' : '';
+                    paginationHTML += `<a href="#" class="${activeClass}">${i}</a>`;
+                }
+
+                // Next button
+                if (currentPage < totalPages) {
+                    paginationHTML += `<a href="#" class="next">Next <i class="fas fa-chevron-right"></i></a>`;
+                }
+
+                paginationContainer.innerHTML = paginationHTML;
+
+                // Add event listeners to pagination links
+                document.querySelectorAll('.blog-pagination a').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+
+                        if (this.classList.contains('next')) {
+                            if (currentPage < totalPages) {
+                                currentPage++;
+                            }
+                        } else if (this.classList.contains('prev')) {
+                            if (currentPage > 1) {
+                                currentPage--;
+                            }
+                        } else {
+                            currentPage = parseInt(this.textContent);
+                        }
+
+                        showPage(currentPage);
+                        updatePagination(); // Update the pagination controls
+                    });
+                });
+            }
+
+            // Initialize pagination on page load
+            initPagination();
         });
     </script>
     <script src="../js/image-fallback.js"></script>
