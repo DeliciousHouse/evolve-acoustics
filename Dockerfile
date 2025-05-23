@@ -1,11 +1,12 @@
 # Stage 1: Builder stage - To install Node.js, tools, and perform minification/optimization
 FROM node:18-alpine AS builder
 
-# Install build dependencies needed for native addons (like gifsicle)
+# Install build dependencies needed for native addons (like gifsicle and mozjpeg)
 # alpine-sdk includes build-base (gcc, g++, make etc.)
 # autoconf, automake, libtool are often needed for C/C++ based packages
 # git might be needed by some npm packages to fetch dependencies
-RUN apk add --no-cache alpine-sdk autoconf automake libtool git python3
+# nasm is required by mozjpeg
+RUN apk add --no-cache alpine-sdk autoconf automake libtool git python3 nasm
 
 WORKDIR /app
 
