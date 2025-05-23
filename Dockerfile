@@ -52,9 +52,9 @@ RUN cp -r /app/temp_images_optimized/* ./assets/images/
 RUN rm -rf /app/temp_images_optimized
 
 # 3. Minify CSS
-# csso-cli processes *.css files in the input directory and outputs them to the output directory.
-# It does not process subdirectories with this syntax.
-RUN npx csso-cli --input /app/src/css/ --output ./css/ --comments none
+# Process CSS files in /app/src/css/ individually
+# Excludes subdirectories like 'fontawesome' which are handled by the cp command below
+RUN find /app/src/css/ -maxdepth 1 -type f -name "*.css" -exec sh -c 'npx csso-cli --input "$1" --output "./css/$(basename "$1")" --comments none' _ {} \;
 # Ensure FontAwesome CSS files (in subdirectories) are copied.
 # This will copy them as-is, which is fine for pre-minified library files.
 RUN cp /app/src/css/fontawesome/*.css ./css/fontawesome/
