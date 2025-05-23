@@ -52,10 +52,11 @@ RUN cp -r /app/temp_images_optimized/* ./assets/images/
 RUN rm -rf /app/temp_images_optimized
 
 # 3. Minify CSS
-# csso-cli can handle recursive directories.
-RUN npx csso-cli --input /app/src/css/ --output ./css/ --recursive --comments none
-# Ensure FontAwesome CSS files are copied if not processed by csso (or if you want them as is)
-# This will overwrite minified FontAwesome files if csso processed them, which is fine.
+# csso-cli processes *.css files in the input directory and outputs them to the output directory.
+# It does not process subdirectories with this syntax.
+RUN npx csso-cli --input /app/src/css/ --output ./css/ --comments none
+# Ensure FontAwesome CSS files (in subdirectories) are copied.
+# This will copy them as-is, which is fine for pre-minified library files.
 RUN cp /app/src/css/fontawesome/*.css ./css/fontawesome/
 
 
