@@ -1,6 +1,12 @@
 # Stage 1: Builder stage - To install Node.js, tools, and perform minification/optimization
 FROM node:18-alpine AS builder
 
+# Install build dependencies needed for native addons (like gifsicle)
+# alpine-sdk includes build-base (gcc, g++, make etc.)
+# autoconf, automake, libtool are often needed for C/C++ based packages
+# git might be needed by some npm packages to fetch dependencies
+RUN apk add --no-cache alpine-sdk autoconf automake libtool git python3
+
 WORKDIR /app
 
 # Copy package.json and package-lock.json (if available)
@@ -9,7 +15,9 @@ COPY package.json ./
 # COPY package-lock.json ./
 
 # Install dependencies (minification tools)
-RUN npm install
+# Using --legacy-peer-deps to avoid potential issues with peer dependency conflicts
+# that might arise with the versions of tools we're using.
+RUN npm install --legacy-peer-deps
 
 # Copy all website source files into a 'src' directory in the build stage
 COPY . ./src/
@@ -46,6 +54,7 @@ RUN rm -rf /app/temp_images_optimized
 # csso-cli can handle recursive directories.
 RUN npx csso-cli --input /app/src/css/ --output ./css/ --recursive --comments none
 # Ensure FontAwesome CSS files are copied if not processed by csso (or if you want them as is)
+# This will overwrite minified FontAwesome files if csso processed them, which is fine.
 RUN cp /app/src/css/fontawesome/*.css ./css/fontawesome/
 
 
