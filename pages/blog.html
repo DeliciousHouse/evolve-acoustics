@@ -104,46 +104,50 @@
                 </div>
 
                 <!-- New Blog Post - Restaurant Acoustics for Michelin Chefs -->
-                <div class="blog-card" data-category="acoustics design restaurant">
-                    <div class="blog-card-image">
-                        <img src="../assets/images/death_and_co.webp" alt="Elegant restaurant with acoustic treatment" class="blog-image">
-                        <div class="blog-category"><span>Restaurant Acoustics</span></div>
-                    </div>
-                    <div class="blog-card-content">
-                        <span class="blog-date">May 21, 2025</span>
-                        <h2>Why Michelin Chefs Care About Decibels: The ROI I've Seen from Premium Restaurant Acoustics</h2>
-                        <p>Top chefs know sound is a crucial ingredient in fine dining. Discover how premium acoustic design creates measurable ROI for restaurants through increased guest satisfaction, higher perceived value, and a true "destination" atmosphere.</p>
-                        <div class="blog-card-footer">
-                            <a href="blogs/restaurant-acoustics-michelin-chefs.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                            <div class="blog-social">
-                                <a href="#" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="#" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="blogs/restaurant-acoustics-michelin-chefs.html" class="blog-card-wrapper">
+                    <div class="blog-card" data-category="acoustics design restaurant">
+                        <div class="blog-card-image">
+                            <img src="../assets/images/death_and_co.webp" alt="Elegant restaurant with acoustic treatment" class="blog-image">
+                            <div class="blog-category"><span>Restaurant Acoustics</span></div>
+                        </div>
+                        <div class="blog-card-content">
+                            <span class="blog-date">May 21, 2025</span>
+                            <h2>Why Michelin Chefs Care About Decibels: The ROI I've Seen from Premium Restaurant Acoustics</h2>
+                            <p>Top chefs know sound is a crucial ingredient in fine dining. Discover how premium acoustic design creates measurable ROI for restaurants through increased guest satisfaction, higher perceived value, and a true "destination" atmosphere.</p>
+                            <div class="blog-card-footer">
+                                <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
+                                <div class="blog-social">
+                                    <a href="#" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
 
                 <!-- New Blog Post - Acoustic Panel Cleaning -->
-                <div class="blog-card" data-category="acoustics installation technology">
-                    <div class="blog-card-image">
-                        <img src="../assets/images/blogs/acoustic_maintenance.webp" alt="Cleaning acoustic panels" class="blog-image">
-                        <div class="blog-category"><span>Acoustic Maintenance</span></div>
-                    </div>
-                    <div class="blog-card-content">
-                        <span class="blog-date">May 21, 2025</span>
-                        <h2>My Acoustic Panels Still Look New: Here Are My Cleaning & Maintenance Secrets!</h2>
-                        <p>Your acoustic panels work hard to make your room sound amazing. Learn my professional tips and tricks for keeping them looking fresh and performing at their best for years to come.</p>
-                        <div class="blog-card-footer">
-                            <a href="blogs/acoustic-panel-cleaning-maintenance.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                            <div class="blog-social">
-                                <a href="#" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="#" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="blogs/acoustic-panel-cleaning-maintenance.html" class="blog-card-wrapper">
+                    <div class="blog-card" data-category="acoustics installation technology">
+                        <div class="blog-card-image">
+                            <img src="../assets/images/blogs/acoustic_maintenance.webp" alt="Cleaning acoustic panels" class="blog-image">
+                            <div class="blog-category"><span>Acoustic Maintenance</span></div>
+                        </div>
+                        <div class="blog-card-content">
+                            <span class="blog-date">May 21, 2025</span>
+                            <h2>My Acoustic Panels Still Look New: Here Are My Cleaning & Maintenance Secrets!</h2>
+                            <p>Your acoustic panels work hard to make your room sound amazing. Learn my professional tips and tricks for keeping them looking fresh and performing at their best for years to come.</p>
+                            <div class="blog-card-footer">
+                                <span class="read-more">Read More <i class="fas fa-arrow-right"></i></span>
+                                <div class="blog-social">
+                                    <a href="#" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
 
                 <!-- New Blog Post - Guilford vs Camira -->
                 <div class="blog-card" data-category="acoustics design technology">
@@ -445,6 +449,29 @@
             const searchInput = document.getElementById('blog-search-input');
             const searchBtn = document.getElementById('blog-search-btn');
             const paginationContainer = document.querySelector('.blog-pagination');
+
+            // Make all blog cards clickable
+            blogCards.forEach(card => {
+                // Find the read more link to get the URL
+                const readMoreLink = card.querySelector('.read-more');
+                if (readMoreLink) {
+                    const articleUrl = readMoreLink.getAttribute('href');
+
+                    // Make the entire card clickable
+                    card.addEventListener('click', function(e) {
+                        // Don't navigate if clicking on social links or their children
+                        if (e.target.closest('.blog-social')) {
+                            return;
+                        }
+
+                        // Navigate to the article page
+                        window.location.href = articleUrl;
+                    });
+
+                    // Add cursor:pointer to indicate clickability
+                    card.style.cursor = 'pointer';
+                }
+            });
 
             // Pagination settings
             const postsPerPage = 6;
