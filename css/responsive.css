@@ -455,6 +455,25 @@
 }
 
 /* Responsive Team Section Styles */
+@media (max-width: 1200px) {
+    .team-member-image-left,
+    .team-member-image-right {
+        flex: 0 0 40%;
+        max-width: 40%;
+    }
+
+    .team-member-info-left,
+    .team-member-info-right {
+        flex: 0 0 55%;
+        max-width: 55%;
+    }
+
+    .team-member-image-left img,
+    .team-member-image-right img {
+        max-height: 350px;
+    }
+}
+
 @media (max-width: 992px) {
     .team-member-row {
         padding: 15px;
@@ -466,6 +485,11 @@
     .team-member-info-right {
         flex: 0 0 48%;
         max-width: 48%;
+    }
+
+    .team-member-image-left img,
+    .team-member-image-right img {
+        max-height: 300px;
     }
 }
 
