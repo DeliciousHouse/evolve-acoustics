@@ -2242,20 +2242,21 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 60px;
     background-color: rgba(30, 30, 30, 0.5);
     border-radius: 8px;
-    padding: 20px;
+    padding: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    gap: 30px;
 }
 
 .team-member-image-left,
 .team-member-image-right {
-    flex: 0 0 40%;
-    max-width: 40%;
+    flex: 0 0 35%;
+    max-width: 35%;
 }
 
 .team-member-info-left,
 .team-member-info-right {
-    flex: 0 0 55%;
-    max-width: 55%;
+    flex: 0 0 60%;
+    max-width: 60%;
     padding: 0 20px;
 }
 
@@ -2263,6 +2264,7 @@ h1, h2, h3, h4, h5, h6 {
 .team-member-image-right img {
     width: 100%;
     height: auto;
+    max-height: 400px;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
     object-fit: cover;
