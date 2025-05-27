@@ -2228,6 +2228,70 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 1;
 }
 
+/* Team Section Styles */
+.team-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.team-member-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+    background-color: rgba(30, 30, 30, 0.5);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.team-member-image-left,
+.team-member-image-right {
+    flex: 0 0 40%;
+    max-width: 40%;
+}
+
+.team-member-info-left,
+.team-member-info-right {
+    flex: 0 0 55%;
+    max-width: 55%;
+    padding: 0 20px;
+}
+
+.team-member-image-left img,
+.team-member-image-right img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    object-fit: cover;
+    aspect-ratio: 3/4;
+}
+
+.team-heading {
+    text-align: center;
+    margin: 50px 0 20px;
+    font-size: 2.2em;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.team-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right,
+        rgba(222, 184, 135, 0.1),
+        rgba(222, 184, 135, 0.7) 50%,
+        rgba(222, 184, 135, 0.1)
+    );
+}
+
 /* Add subtle wood grain to section headers */
 main h1::after, .services h2::after, .testimonials-preview h2::after {
     content: '';
