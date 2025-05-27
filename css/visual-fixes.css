@@ -1,0 +1,38 @@
+/* Visual Fixes for Evolve Acoustics website */
+
+/* Remove dark blue underlines under text elements */
+.blog-content p strong,
+.blog-content h3,
+.blog-intro strong,
+.blog-section h3 {
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+/* Fix grid layout for blog cards to prevent empty spaces */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    grid-auto-flow: dense; /* This helps fill in empty spaces */
+}
+
+/* Ensure all cards have consistent height */
+.blog-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* For equal height when using anchor wrappers */
+.blog-card-wrapper {
+    height: 100%;
+    display: block;
+}
+
+/* Improve hover effect visibility */
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    background-color: rgba(38, 70, 83, 0.7); /* Slightly lighter on hover */
+}

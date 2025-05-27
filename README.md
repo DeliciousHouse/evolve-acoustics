@@ -20,6 +20,14 @@ To install Evolve Acoustics locally, you need to download or clone the repositor
    ```
 3. Open `index.html` in your preferred web browser to view the application.
 
+## Recent Updates
+
+### Visual Improvements (May 27, 2025)
+- Fixed dark blue underlines under text elements throughout the site
+- Fixed the grid layout for blogs to prevent empty spaces in the card grid
+- Added visual-fixes.css to maintain consistent styling across all pages
+- Created utility script (apply-visual-fixes.sh) to apply fixes to all blog posts
+
 Alternatively, you can serve the project using a local web server for a more accurate experience. For example, if you have Python installed, you can use the following command:
 ```bash
 # Python 3.x
