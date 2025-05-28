@@ -62,19 +62,21 @@
 }
 
 .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    grid-auto-flow: dense; /* This forces items to fill empty spaces */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: -1rem; /* Negative margin to offset the padding on cards */
 }
 
 .blog-card {
+    flex: 0 0 calc(33.333% - 2rem); /* Exactly 3 cards per row */
+    margin: 1rem;
     background-color: rgba(38, 70, 83, 0.5);
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%;
+    height: calc(100% - 2rem); /* Account for the margin */
     display: flex;
     flex-direction: column;
     display: flex;
@@ -376,13 +378,19 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 1200px) {
+    .blog-card {
+        flex: 0 0 calc(50% - 2rem); /* 2 cards per row on medium screens */
+    }
+}
+
 @media (max-width: 768px) {
     .blog-header h1 {
         font-size: 2rem;
     }
 
-    .blog-grid {
-        grid-template-columns: 1fr;
+    .blog-card {
+        flex: 0 0 calc(100% - 2rem); /* 1 card per row on mobile */
     }
 
     .featured-blog h2 {
