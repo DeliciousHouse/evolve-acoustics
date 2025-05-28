@@ -62,27 +62,23 @@
 }
 
 .blog-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: -1rem; /* Negative margin to offset the padding on cards */
+    position: relative; /* For absolute positioning of cards */
+    margin: 0; /* Reset margin as we'll handle positioning via JS */
+    min-height: 600px; /* Minimum height to prevent jumpiness during load */
+    width: 100%;
 }
 
 .blog-card {
-    flex: 0 0 calc(33.333% - 2rem); /* Exactly 3 cards per row */
+    width: calc(33.333% - 2rem); /* Base width for 3 columns */
     margin: 1rem;
     background-color: rgba(38, 70, 83, 0.5);
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: calc(100% - 2rem); /* Account for the margin */
-    display: flex;
-    flex-direction: column;
     display: flex;
     flex-direction: column;
     cursor: pointer; /* Add cursor pointer to indicate clickability */
-    position: relative; /* For z-index stacking */
 }
 
 .blog-card:hover {
@@ -100,6 +96,19 @@
 .blog-social {
     position: relative;
     z-index: 10; /* Higher z-index to prevent card click */
+}
+
+/* Responsive styles for blog grid */
+@media (max-width: 1200px) {
+    .blog-card {
+        width: calc(50% - 2rem); /* 2 cards per row on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-card {
+        width: calc(100% - 2rem); /* 1 card per row on mobile */
+    }
 }
 
 .blog-social a {
@@ -379,8 +388,9 @@
 
 /* Responsive adjustments */
 @media (max-width: 1200px) {
-    .blog-card {
-        flex: 0 0 calc(50% - 2rem); /* 2 cards per row on medium screens */
+    /* Styles already handled in earlier section */
+    .featured-blog h2 {
+        font-size: 1.6rem;
     }
 }
 
@@ -389,9 +399,7 @@
         font-size: 2rem;
     }
 
-    .blog-card {
-        flex: 0 0 calc(100% - 2rem); /* 1 card per row on mobile */
-    }
+    /* Blog card styles already handled in earlier section */
 
     .featured-blog h2 {
         font-size: 1.5rem;
