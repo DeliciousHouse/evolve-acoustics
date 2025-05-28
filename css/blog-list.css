@@ -65,6 +65,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
+    grid-auto-flow: dense; /* This forces items to fill empty spaces */
 }
 
 .blog-card {
@@ -74,6 +75,8 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     height: 100%;
+    display: flex;
+    flex-direction: column;
     display: flex;
     flex-direction: column;
     cursor: pointer; /* Add cursor pointer to indicate clickability */

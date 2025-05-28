@@ -13,13 +13,20 @@
 .blog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    grid-auto-flow: dense; /* This helps fill in empty spaces */
+    grid-gap: 30px;
+    grid-auto-flow: dense; /* This forces items to fill empty spaces */
 }
 
 /* Ensure all cards have consistent height */
 .blog-card {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure content takes up all available space */
+.blog-card-content {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
@@ -35,4 +42,48 @@
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     background-color: rgba(38, 70, 83, 0.7); /* Slightly lighter on hover */
+}
+
+/* Fix spacing between blog sections */
+.blog-section {
+    margin-bottom: 2.5rem;
+    margin-top: 0; /* Remove top margin if it's creating double spacing */
+}
+
+/* Ensure consistent spacing between elements */
+.blog-content p,
+.blog-content h2,
+.blog-content h3 {
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+/* Remove any unwanted paragraph spacing */
+.blog-content p + p {
+    margin-top: 1rem;
+}
+
+/* Fix empty paragraphs that might be creating space */
+.blog-content p:empty {
+    display: none;
+}
+
+/* Fix related posts section */
+.related-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+    grid-auto-flow: dense;
+}
+
+/* Make related post cards consistent height */
+.related-post {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hide any empty elements that might create space */
+div:empty, p:empty {
+    display: none;
 }

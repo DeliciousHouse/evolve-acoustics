@@ -205,8 +205,9 @@
 
 .related-posts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 2rem;
+    grid-auto-flow: dense; /* Force items to fill empty spaces */
 }
 
 .related-post {
@@ -214,6 +215,9 @@
     background-color: rgba(38, 70, 83, 0.5);
     padding: 15px;
     border-radius: 8px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
