@@ -9,20 +9,8 @@
     border-bottom: none !important;
 }
 
-/* Fix grid layout for blog cards to prevent empty spaces */
-.blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 30px;
-    grid-auto-flow: dense; /* This forces items to fill empty spaces */
-}
-
-/* Ensure all cards have consistent height */
-.blog-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
+/* Fix layout for blog cards to prevent empty spaces - using flexbox instead of grid */
+/* Note: Main layout styles are now in blog-list.css */
 
 /* Ensure content takes up all available space */
 .blog-card-content {
@@ -35,6 +23,7 @@
 .blog-card-wrapper {
     height: 100%;
     display: block;
+    width: 100%;
 }
 
 /* Improve hover effect visibility */
@@ -68,19 +57,15 @@
     display: none;
 }
 
-/* Fix related posts section */
+/* Related posts section uses flexbox now - styles defined in single-blog-post.css */
+/* Make sure we don't have conflicts with other styling */
 .related-posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-gap: 20px;
-    grid-auto-flow: dense;
+    margin-bottom: 2rem;
 }
 
-/* Make related post cards consistent height */
-.related-post {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+.related-post-image {
+    width: 100%;
+    object-fit: cover;
 }
 
 /* Hide any empty elements that might create space */
