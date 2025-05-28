@@ -204,20 +204,19 @@
 }
 
 .related-posts-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: -1rem; /* Negative margin to offset the padding on cards */
+    position: relative; /* For absolute positioning of cards */
+    margin: 0; /* Reset margin as we'll handle positioning via JS */
+    min-height: 400px; /* Minimum height to prevent jumpiness during load */
+    width: 100%;
 }
 
 .related-post {
-    flex: 0 0 calc(33.333% - 2rem); /* Exactly 3 cards per row */
+    width: calc(33.333% - 2rem); /* Base width for 3 columns */
     margin: 1rem;
     transition: transform 0.3s, box-shadow 0.3s ease;
     background-color: rgba(38, 70, 83, 0.5);
     padding: 15px;
     border-radius: 8px;
-    height: calc(100% - 2rem); /* Account for the margin */
     display: flex;
     flex-direction: column;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -256,7 +255,7 @@
 /* Responsive styles */
 @media (max-width: 1200px) {
     .related-post {
-        flex: 0 0 calc(50% - 2rem); /* 2 cards per row on medium screens */
+        width: calc(50% - 2rem); /* 2 cards per row on medium screens */
     }
 }
 
@@ -266,7 +265,7 @@
     }
 
     .related-post {
-        flex: 0 0 calc(100% - 2rem); /* 1 card per row on mobile */
+        width: calc(100% - 2rem); /* 1 card per row on mobile */
     }
 
     .blog-author {

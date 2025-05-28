@@ -1,12 +1,24 @@
 /* Visual Fixes for Evolve Acoustics website */
 
-/* Remove dark blue underlines under text elements */
+/* Remove dark blue underlines under text elements - comprehensive fix */
 .blog-content p strong,
+.blog-content h2,
 .blog-content h3,
+.blog-content h4,
 .blog-intro strong,
-.blog-section h3 {
+.blog-section h2,
+.blog-section h3,
+.blog-section h4,
+.blog-section strong,
+.blog-conclusion strong,
+.blog-author strong,
+.related-post h4,
+.blog-card h2,
+.featured-blog h2,
+a strong {
     text-decoration: none !important;
     border-bottom: none !important;
+    box-shadow: none !important;
 }
 
 /* Fix layout for blog cards to prevent empty spaces - using flexbox instead of grid */
