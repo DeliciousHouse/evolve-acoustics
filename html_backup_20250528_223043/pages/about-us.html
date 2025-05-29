@@ -3,13 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms & Conditions - Evolve Acoustics</title>
+    <meta name="google-adsense-account" content="ca-pub-1084587555969543">
+    <title>About Us - Evolve Acoustics</title>
     <link rel="icon" type="image/png" href="../assets/images/favicon.png">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="../css/mobile-menu-enhancements.css">
+    <link rel="stylesheet" href="../css/about-team-fixes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Additional inline styles for team images to ensure proper display -->
+    <style>
+        /* Force team images to have fixed dimensions regardless of other styles */
+        .team-member-image-left img,
+        .team-member-image-right img {
+            width: 250px !important;
+            max-width: 250px !important;
+            height: auto !important;
+            aspect-ratio: auto !important;
+            object-fit: contain !important;
+        }
+
+        /* Ensure containers are sized properly */
+        .team-member-image-left,
+        .team-member-image-right {
+            width: 250px !important;
+            min-width: 250px !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7G1H497STH"></script>
     <script>
@@ -39,56 +65,53 @@
                             <a href="acoustic-installation.html" role="menuitem">Acoustic Installation</a>
                         </div>
                     </li>
+                    <li><a href="gallery.html">Gallery</a></li>
                     <li><a href="testimonials.html">Testimonials</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
         </div>
-    </header>
-    <main>
-        <h1>Terms & Conditions</h1>
+    </header>    <main>
+        <h1>About Us</h1>
+        <div class="about-section">
+            <div class="about-content">
+                <h2>Our Story</h2>
+                <p>Evolve Acoustics was founded in 2023 by Avi Marmer with a singular passion: to transform spaces through the power of sound. We believe that every environment deserves acoustic excellence, whether it's a recording studio, a conference room, or a home theater.</p>
 
-        <div class="legal-content">
-            <section>
-                <h2>1. Introduction</h2>
-                <p>These terms and conditions (the "Terms") govern your use of our website and services provided by Evolve Acoustics ("we," "our," or "us"). By accessing or using our website and services, you agree to be bound by these Terms.</p>
-            </section>
+                <p>Creating an ambience and elevating experiences through sound is at the heart of everything we do. Our team's combined experience in acoustic engineering, music production, and sound physics allows us to deliver truly custom and perfect acoustic treatments, getting it right the first time.</p>
 
-            <section>
-                <h2>2. Services</h2>
-                <p>Evolve Acoustics provides professional acoustic consulting, design, and installation services. Our services are subject to separate agreements and may have additional terms specific to each service.</p>
-            </section>
+                <h2>Our Approach</h2>
+                <p>We combine cutting-edge acoustic science with practical, customized solutions. Each project begins with careful analysis, moves through detailed design, and concludes with precise implementation. The result? Spaces that sound as good as they look.</p>
+            </div>
+        </div>
 
-            <section>
-                <h2>3. Website Use</h2>
-                <p>The content on our website is for informational purposes only. We reserve the right to modify or discontinue any aspect of our website at any time without notice.</p>
-            </section>
+        <h2 class="team-heading">Meet Our Team</h2>
 
-            <section>
-                <h2>4. Intellectual Property</h2>
-                <p>All content on this website, including text, graphics, logos, images, audio clips, and software, is the property of Evolve Acoustics and is protected by copyright laws.</p>
-            </section>
+        <div class="team-section">
+            <!-- First team member - Avi on left, bio on right -->
+            <div class="team-member-row">
+                <div class="team-member-image-left">
+                    <img src="../assets/images/Avi-Marmer-Founder-Evolve-Acoustics.webp" alt="Avi Marmer - Founder and Owner" class="member-image" width="250" height="350" style="width: 250px; max-width: 250px; height: auto; max-height: 350px;" />
+                </div>
+                <div class="team-member-info-right">
+                    <h3>Avi Marmer</h3>
+                    <h4>Founder & Owner</h4>
+                    <p>With a rich background as a music producer and acoustic engineer, Avi founded Evolve Acoustics in 2023 to bring professional acoustic solutions to both residential and commercial spaces. His technical expertise and artistic sensibility ensure that every project achieves the perfect balance of form and function.</p>
+                </div>
+            </div>
 
-            <section>
-                <h2>5. Limitation of Liability</h2>
-                <p>Evolve Acoustics shall not be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in any way connected with the use of our website or services.</p>
-            </section>
-
-            <section>
-                <h2>6. Governing Law</h2>
-                <p>These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which Evolve Acoustics operates.</p>
-            </section>
-
-            <section>
-                <h2>7. Changes to Terms</h2>
-                <p>We reserve the right to modify these Terms at any time. Your continued use of our website after any changes indicates your acceptance of the modified Terms.</p>
-            </section>
-
-            <section>
-                <h2>8. Contact Information</h2>
-                <p>If you have any questions about these Terms, please contact us at info@evolveacoustics.com.</p>
-            </section>
+            <!-- Second team member - Bio on left, Alec on right -->
+            <div class="team-member-row">
+                <div class="team-member-info-left">
+                    <h3>Alec Higginbotham</h3>
+                    <h4>Acoustic Specialist</h4>
+                    <p>Alec brings a unique perspective to acoustic design through his extensive experience as a musician. Having performed in venues of all sizes, he has an intuitive understanding of how sound behaves in different spaces. This practical knowledge combines with technical expertise to create acoustic environments that truly enhance the listening experience.</p>
+                </div>
+                <div class="team-member-image-right">
+                    <img src="../assets/images/alec_higginbotham.webp" alt="Alec Higginbotham - Acoustic Specialist" class="member-image" width="250" height="350" style="width: 250px; max-width: 250px; height: auto; max-height: 350px;" />
+                </div>
+            </div>
         </div>
     </main>
     <footer>
@@ -139,6 +162,5 @@
     <!-- Elfsight All-in-One Chat | Evolve-Acoustics Chat -->
     <script src="https://static.elfsight.com/platform/platform.js" async></script>
     <div class="elfsight-app-5bec1035-3020-43d1-a3a2-b1a23e3c7efc" data-elfsight-app-lazy></div>
-<script src="../js/evolve-visual-fixes.js"></script>
 </body>
 </html>
