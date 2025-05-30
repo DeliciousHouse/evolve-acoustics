@@ -1,40 +1,35 @@
 /**
- * Master Fix for Evolve Acoustics Website
+ * Visual Fixes for Evolve Acoustics Website
  *
- * This script:
- * 1. Loads the necessary CSS fixes (dark blue underlines & layout fixes)
- * 2. Loads the JavaScript fixes for the blog grid and related posts grid
+ * This script simply loads the visual-fixes.css file,
+ * which contains all of our CSS-only fixes.
+ *
+ * The CSS-only approach eliminates the need for JavaScript-based
+ * layout adjustments, improving performance and reliability.
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Load CSS fixes
+    // Load CSS fixes if not already loaded
     function loadCSS(href) {
+        // Check if the CSS has already been loaded
+        const existingLinks = document.querySelectorAll('link[rel="stylesheet"]');
+        for (const link of existingLinks) {
+            if (link.href.includes(href)) {
+                console.log('CSS already loaded: ' + href);
+                return;
+            }
+        }
+
+        // Load the CSS
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = href;
         document.head.appendChild(link);
+        console.log('Visual fixes CSS loaded: ' + href);
     }
 
     // Load our visual fixes CSS
     loadCSS('/css/visual-fixes.css');
-
-    // Check if we're on a blog list page
-    const isBlogListPage = document.querySelector('.blog-grid');
-    if (isBlogListPage) {
-        // Load the blog grid fix script
-        const blogGridScript = document.createElement('script');
-        blogGridScript.src = '/js/blog-grid-fix.js';
-        document.body.appendChild(blogGridScript);
-    }
-
-    // Check if we're on a single blog post page with related posts
-    const isSingleBlogPage = document.querySelector('.related-posts-grid');
-    if (isSingleBlogPage) {
-        // Load the related posts fix script
-        const relatedPostsScript = document.createElement('script');
-        relatedPostsScript.src = '/js/related-posts-fix.js';
-        document.body.appendChild(relatedPostsScript);
-    }
 
     // Debugging helper - log when all fixes are loaded
     console.log('Evolve Acoustics visual fixes loaded: ' + new Date().toLocaleString());
