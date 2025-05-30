@@ -84,3 +84,38 @@ a strong {
 div:empty, p:empty {
     display: none;
 }
+
+/* Fixes for text truncation in blog cards */
+.blog-card h2, .related-post h4 {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+}
+
+/* Ensure all blog card titles are fully visible */
+.blog-card .blog-card-content h2 {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/* Prevent images from breaking layout */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Additional fixes for blog grid spacing */
+.blog-grid {
+    width: 100% !important;
+    max-width: 1200px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Fix for vertical spacing issues */
+.blog-card, .related-post {
+    margin-bottom: 30px !important;
+}
