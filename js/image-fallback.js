@@ -20,7 +20,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Trigger error handler for images that might be missing
-        if (image.src.includes('blogs/before_home_diy.webp') ||
+        if (image.src.includes('blogs/diy_frustration.webp') ||
+           image.src.includes('blogs/what_not_to_do.webp') ||
+           image.src.includes('blogs/sweet_spot.webp') ||
+           image.src.includes('blogs/after_home_professional.webp') ||
             image.src.includes('blog/after_home_professional.webp') ||
             image.src.includes('restaurant-acoustics.jpg') ||
             image.src.includes('acoustic-panels.jpg') ||
