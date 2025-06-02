@@ -14,9 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const images = document.querySelectorAll('img:not([loading])');
 
         images.forEach(img => {
-            // Skip logo or critical images
+            // Skip logo, critical images, or already processed images
             if (img.classList.contains('logo-img') ||
                 img.classList.contains('hero-img') ||
+                img.hasAttribute('data-src') ||
+                img.hasAttribute('loading') ||
                 isInViewport(img)) {
                 return;
             }
@@ -29,10 +31,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Store original source
                 const originalSrc = img.getAttribute('src');
 
-                // Set a data attribute for the source and replace with placeholder
+                // Set a data attribute for the source and use a local placeholder image
                 if (originalSrc && !img.getAttribute('data-src')) {
                     img.setAttribute('data-src', originalSrc);
-                    img.setAttribute('src', 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"%3E%3C/svg%3E');
+                    // Use a standard placeholder from assets instead of data URI
+                    const basePath = window.location.pathname.includes('/pages/blogs/') ?
+                        '../../assets/images/placeholder.png' :
+                        window.location.pathname.includes('/pages/') ?
+                            '../assets/images/placeholder.png' :
+                            'assets/images/placeholder.png';
+                    img.setAttribute('src', basePath);
                 }
             }
         });

@@ -30,21 +30,48 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load preloader CSS
     loadPreloaderCSS();
 
-    // Add preloader HTML
-    const preloaderHTML = `
-        <div class="evolve-preloader">
-            <div class="logo-container">
-                <img src="${getBasePath()}assets/images/logo_light.png" alt="Evolve Acoustics" class="logo">
-                <div class="loading-text">LOADING</div>
-                <div class="progress-bar">
-                    <div class="progress"></div>
-                </div>
-            </div>
-        </div>
-    `;
+    // Create preloader HTML using DOM methods (CSP-compatible)
+    function createPreloaderElements() {
+        // Main container
+        const preloader = document.createElement('div');
+        preloader.className = 'evolve-preloader';
+
+        // Logo container
+        const logoContainer = document.createElement('div');
+        logoContainer.className = 'logo-container';
+
+        // Logo image
+        const logoImg = document.createElement('img');
+        logoImg.src = getBasePath() + 'assets/images/logo_light.png';
+        logoImg.alt = 'Evolve Acoustics';
+        logoImg.className = 'logo';
+
+        // Loading text
+        const loadingText = document.createElement('div');
+        loadingText.className = 'loading-text';
+        loadingText.textContent = 'LOADING';
+
+        // Progress bar container
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-bar';
+
+        // Progress indicator
+        const progress = document.createElement('div');
+        progress.className = 'progress';
+
+        // Assemble elements
+        progressBar.appendChild(progress);
+        logoContainer.appendChild(logoImg);
+        logoContainer.appendChild(loadingText);
+        logoContainer.appendChild(progressBar);
+        preloader.appendChild(logoContainer);
+
+        return preloader;
+    }
 
     // Add preloader to the beginning of the body
-    document.body.insertAdjacentHTML('afterbegin', preloaderHTML);
+    const preloaderElement = createPreloaderElements();
+    document.body.insertBefore(preloaderElement, document.body.firstChild);
 
     // Add loading class to body
     document.body.classList.add('loading');

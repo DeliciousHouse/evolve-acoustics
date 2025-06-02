@@ -83,13 +83,26 @@ This document outlines the comprehensive visual enhancements implemented for the
 4. **Improved Typography**: Consider adding variable fonts for more refined typography
 5. **Advanced Image Techniques**: Implement WebP format with fallbacks for better image quality at smaller file sizes
 
+## CSP Compatibility
+
+All visual enhancements have been made compatible with Content Security Policy (CSP) to ensure proper security while maintaining visual improvements:
+
+1. **File-Based Placeholders**: Instead of data URIs, all placeholders reference local image files
+2. **DOM-Based Element Creation**: All dynamic elements are created using DOM methods instead of innerHTML
+3. **CSP Headers**: Added appropriate CSP configuration in .htaccess
+4. **CSP Meta Tags**: Added fallback CSP meta tags to all HTML files
+5. **Transition Optimizations**: Modified CSS transitions to work with CSP restrictions
+
+For more details, see `csp-compatibility-documentation.md`.
+
 ## Maintenance Recommendations
 
-1. Run `apply-all-visual-fixes.sh` after major content updates
-2. Test across multiple browsers and devices regularly
-3. Monitor for any new visual inconsistencies as content evolves
-4. Keep scripts updated with emerging best practices
-5. Consider periodic reviews of visual enhancement effectiveness
+1. Run `apply-csp-compatible-fixes.sh` after major content updates
+2. Use `test-csp-compatibility.sh` to check for potential CSP issues
+3. Test across multiple browsers and devices regularly
+4. Monitor for any new visual inconsistencies as content evolves
+5. Keep scripts updated with emerging best practices
+6. Consider periodic reviews of visual enhancement effectiveness
 
 ## Contact
 
