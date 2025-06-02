@@ -5,12 +5,13 @@ img {
     transition: opacity 0.3s ease-in-out;
 }
 
-img.loaded, img[loading="lazy"] {
+img.loaded {
     opacity: 1;
 }
 
-img:not(.loaded):not([loading="lazy"]) {
-    opacity: 0;
+/* Only fade in images with data-src that are being lazy loaded */
+img[data-src]:not(.loaded) {
+    opacity: 0.2;
 }
 
 /* Fix for uneven card heights across all card types */
