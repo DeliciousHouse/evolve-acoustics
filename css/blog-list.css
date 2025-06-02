@@ -286,95 +286,6 @@
     color: #e0e0e0;
 }
 
-/* Featured blog post */
-.featured-blog {
-    background-color: rgba(38, 70, 83, 0.5);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    margin-bottom: 3rem;
-    display: grid;
-    grid-template-columns: 1fr;
-}
-
-@media (min-width: 768px) {
-    .featured-blog {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-.featured-blog-image {
-    height: 300px;
-    overflow: hidden;
-}
-
-.featured-blog-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.featured-blog-content {
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.featured-blog-meta {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-}
-
-.featured-blog-category {
-    background-color: rgba(79, 213, 255, 0.2);
-    color: #4fd5ff;
-    padding: 0.25rem 0.75rem;
-    border-radius: 3px;
-    margin-right: 1rem;
-}
-
-.featured-blog-date {
-    color: #e0e0e0;
-}
-
-.featured-blog h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    color: #ffffff;
-}
-
-.featured-blog p {
-    color: #e0e0e0;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-}
-
-.featured-blog-link {
-    align-self: flex-start;
-    color: #4fd5ff;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-    display: inline-flex;
-    align-items: center;
-}
-
-.featured-blog-link i {
-    margin-left: 0.5rem;
-    transition: transform 0.3s;
-}
-
-.featured-blog-link:hover {
-    color: #8be0ff;
-}
-
-.featured-blog-link:hover i {
-    transform: translateX(3px);
-}
-
 /* Empty state */
 .no-results {
     text-align: center;
@@ -411,9 +322,6 @@
 /* Responsive adjustments */
 @media (max-width: 1200px) {
     /* Styles already handled in earlier section */
-    .featured-blog h2 {
-        font-size: 1.6rem;
-    }
 }
 
 @media (max-width: 768px) {
@@ -422,10 +330,6 @@
     }
 
     /* Blog card styles already handled in earlier section */
-
-    .featured-blog h2 {
-        font-size: 1.5rem;
-    }
 }
 
 @media (max-width: 480px) {
