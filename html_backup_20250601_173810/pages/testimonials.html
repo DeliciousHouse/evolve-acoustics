@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials - Evolve Acoustics</title>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/mobile-menu-enhancements.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7G1H497STH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7G1H497STH');
+    </script>
+    <style>
+        .testimonial-section {
+            margin-bottom: 60px;
+        }
+        .notice {
+            background-color: rgba(38, 70, 83, 0.8);
+            border-left: 4px solid #2a9d8f;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            color: white;
+        }
+        .notice a {
+            color: #8ecae6;
+            text-decoration: underline;
+        }
+        .notice a:hover {
+            color: #ffffff;
+        }
+        .example-testimonial {
+            border: none;
+            background: linear-gradient(135deg, #1a4d6d 0%, #2980b9 100%);
+            position: relative;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .example-testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        .example-testimonial::before {
+            content: "EXAMPLE";
+            position: absolute;
+            top: -12px;
+            right: 15px;
+            background-color: #ff7700;
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 3px;
+        }
+        .real-testimonial {
+            border: none;
+            background: linear-gradient(135deg, #6d327c 0%, #485DA6 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .real-testimonial::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 65%, rgba(255,255,255,0.2) 70%, transparent 75%);
+            background-size: 200% 200%;
+            animation: shine 3s infinite;
+            pointer-events: none;
+        }
+        @keyframes shine {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .real-testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+        }
+        .testimonial-verified {
+            display: inline-block;
+            margin-top: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .section-header {
+            border-bottom: 2px solid #fff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            margin-top: 50px;
+            color: white;
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .testimonial-item {
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+        .testimonial-content {
+            margin-bottom: 20px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        .testimonial-content p {
+            position: relative;
+            padding: 0 10px;
+            font-size: 1.1em;
+            font-weight: 400;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            letter-spacing: 0.2px;
+        }
+        .testimonial-content p::before {
+            content: "";
+            font-size: 60px;
+            font-family: Georgia, serif;
+            opacity: 0.4;
+            position: absolute;
+            left: -20px;
+            top: -20px;
+        }
+        .real-testimonial .testimonial-content p::before {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .example-testimonial .testimonial-content p::before {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .testimonial-author h3 {
+            margin-bottom: 5px;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            letter-spacing: 0.5px;
+        }
+        .testimonial-author p {
+            opacity: 0.9;
+            font-size: 0.95em;
+        }
+    </style>
+    <script src="../js/enhanced-preloader.js"></script>
+    <link rel="stylesheet" href="../css/visual-fixes.css">
+</head>
+<body>
+    <header>
+        <a href="../index.html" aria-label="Evolve Acoustics Home">
+            <img src="../assets/images/logo_light.png" alt="Evolve Acoustics Logo" class="logo-img">
+        </a>
+        <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+        <div class="nav-links">
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li class="dropdown">
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Services</a>
+                        <div class="dropdown-content" role="menu">
+                            <a href="acoustic-consulting.html" role="menuitem">Acoustic Consulting</a>
+                            <a href="acoustic-design.html" role="menuitem">Acoustic Design</a>
+                            <a href="acoustic-installation.html" role="menuitem">Acoustic Installation</a>
+                        </div>
+                    </li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <h1>Client Testimonials</h1>
+
+        <div class="notice">
+            <p><strong>Share Your Experience:</strong> Have you worked with Evolve Acoustics? We'd love to feature your testimonial. Please <a href="contact.html">contact us</a> to share your feedback.</p>
+        </div>
+
+        <!-- Elfsight All-in-One Reviews | Reviews -->
+        <script src="https://static.elfsight.com/platform/platform.js" async></script>
+        <div class="elfsight-app-71ec038d-9753-4976-93ff-da3f55d03590" data-elfsight-app-lazy></div>
+
+        <div class="testimonial-section">
+            <h2 class="section-header">Client Success Stories</h2>
+            <div class="testimonial-grid">
+                <!-- This section is for real testimonials -->
+                <!-- Add your real testimonials here once collected -->
+                <div class="testimonial-item real-testimonial">
+                    <div class="testimonial-content">
+                        <p>"Working with Avi at Evolve Acoustics completely transformed my home studio space. The custom acoustic panels he designed not only solved all my echo issues but also look stunning. The difference in sound quality is incredible - my recordings are clearer, and mixing is so much more accurate now. Professional service from start to finish!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <h3>Michael B.</h3>
+                        <p>Home Studio Owner</p>
+                        <span class="testimonial-verified"><i class="fas fa-check"></i> Verified Client</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-item real-testimonial">
+                    <div class="testimonial-content">
+                        <p>"Our restaurant was beautiful but had terrible acoustics - customers constantly complained about the noise levels. Evolve Acoustics installed custom ceiling treatments that blend perfectly with our decor while dramatically reducing the noise. Our customers can now enjoy conversations without shouting, and our staff is much happier too. Worth every penny!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <h3>Sarah K.</h3>
+                        <p>Restaurant Owner, Los Angeles</p>
+                        <span class="testimonial-verified"><i class="fas fa-check"></i> Verified Client</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-section">
+            <h2 class="section-header">Example Testimonials</h2>
+            <div class="notice">
+                <p><strong>Note:</strong> The testimonials below are example placeholders. They represent the types of feedback we typically receive but are not from actual clients.</p>
+            </div>
+
+            <div class="testimonial-grid">
+                <!-- Example Testimonials -->
+                <div class="testimonial-item example-testimonial">
+                    <div class="testimonial-content">
+                        <p>"The transformation of our space has been remarkable. Before Evolve Acoustics, customers constantly complained about not being able to hear each other during busy nights. Now, even at full capacity, conversations remain clear and the ambiance is perfect. The acoustic panels blend seamlessly with our interior design."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <h3>Example: Restaurant/Bar</h3>
+                        <p><em>(Sample testimonial - not a real client)</em></p>
+                    </div>
+                </div>
+
+                <div class="testimonial-item example-testimonial">
+                    <div class="testimonial-content">
+                        <p>"I never realized how much acoustic quality impacts the movie-watching experience until Evolve Acoustics redesigned my home theater. The sound is crisp, balanced, and immersive - it truly feels like we're at a premiere! Avi was professional, knowledgeable, and delivered exactly what our space needed."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <h3>Example: Home Theater Client</h3>
+                        <p><em>(Sample testimonial - not a real client)</em></p>
+                    </div>
+                </div>
+
+                <div class="testimonial-item example-testimonial">
+                    <div class="testimonial-content">
+                        <p>"Our conference room used to have terrible echo issues that made virtual meetings unbearable. Evolve Acoustics provided a solution that was both functional and aesthetically pleasing. Our teams can now communicate clearly, and clients are impressed with both the look and sound quality of our space."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <h3>Example: Business Client</h3>
+                        <p><em>(Sample testimonial - not a real client)</em></p>
+                    </div>
+                </div>
+
+                <div class="testimonial-item example-testimonial">
+                    <div class="testimonial-content">
+                        <p>"Working with Evolve Acoustics transformed our live music venue. The custom acoustic treatment perfectly balances sound clarity for different types of performances while controlling noise levels for our neighbors. Artists love performing here, and we've received countless compliments on the sound quality since the renovation."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <h3>Example: Music Venue</h3>
+                        <p><em>(Sample testimonial - not a real client)</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="acoustic-consulting.html">Acoustic Consulting</a></li>
+                    <li><a href="acoustic-design.html">Acoustic Design</a></li>
+                    <li><a href="acoustic-installation.html">Acoustic Installation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://m.facebook.com/p/Evolve-Acoustics-100071110328356/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/evolve_acoustics/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.google.com/search?sca_esv=ec1c0fa4563bd641&hl=en-US&sxsrf=AHTn8zq1TtNCT5kiSvqQWKOn9RG2fjLubg:1744976201418&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzeMbShOoETNZOlr-9O_bgC4iyFuoK6U-8H97kFqyOQi3CiRy3GXyss_pI4-BrWy9bfRlQFWCMz7flrHQo6nk7szYUsjpGNcFmZ4cCTBOmBIwjp8VVA%3D%3D&q=Evolve+Acoustics+Reviews&sa=X&ved=2ahUKEwjV8YH1vuGMAxWHL0QIHXUYBcYQ0bkNegQIJhAE&biw=1746&bih=974&dpr=2" target="_blank" aria-label="Google Reviews"><i class="fab fa-google"></i></a>
+                    <a href="https://www.yelp.com/biz/evolve-acoustics-reseda?uid=xnm0es5LYO0QL8NN7bHe2g&utm_source=ashare" target="_blank" aria-label="Yelp"><i class="fab fa-yelp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Evolve Acoustics. All rights reserved.</p>
+            <p class="attribution">Designed and Developed by HID Consult</p>
+        </div>
+    </footer>
+    <script src="../js/main.js"></script>
+
+    <!-- Elfsight All-in-One Chat | Evolve-Acoustics Chat -->
+    <script src="https://static.elfsight.com/platform/platform.js" async></script>
+    <div class="elfsight-app-5bec1035-3020-43d1-a3a2-b1a23e3c7efc" data-elfsight-app-lazy></div>
+<script src="../js/evolve-visual-fixes.js"></script>
+<script src="../js/image-optimization.js"></script>
+<script src="../js/visual-issue-detector.js"></script>
+</body>
+</html>
