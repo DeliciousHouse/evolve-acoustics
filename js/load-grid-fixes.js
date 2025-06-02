@@ -6,18 +6,28 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Make sure visual-fixes.css is loaded
-    if (!document.querySelector('link[href*="visual-fixes.css"]')) {
+    const cssPath = '/css/visual-fixes.css'; // Ensure this is the correct absolute path from your site's root
+    // Check if the CSS is already linked
+    if (!document.querySelector(`link[href$="${cssPath}"]`)) {
         const cssLink = document.createElement('link');
         cssLink.rel = 'stylesheet';
-        cssLink.href = '/css/visual-fixes.css';
+        cssLink.href = cssPath;
+        cssLink.onload = function() {
+            console.log(cssPath + ' loaded dynamically.');
+        };
+        cssLink.onerror = function() {
+            console.error('Failed to load ' + cssPath);
+        };
         document.head.appendChild(cssLink);
-        console.log('Added visual-fixes.css dynamically');
+    } else {
+        console.log(cssPath + ' was already loaded.');
     }
 
-    // Additional grid initialization could be added here directly if needed
     const blogGrid = document.querySelector('.blog-grid');
     if (blogGrid) {
-        console.log('Blog grid found - applying CSS-based fixes');
+        console.log('Blog grid element found. CSS rules from ' + cssPath + ' should be applying.');
+        // If your visual-fixes.css requires a specific class on the grid container to activate,
+        // you could add it here, e.g.:
+        // blogGrid.classList.add('grid-styling-active');
     }
 });
