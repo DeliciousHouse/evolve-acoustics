@@ -1,0 +1,89 @@
+/* Enhanced Preloader for Evolve Acoustics website */
+
+/* Preloader container */
+.evolve-preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #121c22;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.8s ease-in-out;
+}
+
+/* Hide preloader once page is loaded */
+.evolve-preloader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Preloader pulse animation */
+.evolve-preloader .logo-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.evolve-preloader .logo {
+    max-width: 200px;
+    height: auto;
+    animation: pulse 1.2s infinite alternate;
+}
+
+.evolve-preloader .loading-text {
+    color: #e0e0e0;
+    margin-top: 20px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.evolve-preloader .progress-bar {
+    width: 200px;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.evolve-preloader .progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #2a9d8f 0%, #4ecdc4 100%);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+}
+
+/* Ensures content doesn't flicker during page loads */
+body.loading {
+    overflow: hidden;
+}
+
+/* Prevent content jump during preloader display */
+body.loading main {
+    opacity: 0;
+}
+
+body.loaded main {
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+}
