@@ -83,3 +83,26 @@ When adding new images:
 
 - Modern browsers (Chrome, Firefox, Safari, Edge): Full support for WebP and/or AVIF
 - Older browsers: Will use JPG/PNG fallbacks automatically
+
+## Performance Optimizations
+
+### Critical CSS
+
+The system includes a critical CSS implementation that:
+
+1. Extracts essential above-the-fold styles into a separate `critical.css` file
+2. Inlines these critical styles directly in the HTML `<head>` section
+3. Defers loading of non-critical CSS files using the `preload` strategy
+4. Uses a polyfill (css-loader.js) to ensure browsers support this pattern
+
+This approach significantly improves page load performance metrics like First Contentful Paint (FCP) and Largest Contentful Paint (LCP).
+
+### Implementation
+
+The critical CSS implementation is handled by:
+
+1. The `css/critical.css` file containing minimal styles for above-the-fold content
+2. The `inject-critical-css.sh` script that injects these styles into HTML files
+3. A small JavaScript loader that manages the asynchronous loading pattern
+
+During the Docker build process, these optimizations are automatically applied to all HTML files.
