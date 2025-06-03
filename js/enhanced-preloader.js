@@ -6,14 +6,16 @@
  * before displaying the page.
  */
 
-// Add preloader HTML to the document immediately
-// Use passive event listener for DOMContentLoaded
-window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
+// CORRECTED: Use standard addEventListener for DOMContentLoaded
+// The event target for DOMContentLoaded is 'document'.
+// While {passive: true} has minimal impact on 'DOMContentLoaded' for scroll performance (as it's not a scroll-blocking input event),
+// it's harmless and aligns with the intent if the listener doesn't call preventDefault().
+document.addEventListener('DOMContentLoaded', function() {
     // Add preloader CSS
     function loadPreloaderCSS() {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = getBasePath() + 'css/enhanced-preloader.css';
+        link.href = getBasePath() + 'css/enhanced-preloader.css'; // Make sure enhanced-preloader.css is also included in your Docker build output css/ folder
         document.head.appendChild(link);
     }
 
@@ -79,31 +81,41 @@ window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
 
     // Track loading progress
     let loadingProgress = 0;
-    const progressBar = document.querySelector('.evolve-preloader .progress');
+    const progressBarElement = document.querySelector('.evolve-preloader .progress'); // Renamed to avoid conflict if progressBar was a global
 
     // Simulate initial progress (35% right away)
-    setTimeout(() => {
-        loadingProgress = 35;
-        progressBar.style.width = loadingProgress + '%';
-    }, 100);
+    if (progressBarElement) { // Check if progressBarElement exists
+        setTimeout(() => {
+            loadingProgress = 35;
+            progressBarElement.style.width = loadingProgress + '%';
+        }, 100);
+    }
+
 
     // Gradually increase progress while waiting for page to load
     const progressInterval = setInterval(() => {
-        if (loadingProgress < 85) {
+        if (progressBarElement && loadingProgress < 85) { // Check if progressBarElement exists
             loadingProgress += Math.random() * 8;
             if (loadingProgress > 85) loadingProgress = 85;
-            progressBar.style.width = loadingProgress + '%';
+            progressBarElement.style.width = loadingProgress + '%';
+        } else if (!progressBarElement && loadingProgress < 85) {
+            // If progressBarElement somehow became null, clear interval to prevent errors
+             clearInterval(progressInterval);
         }
     }, 300);
 
-    // When everything is loaded - using passive event listener
-    window.addPassiveEventListener(window, 'load', function() {
+    // When everything is loaded
+    // CORRECTED: Use standard addEventListener for the window 'load' event.
+    // Similar to DOMContentLoaded, {passive: true} here is more about intent than critical scroll performance.
+    window.addEventListener('load', function() {
         // Clear the interval
         clearInterval(progressInterval);
 
         // Set to 100% and fade out
-        loadingProgress = 100;
-        progressBar.style.width = '100%';
+        if (progressBarElement) { // Check if progressBarElement exists
+            loadingProgress = 100;
+            progressBarElement.style.width = '100%';
+        }
 
         // Wait a bit before hiding the preloader
         setTimeout(() => {
@@ -119,8 +131,9 @@ window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
                 }, 1000);
             }
         }, 500);
-    });
-});
+    }, { passive: true });
+
+}, { passive: true }); // Added {passive: true} to the DOMContentLoaded listener
 
 // If page takes too long to load, hide preloader after 8 seconds
 setTimeout(() => {
@@ -129,5 +142,6 @@ setTimeout(() => {
         preloader.classList.add('hidden');
         document.body.classList.remove('loading');
         document.body.classList.add('loaded');
+        // Consider also removing the preloader element itself after a delay here too
     }
 }, 8000);
