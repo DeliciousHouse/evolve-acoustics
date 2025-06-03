@@ -133,7 +133,7 @@ RUN if [ -f "css/critical.css" ]; then \
 RUN cp -R /app/src/assets/images /app/dist/assets/
 
 # Finally, optimize all images including original copies
-RUN npx imagemin "/app/dist/assets/images/**/*.{png,gif,svg,webp}" --plugin=mozjpeg --plugin=pngquant --plugin=gifsicle --plugin=svgo
+RUN npx imagemin "/app/dist/assets/images/**/*.{png,gif,svg,webp}" --out-dir=/app/dist/assets/images --plugin=mozjpeg --plugin=pngquant --plugin=gifsicle --plugin=svgo
 
 # --- Copy ads.txt (from project root to dist root) ---
 RUN if [ -f "/app/src/ads.txt" ]; then cp /app/src/ads.txt ./ads.txt; fi
