@@ -6,17 +6,17 @@
     Header set Access-Control-Allow-Origin "*"
 </IfModule>
 
-# Content Security Policy
-<IfModule mod_headers.c>
-    Header set Content-Security-Policy "default-src 'self'; \
-    script-src 'self' https://code.jquery.com https://www.googletagmanager.com https://cdnjs.cloudflare.com https://*.google-analytics.com https://pagead2.googlesyndication.com; \
-    style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; \
-    img-src 'self' data: https://*.google-analytics.com https://*.googlesyndication.com https://*.googleusercontent.com; \
-    font-src 'self' https://cdnjs.cloudflare.com; \
-    connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; \
-    frame-src 'self' https://www.youtube.com https://*.googlesyndication.com; \
-    object-src 'none';"
-</IfModule>
+# Content Security Policy - Temporarily disabled
+# <IfModule mod_headers.c>
+#     Header set Content-Security-Policy "default-src 'self'; \
+#     script-src 'self' https://code.jquery.com https://www.googletagmanager.com https://cdnjs.cloudflare.com https://*.google-analytics.com https://pagead2.googlesyndication.com; \
+#     style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; \
+#     img-src 'self' data: https://*.google-analytics.com https://*.googlesyndication.com https://*.googleusercontent.com; \
+#     font-src 'self' https://cdnjs.cloudflare.com; \
+#     connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; \
+#     frame-src 'self' https://www.youtube.com https://*.googlesyndication.com; \
+#     object-src 'none';"
+# </IfModule>
 
 # Caching settings
 <IfModule mod_expires.c>
