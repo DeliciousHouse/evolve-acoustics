@@ -7,7 +7,9 @@
     "minify-css": "csso --input ./src/css/ --output ./dist/css/ --recursive",
     "minify-js": "uglifyjs --compress --mangle --output ./dist/js/main.js -- ./src/js/main.js && uglifyjs --compress --mangle --output ./dist/js/image-fallback.js -- ./src/js/image-fallback.js",
     "optimize-images": "imagemin ./src/assets/images/* --out-dir=./dist/assets/images --plugin=mozjpeg --plugin=pngquant --plugin=gifsicle --plugin=svgo",
-    "build": "npm run minify-html && npm run minify-css && npm run minify-js && npm run optimize-images"
+    "responsive-images": "node scripts/generate-responsive-images.js",
+    "process-html": "node scripts/process-html-images.js",
+    "build": "npm run minify-html && npm run minify-css && npm run minify-js && npm run responsive-images && npm run process-html && npm run optimize-images"
   },
   "devDependencies": {
     "html-minifier": "^4.0.0",
@@ -18,6 +20,11 @@
     "imagemin-pngquant": "^9.0.2",
     "imagemin-gifsicle": "^7.0.0",
     "imagemin-svgo": "^10.0.1",
-    "recursive-copy-cli": "^1.0.17"
+    "recursive-copy-cli": "^1.0.17",
+    "sharp": "^0.32.6",
+    "glob": "^10.3.10",
+    "cheerio": "^1.0.0-rc.12",
+    "fs-extra": "^11.1.1",
+    "path": "^0.12.7"
   }
 }

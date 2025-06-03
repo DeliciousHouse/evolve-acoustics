@@ -51,6 +51,7 @@ RUN npx uglify-js /app/src/js/favicon-fix.js -c -m -o ./js/favicon-fix.js
 # ADD THESE LINES for the missing JS files:
 RUN if [ -f "/app/src/js/enhanced-preloader.js" ]; then npx uglify-js /app/src/js/enhanced-preloader.js -c -m -o ./js/enhanced-preloader.js; fi
 RUN if [ -f "/app/src/js/utilities.js" ]; then npx uglify-js /app/src/js/utilities.js -c -m -o ./js/utilities.js; fi
+RUN if [ -f "/app/src/js/format-support-detector.js" ]; then npx uglify-js /app/src/js/format-support-detector.js -c -m -o ./js/format-support-detector.js; fi
 RUN if [ -f "/app/src/js/evolve-visual-fixes.js" ]; then npx uglify-js /app/src/js/evolve-visual-fixes.js -c -m -o ./js/evolve-visual-fixes.js; fi
 RUN if [ -f "/app/src/js/image-optimization.js" ]; then npx uglify-js /app/src/js/image-optimization.js -c -m -o ./js/image-optimization.js; fi
 RUN if [ -f "/app/src/js/visual-issue-detector.js" ]; then npx uglify-js /app/src/js/visual-issue-detector.js -c -m -o ./js/visual-issue-detector.js; fi
@@ -78,12 +79,22 @@ RUN if [ -d "/app/src/templates" ]; then \
     fi
 
 # --- Image Handling ---
-# Copy the entire 'images' directory from src/assets to dist/assets, preserving subdirectories.
-# This is crucial for your .webp files in assets/images/blogs and assets/images/placeholders.
-RUN cp -R /app/src/assets/images ./assets/
-# Note: Image optimization with imagemin-cli for complex structures can be tricky.
-# This version copies images as-is to ensure paths are correct.
-# Consider optimizing images locally before the build if needed, or implement a more robust imagemin script.
+# First, set up directory structure for the build
+RUN mkdir -p /app/src
+RUN find /app -maxdepth 1 -not -path "/app" -not -path "/app/src" -not -path "/app/dist" -not -path "/app/node_modules" -exec cp -r {} /app/src/ \; 2>/dev/null || true
+RUN mkdir -p /app/dist/assets/images/responsive
+
+# Generate responsive images
+RUN node /app/scripts/generate-responsive-images.js
+
+# Process HTML files to use responsive images
+RUN node /app/scripts/process-html-images.js
+
+# Also copy the original images (for fallbacks and non-responsive cases)
+RUN cp -R /app/assets/images /app/dist/assets/
+
+# Finally, optimize all images including original copies
+RUN npx imagemin "/app/dist/assets/images/**/*.{jpg,jpeg,png,gif,svg}" --plugin=mozjpeg --plugin=pngquant --plugin=gifsicle --plugin=svgo
 
 # --- Copy ads.txt (from project root to dist root) ---
 RUN if [ -f "/app/src/ads.txt" ]; then cp /app/src/ads.txt ./ads.txt; fi
