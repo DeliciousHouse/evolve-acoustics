@@ -6,7 +6,8 @@
  * the CSS-only fixes to provide a comprehensive solution.
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+// Use passive event listener for DOMContentLoaded
+window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
     // Load CSS fixes if not already loaded
     function loadCSS(href) {
         // Check if the CSS has already been loaded
@@ -179,19 +180,19 @@ document.addEventListener('DOMContentLoaded', function() {
         fixContactPage();
     }, 500);
 
-    // Also run fixes when window is resized or images load
-    window.addEventListener('resize', () => {
+    // Also run fixes when window is resized or images load - using passive event listeners
+    window.addPassiveEventListener(window, 'resize', () => {
         fixBlogGrid();
         fixServicePages();
         fixContactPage();
-    });
+    }, true);
 
-    window.addEventListener('load', () => {
+    window.addPassiveEventListener(window, 'load', () => {
         fixBlogGrid();
         lazyLoadImages();
         fixServicePages();
         fixContactPage();
-    });
+    }, true);
 
     // Debugging helper - log when all fixes are loaded
     console.log('Evolve Acoustics visual fixes loaded: ' + new Date().toLocaleString());

@@ -7,7 +7,8 @@
  */
 
 // Add preloader HTML to the document immediately
-document.addEventListener('DOMContentLoaded', function() {
+// Use passive event listener for DOMContentLoaded
+window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
     // Add preloader CSS
     function loadPreloaderCSS() {
         const link = document.createElement('link');
@@ -95,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 300);
 
-    // When everything is loaded
-    window.addEventListener('load', function() {
+    // When everything is loaded - using passive event listener
+    window.addPassiveEventListener(window, 'load', function() {
         // Clear the interval
         clearInterval(progressInterval);
 

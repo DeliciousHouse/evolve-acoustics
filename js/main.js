@@ -125,14 +125,14 @@ $(document).ready(function() {
             }
         });
 
-        // Handle touchstart with a native passive listener
+        // Handle touchstart with our passive listener helper
         // This helps ensure that if the user is trying to scroll through the dropdown content on a touch device,
         // the browser doesn't wait for this listener.
-        linkElement.addEventListener('touchstart', function(e) {
+        window.addPassiveEventListener(linkElement, 'touchstart', function(e) {
             if (window.innerWidth <= 768) { // Using window.innerWidth for consistency
                 e.stopPropagation();
             }
-        }, { passive: true }); // PASSIVE LISTENER ADDED
+        }, true);
     });
 
 
@@ -151,9 +151,8 @@ $(document).ready(function() {
 
     // Use jQuery for 'click' event as before
     $(document).on('click', closeMobileMenuOnClickOutside);
-    // Use native addEventListener for 'touchstart' with { passive: true }
-    // This ensures that touch interactions for scrolling are not blocked by this listener.
-    document.addEventListener('touchstart', closeMobileMenuOnClickOutside, { passive: true }); // PASSIVE LISTENER ADDED
+    // Use our helper function for the touchstart event with passive behavior
+    window.addPassiveEventListener(document, 'touchstart', closeMobileMenuOnClickOutside, true);
 
 
     // Handle escape key to close menu
@@ -192,8 +191,8 @@ $(document).ready(function() {
     };
     // Use jQuery for 'click' event
     $(document).on('click', closeContactMenuOnClickOutside);
-    // Use native addEventListener for 'touchstart' with { passive: true } for the contact menu
-    document.addEventListener('touchstart', closeContactMenuOnClickOutside, { passive: true }); // PASSIVE LISTENER ADDED
+    // Use our helper function for the touchstart event with passive behavior for the contact menu
+    window.addPassiveEventListener(document, 'touchstart', closeContactMenuOnClickOutside, true);
 
 
     // Animated counter for statistics
@@ -242,10 +241,8 @@ $(document).ready(function() {
             // Remove previous jQuery scroll listener if any, to avoid multiple bindings
             // $(window).off('scroll', checkIfInView); // Not strictly necessary if addEventListener is used once
 
-            // Use native addEventListener for 'scroll' with { passive: true }
-            // 'scroll' events are not the primary target for 'passive' benefits in the same way as touch/wheel,
-            // as they fire after scroll has happened. However, it's good practice if preventDefault is not called.
-            window.addEventListener('scroll', checkIfInView, { passive: true }); // PASSIVE LISTENER ADDED
+            // Use our helper function for scroll event with passive behavior
+            window.addPassiveEventListener(window, 'scroll', checkIfInView, true);
 
             checkIfInView(); // Initial check on page load
         }

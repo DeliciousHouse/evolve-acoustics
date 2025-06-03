@@ -5,7 +5,8 @@
  * without relying on separate JS files.
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+// Use passive event listener for DOMContentLoaded
+window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
     const cssPath = '/css/visual-fixes.css'; // Ensure this is the correct absolute path from your site's root
     // Check if the CSS is already linked
     if (!document.querySelector(`link[href$="${cssPath}"]`)) {
