@@ -43,10 +43,25 @@ RUN if [ -d "/app/src/css/fontawesome" ]; then cp -r /app/src/css/fontawesome ./
 RUN if [ -d "/app/src/assets/webfonts" ]; then cp -r /app/src/assets/webfonts/* ./webfonts/; fi
 
 # --- JavaScript Minification ---
+# Existing files:
 RUN npx uglify-js /app/src/js/main.js -c -m -o ./js/main.js
 RUN npx uglify-js /app/src/js/image-fallback.js -c -m -o ./js/image-fallback.js
 RUN npx uglify-js /app/src/js/favicon-fix.js -c -m -o ./js/favicon-fix.js
-# If preloader.js is used client-side and is in the root of your project:
+
+# ADD THESE LINES for the missing JS files:
+RUN if [ -f "/app/src/js/enhanced-preloader.js" ]; then npx uglify-js /app/src/js/enhanced-preloader.js -c -m -o ./js/enhanced-preloader.js; fi
+RUN if [ -f "/app/src/js/utilities.js" ]; then npx uglify-js /app/src/js/utilities.js -c -m -o ./js/utilities.js; fi
+RUN if [ -f "/app/src/js/evolve-visual-fixes.js" ]; then npx uglify-js /app/src/js/evolve-visual-fixes.js -c -m -o ./js/evolve-visual-fixes.js; fi
+RUN if [ -f "/app/src/js/image-optimization.js" ]; then npx uglify-js /app/src/js/image-optimization.js -c -m -o ./js/image-optimization.js; fi
+RUN if [ -f "/app/src/js/visual-issue-detector.js" ]; then npx uglify-js /app/src/js/visual-issue-detector.js -c -m -o ./js/visual-issue-detector.js; fi
+RUN if [ -f "/app/src/js/performance-monitor.js" ]; then npx uglify-js /app/src/js/performance-monitor.js -c -m -o ./js/performance-monitor.js; fi
+
+# Your other files that were listed in your js/ directory (add as needed):
+RUN if [ -f "/app/src/js/blog-grid-fix.js" ]; then npx uglify-js /app/src/js/blog-grid-fix.js -c -m -o ./js/blog-grid-fix.js; fi
+RUN if [ -f "/app/src/js/load-grid-fixes.js" ]; then npx uglify-js /app/src/js/load-grid-fixes.js -c -m -o ./js/load-grid-fixes.js; fi
+RUN if [ -f "/app/src/js/related-posts-clickable.js" ]; then npx uglify-js /app/src/js/related-posts-clickable.js -c -m -o ./js/related-posts-clickable.js; fi
+RUN if [ -f "/app/src/js/related-posts-fix.js" ]; then npx uglify-js /app/src/js/related-posts-fix.js -c -m -o ./js/related-posts-fix.js; fi
+# Note: a root preloader.js, if it's different from enhanced-preloader.js
 RUN if [ -f "/app/src/preloader.js" ]; then npx uglify-js /app/src/preloader.js -c -m -o ./preloader.js; fi
 
 
