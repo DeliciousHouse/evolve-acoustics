@@ -109,9 +109,99 @@ RUN node /app/scripts/generate-responsive-images.js
 # Process HTML files to use responsive images
 RUN node /app/scripts/process-html-images.js
 
-# Inject critical CSS and optimize CSS loading
-COPY inject-critical-css.sh /app/
-RUN chmod +x /app/inject-critical-css.sh && /app/inject-critical-css.sh
+# Inject critical CSS and optimize CSS loading (inline implementation)
+RUN mkdir -p /app/js && \
+    echo '#!/bin/bash
+# This script injects critical CSS into HTML files for optimal loading performance
+set -e
+
+# Read the critical CSS file
+if [ ! -f "css/critical.css" ]; then
+    echo "Error: critical.css file not found!"
+    exit 1
+fi
+
+CRITICAL_CSS=$(cat css/critical.css)
+
+# Create the critical CSS style tag to insert
+STYLE_TAG="<!-- Critical CSS for above-the-fold content -->
+    <style>
+$CRITICAL_CSS
+    </style>"
+
+# Function to inject critical CSS into an HTML file
+inject_critical_css() {
+    local file=$1
+
+    # First backup the original file
+    cp "$file" "${file}.bak"
+
+    # Insert critical CSS after head tag
+    sed -i "/<head>/a\\
+$STYLE_TAG" "$file"
+
+    # Convert regular CSS links to preload for non-critical CSS
+    sed -i '\''s|<link rel="stylesheet" href="\(.*\)css/style.css">|<!-- Non-critical CSS loaded asynchronously -->\\
+    <link rel="preload" href="\1css/style.css" as="style" onload="this.onload=null;this.rel='\''stylesheet'\''">\\
+    <noscript><link rel="stylesheet" href="\1css/style.css"></noscript>|g'\'' "$file"
+
+    # Convert other CSS files to preload
+    sed -i '\''s|<link rel="stylesheet" href="\(.*\)css/\(responsive\|navigation\|visual-enhancements\|blog\).css">|<link rel="preload" href="\1css/\2.css" as="style" onload="this.onload=null;this.rel='\''stylesheet'\''">\\
+    <noscript><link rel="stylesheet" href="\1css/\2.css"></noscript>|g'\'' "$file"
+}
+
+# Process main HTML files
+echo "Processing index.html..."
+inject_critical_css "index.html"
+
+# Process blog template
+if [ -f "templates/blog-post-template.html" ]; then
+    echo "Processing blog template..."
+    inject_critical_css "templates/blog-post-template.html"
+fi
+
+# Process blog posts
+echo "Processing blog posts..."
+find ./pages/blogs -name "*.html" | while read file; do
+    echo "  Processing $file..."
+    inject_critical_css "$file"
+done
+
+# Add script for loading CSS asynchronously
+cat > js/css-loader.js << '\''EOF'\''
+/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+(function(w){"use strict";var loadCSS=function(href,before,media,attributes){var doc=w.document;var ss=doc.createElement("link");var ref;if(before){ref=before;}else{var refs=(doc.body||doc.getElementsByTagName("head")[0]).childNodes;ref=refs[refs.length-1];}
+var sheets=doc.styleSheets;ss.rel="stylesheet";ss.href=href;ss.media="only x";function ready(cb){if(doc.body){return cb();}
+setTimeout(function(){ready(cb);});}
+ready(function(){ref.parentNode.insertBefore(ss,(before?ref:ref.nextSibling));});var onloadcssdefined=function(cb){var resolvedHref=ss.href;var i=sheets.length;while(i--){if(sheets[i].href===resolvedHref){return cb();}}
+setTimeout(function(){onloadcssdefined(cb);});};function loadCB(){if(ss.addEventListener){ss.removeEventListener("load",loadCB);}
+ss.media=media||"all";}
+if(ss.addEventListener){ss.addEventListener("load",loadCB);}
+ss.onloadcssdefined=onloadcssdefined;onloadcssdefined(loadCB);return ss;};if(typeof exports!=="undefined"){exports.loadCSS=loadCSS;}
+else{w.loadCSS=loadCSS;}}(typeof global!=="undefined"?global:this));
+
+/*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+(function(w){"use strict";if(!w.loadCSS){return;}
+var rp=loadCSS.relpreload={};rp.support=(function(){try{return w.document.createElement("link").relList.supports("preload");}catch(e){return false;}})();rp.poly=function(){var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss",true);rp.bindMediaToggle(link);}}};rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStyleOnLoad(){link.media=finalMedia;}
+if(link.addEventListener){link.addEventListener("load",enableStyleOnLoad);}else if(link.attachEvent){link.attachEvent("onload",enableStyleOnLoad);}
+setTimeout(function(){link.rel="stylesheet";link.media="only x";});setTimeout(enableStyleOnLoad,3000);};rp.poly();var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){rp.bindMediaToggle(link);}};}(this));
+EOF
+
+# Add script reference to HTML files
+sed -i '\''/<\/head>/i \    <script src="js/css-loader.js"></script>'\'' index.html
+
+if [ -f "templates/blog-post-template.html" ]; then
+    sed -i '\''/<\/head>/i \    <script src="../js/css-loader.js"></script>'\'' templates/blog-post-template.html
+fi
+
+find ./pages -name "*.html" -not -path "*/html_backup*/*" | while read file; do
+    sed -i '\''/<\/head>/i \    <script src="../js/css-loader.js"></script>'\'' "$file"
+done
+
+find ./pages/blogs -name "*.html" | while read file; do
+    sed -i '\''s|<script src="../js/css-loader.js"></script>|<script src="../../js/css-loader.js"></script>|g'\'' "$file"
+done
+' > /app/inline-critical-css.sh && chmod +x /app/inline-critical-css.sh && /app/inline-critical-css.sh
 
 # Also copy the original images (for fallbacks and non-responsive cases)
 RUN cp -R /app/assets/images /app/dist/assets/
