@@ -297,7 +297,7 @@
                     </div>
                 </div>
 
-                <!-- Blog Post 1 -->
+                <!-- Blog Post 1 - Commented out due to missing HTML file to prevent 404 errors
                 <div class="blog-card" data-category="acoustics design">
                     <div class="blog-card-image">
                         <img src="../assets/images/blogs/after_home_professional.webp" alt="Professional restaurant acoustic treatment" class="blog-image">
@@ -317,8 +317,9 @@
                         </div>
                     </div>
                 </div>
+                -->
 
-                <!-- Blog Post 2 -->
+                <!-- Blog Post 2 - Commented out due to missing HTML file to prevent 404 errors
                 <div class="blog-card" data-category="technology">
                     <div class="blog-card-image">
                         <img src="../assets/images/blogs/diffisuer_redirection.webp" alt="Sound diffusion technology in acoustic panels" class="blog-image">
@@ -338,8 +339,9 @@
                         </div>
                     </div>
                 </div>
+                -->
 
-                <!-- Blog Post 3 -->
+                <!-- Blog Post 3 - Commented out due to missing HTML file to prevent 404 errors
                 <div class="blog-card" data-category="installation">
                     <div class="blog-card-image">
                         <img src="../assets/images/home-studio.jpg" alt="Home Studio" class="blog-image">
@@ -359,8 +361,9 @@
                         </div>
                     </div>
                 </div>
+                -->
 
-                <!-- Blog Post 4 -->
+                <!-- Blog Post 4 - Commented out due to missing HTML file to prevent 404 errors
                 <div class="blog-card" data-category="design">
                     <div class="blog-card-image">
                         <img src="../assets/images/office-design.jpg" alt="Office Acoustics" class="blog-image">
@@ -380,6 +383,7 @@
                         </div>
                     </div>
                 </div>
+                -->
             </div>
 
             <div class="blog-pagination">
@@ -451,6 +455,11 @@
             const searchBtn = document.getElementById('blog-search-btn');
             const paginationContainer = document.querySelector('.blog-pagination');
 
+            // Function to determine if an element is visible/displayed
+            function isElementVisible(element) {
+                return element.offsetParent !== null && window.getComputedStyle(element).display !== "none";
+            }
+
             // Make all blog cards clickable
             blogCards.forEach(card => {
                 // Find the read more link to get the URL
@@ -477,7 +486,11 @@
             // Pagination settings
             const postsPerPage = 6;
             let currentPage = 1;
-            let filteredCards = [...blogCards]; // Start with all cards
+            // Only consider visible blog cards (not commented out)
+            const visibleCards = [...blogCards].filter(card =>
+                card.offsetParent !== null && window.getComputedStyle(card).display !== "none"
+            );
+            let filteredCards = visibleCards; // Start with visible cards only
 
             // Initialize pagination
             function initPagination() {
@@ -508,8 +521,8 @@
 
                     const category = this.dataset.category;
 
-                    // Filter cards based on category
-                    filteredCards = [...blogCards].filter(card => {
+                    // Filter cards based on category (only consider visible cards)
+                    filteredCards = visibleCards.filter(card => {
                         return category === 'all' || card.dataset.category.includes(category);
                     });
 
@@ -524,8 +537,8 @@
             function performSearch() {
                 const searchTerm = searchInput.value.toLowerCase();
 
-                // Filter cards based on search term
-                filteredCards = [...blogCards].filter(card => {
+                // Filter cards based on search term (only consider visible cards)
+                filteredCards = visibleCards.filter(card => {
                     const title = card.querySelector('h2').textContent.toLowerCase();
                     const content = card.querySelector('p').textContent.toLowerCase();
                     return title.includes(searchTerm) || content.includes(searchTerm);
