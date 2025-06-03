@@ -109,73 +109,25 @@ RUN node /app/scripts/generate-responsive-images.js
 # Process HTML files to use responsive images
 RUN node /app/scripts/process-html-images.js
 
-# Inject critical CSS and optimize CSS loading - create a simplified script
-RUN echo '#!/bin/bash
-# Simple CSS optimization script
-set -e
-
-# Create CSS loader script for asynchronous loading
-mkdir -p js
-cat > js/css-loader-min.js << EOF
-/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
-(function(w){var loadCSS=function(href,before,media){var doc=w.document;var ss=doc.createElement("link");ss.rel="stylesheet";ss.href=href;ss.media="only x";doc.head.appendChild(ss);setTimeout(function(){ss.media=media||"all";},0);return ss;};w.loadCSS=loadCSS;}(typeof global!=="undefined"?global:this));
-EOF
+# Inject critical CSS and optimize CSS loading with simple inline script approach
+RUN mkdir -p js && \
+    echo '/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */\n\
+(function(w){var loadCSS=function(href,before,media){var doc=w.document;var ss=doc.createElement("link");ss.rel="stylesheet";ss.href=href;ss.media="only x";doc.head.appendChild(ss);setTimeout(function(){ss.media=media||"all";},0);return ss;};w.loadCSS=loadCSS;}(typeof global!=="undefined"?global:this));' > js/css-loader-min.js
 
 # Add script reference to HTML files
-sed -i "/<\\/head>/i \\    <script src=\"js/css-loader-min.js\"></script>" index.html
-' > /app/simple-css-opt.sh && chmod +x /app/simple-css-opt.sh && /app/simple-css-opt.sh
-    echo '
-# Function to inject critical CSS into an HTML file
-inject_critical_css() {
-    local file=$1
+RUN if [ -f "index.html" ]; then \
+      sed -i "/<\/head>/i \    <script src=\"js/css-loader-min.js\"></script>" index.html; \
+    fi
 
-    # First backup the original file
-    cp "$file" "${file}.bak"
-
-    # Insert critical CSS after head tag
-    sed -i "/<head>/a\\
-$STYLE_TAG" "$file"
-
-    # Convert regular CSS links to preload for non-critical CSS
-    sed -i '"'"'s|<link rel="stylesheet" href="\(.*\)css/style.css">|<!-- Non-critical CSS loaded asynchronously -->\\
-    <link rel="preload" href="\1css/style.css" as="style" onload="this.onload=null;this.rel='"'"'"'"'"'"'"'"'stylesheet'"'"'"'"'"'"'"'"'">\\
-    <noscript><link rel="stylesheet" href="\1css/style.css"></noscript>|g'"'"' "$file"
-
-    # Convert other CSS files to preload
-    sed -i '"'"'s|<link rel="stylesheet" href="\(.*\)css/\(responsive\|navigation\|visual-enhancements\|blog\).css">|<link rel="preload" href="\1css/\2.css" as="style" onload="this.onload=null;this.rel='"'"'"'"'"'"'"'"'stylesheet'"'"'"'"'"'"'"'"'">\\
-    <noscript><link rel="stylesheet" href="\1css/\2.css"></noscript>|g'"'"' "$file"
-
-var sheets=doc.styleSheets;ss.rel="stylesheet";ss.href=href;ss.media="only x";function ready(cb){if(doc.body){return cb();}
-setTimeout(function(){ready(cb);});}
-ready(function(){ref.parentNode.insertBefore(ss,(before?ref:ref.nextSibling));});var onloadcssdefined=function(cb){var resolvedHref=ss.href;var i=sheets.length;while(i--){if(sheets[i].href===resolvedHref){return cb();}}
-setTimeout(function(){onloadcssdefined(cb);});};function loadCB(){if(ss.addEventListener){ss.removeEventListener("load",loadCB);}
-ss.media=media||"all";}
-if(ss.addEventListener){ss.addEventListener("load",loadCB);}
-ss.onloadcssdefined=onloadcssdefined;onloadcssdefined(loadCB);return ss;};if(typeof exports!=="undefined"){exports.loadCSS=loadCSS;}
-else{w.loadCSS=loadCSS;}}(typeof global!=="undefined"?global:this));
-
-/*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
-(function(w){"use strict";if(!w.loadCSS){return;}
-var rp=loadCSS.relpreload={};rp.support=(function(){try{return w.document.createElement("link").relList.supports("preload");}catch(e){return false;}})();rp.poly=function(){var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss",true);rp.bindMediaToggle(link);}}};rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStyleOnLoad(){link.media=finalMedia;}
-if(link.addEventListener){link.addEventListener("load",enableStyleOnLoad);}else if(link.attachEvent){link.attachEvent("onload",enableStyleOnLoad);}
-setTimeout(function(){link.rel="stylesheet";link.media="only x";});setTimeout(enableStyleOnLoad,3000);};rp.poly();var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){rp.bindMediaToggle(link);}};}(this));
-EOF
-
-# Add script reference to HTML files
-sed -i '\''/<\/head>/i \    <script src="js/css-loader.js"></script>'\'' index.html
-
-if [ -f "templates/blog-post-template.html" ]; then
-    sed -i '\''/<\/head>/i \    <script src="../js/css-loader.js"></script>'\'' templates/blog-post-template.html
-fi
-
-find ./pages -name "*.html" -not -path "*/html_backup*/*" | while read file; do
-    sed -i '\''/<\/head>/i \    <script src="../js/css-loader.js"></script>'\'' "$file"
-done
-
-find ./pages/blogs -name "*.html" | while read file; do
-    sed -i '\''s|<script src="../js/css-loader.js"></script>|<script src="../../js/css-loader.js"></script>|g'\'' "$file"
-done
-' > /app/simple-css-opt.sh && chmod +x /app/simple-css-opt.sh && /app/simple-css-opt.sh
+# Process critical CSS if available
+RUN if [ -f "css/critical.css" ]; then \
+      CRITICAL_CSS=$(cat css/critical.css); \
+      STYLE_TAG="<!-- Critical CSS for above-the-fold content -->\n<style>\n${CRITICAL_CSS}\n</style>"; \
+      if [ -f "index.html" ]; then \
+        sed -i "/<head>/a \\${STYLE_TAG}" index.html; \
+        sed -i "s|<link rel=\"stylesheet\" href=\"css/style.css\">|<!-- Non-critical CSS loaded asynchronously -->\n    <link rel=\"preload\" href=\"css/style.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\">\n    <noscript><link rel=\"stylesheet\" href=\"css/style.css\"></noscript>|g" index.html; \
+      fi; \
+    fi
 
 # Also copy the original images (for fallbacks and non-responsive cases)
 RUN cp -R /app/assets/images /app/dist/assets/
