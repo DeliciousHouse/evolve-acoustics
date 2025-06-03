@@ -34,8 +34,17 @@ RUN mkdir -p ./assets/images/blogs ./assets/images/placeholders && \
     mkdir -p ./templates
 
 # --- CSS Minification & Copying ---
+# Extract critical CSS first
+RUN if [ -f "/app/css/critical.css" ]; then cp /app/css/critical.css ./css/; fi
+
 # Minify CSS files directly in /app/src/css/ (excluding subdirectories)
 RUN find /app/src/css/ -maxdepth 1 -type f -name "*.css" -exec sh -c 'npx csso-cli --input "$1" --output "./css/$(basename "$1")" --comments none' _ {} \;
+
+# Ensure responsive-images.css is included
+RUN if [ -f "/app/css/responsive-images.css" ]; then \
+      npx csso-cli --input "/app/css/responsive-images.css" --output "./css/responsive-images.css" --comments none; \
+    fi
+
 # Copy FontAwesome CSS files (typically already minified)
 RUN if [ -d "/app/src/css/fontawesome" ]; then cp -r /app/src/css/fontawesome ./css/; fi
 # Copy FontAwesome webfonts from src/assets/webfonts to dist/webfonts
@@ -52,6 +61,8 @@ RUN npx uglify-js /app/src/js/favicon-fix.js -c -m -o ./js/favicon-fix.js
 RUN if [ -f "/app/src/js/enhanced-preloader.js" ]; then npx uglify-js /app/src/js/enhanced-preloader.js -c -m -o ./js/enhanced-preloader.js; fi
 RUN if [ -f "/app/src/js/utilities.js" ]; then npx uglify-js /app/src/js/utilities.js -c -m -o ./js/utilities.js; fi
 RUN if [ -f "/app/src/js/format-support-detector.js" ]; then npx uglify-js /app/src/js/format-support-detector.js -c -m -o ./js/format-support-detector.js; fi
+RUN if [ -f "/app/js/format-support-detector.js" ]; then npx uglify-js /app/js/format-support-detector.js -c -m -o ./js/format-support-detector.js; fi
+RUN if [ -f "/app/js/css-loader.js" ]; then npx uglify-js /app/js/css-loader.js -c -m -o ./js/css-loader.js; fi
 RUN if [ -f "/app/src/js/evolve-visual-fixes.js" ]; then npx uglify-js /app/src/js/evolve-visual-fixes.js -c -m -o ./js/evolve-visual-fixes.js; fi
 RUN if [ -f "/app/src/js/image-optimization.js" ]; then npx uglify-js /app/src/js/image-optimization.js -c -m -o ./js/image-optimization.js; fi
 RUN if [ -f "/app/src/js/visual-issue-detector.js" ]; then npx uglify-js /app/src/js/visual-issue-detector.js -c -m -o ./js/visual-issue-detector.js; fi
@@ -84,11 +95,23 @@ RUN mkdir -p /app/src
 RUN find /app -maxdepth 1 -not -path "/app" -not -path "/app/src" -not -path "/app/dist" -not -path "/app/node_modules" -exec cp -r {} /app/src/ \; 2>/dev/null || true
 RUN mkdir -p /app/dist/assets/images/responsive
 
+# Copy scripts to the app directory
+RUN mkdir -p /app/scripts
+COPY ./scripts/generate-responsive-images.js /app/scripts/
+COPY ./scripts/process-html-images.js /app/scripts/
+
+# Install required packages for image processing
+RUN npm install --save sharp glob cheerio fs-extra
+
 # Generate responsive images
 RUN node /app/scripts/generate-responsive-images.js
 
 # Process HTML files to use responsive images
 RUN node /app/scripts/process-html-images.js
+
+# Inject critical CSS and optimize CSS loading
+COPY inject-critical-css.sh /app/
+RUN chmod +x /app/inject-critical-css.sh && /app/inject-critical-css.sh
 
 # Also copy the original images (for fallbacks and non-responsive cases)
 RUN cp -R /app/assets/images /app/dist/assets/
