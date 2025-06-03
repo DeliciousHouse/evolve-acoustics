@@ -5,7 +5,8 @@
  * for improved page load times and user experience.
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+// Use passive event listener for DOMContentLoaded
+window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
     // Function to convert standard images to lazy loaded images
     function enableLazyLoading() {
         console.log('Setting up lazy loading for images');
@@ -138,14 +139,14 @@ document.addEventListener('DOMContentLoaded', function() {
     fixBrokenImages();
     addSizesToImages();
 
-    // Re-check on window resize
-    window.addEventListener('resize', function() {
+    // Re-check on window resize - using passive event listener helper
+    window.addPassiveEventListener(window, 'resize', function() {
         // Throttle resize events
         clearTimeout(window.resizeThrottler);
         window.resizeThrottler = setTimeout(function() {
             setupLazyLoadObserver();
         }, 250);
-    });
+    }, true);
 
     console.log('Image optimizations applied');
 });

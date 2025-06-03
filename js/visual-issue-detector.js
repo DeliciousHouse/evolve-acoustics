@@ -5,7 +5,8 @@
  * that might appear throughout the Evolve Acoustics website.
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+// Use passive event listener for DOMContentLoaded
+window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
     console.log('Starting visual issues detection...');
 
     // Collection of fixes to apply
@@ -75,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     navLinks.style.transition = 'all 0.3s ease';
                 }
 
-                // Fix possible visibility issues
+                // Fix possible visibility issues - click events don't need passive listeners
                 menuToggle.addEventListener('click', function() {
                     // Force visibility when toggled
                     if (navLinks.classList.contains('active')) {
@@ -191,9 +192,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Also run when window is resized (with debounce)
+    // Also run when window is resized (with debounce) - using passive event listener
     let resizeTimer;
-    window.addEventListener('resize', function() {
+    window.addPassiveEventListener(window, 'resize', function() {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function() {
             console.log('Running visual fixes after resize');
@@ -205,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }, 250);
-    });
+    }, true);
 
     console.log('Visual issues detection and fixes applied');
 });
