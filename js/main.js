@@ -112,8 +112,6 @@ $(document).ready(function() {
     });
 
     // Ensure submenu links navigate correctly on mobile and don't close the menu prematurely
-    // This touchstart listener does not call preventDefault for the touch event itself.
-    // We can make its touchstart part passive.
     $('.dropdown-content a').each(function() {
         const linkElement = this;
 
@@ -125,14 +123,12 @@ $(document).ready(function() {
             }
         });
 
-        // Handle touchstart with our passive listener helper
-        // This helps ensure that if the user is trying to scroll through the dropdown content on a touch device,
-        // the browser doesn't wait for this listener.
-        window.addPassiveEventListener(linkElement, 'touchstart', function(e) {
-            if (window.innerWidth <= 768) { // Using window.innerWidth for consistency
+        // CORRECTED: Handle touchstart with a native passive listener
+        linkElement.addEventListener('touchstart', function(e) {
+            if (window.innerWidth <= 768) {
                 e.stopPropagation();
             }
-        }, true);
+        }, { passive: true });
     });
 
 
@@ -151,8 +147,8 @@ $(document).ready(function() {
 
     // Use jQuery for 'click' event as before
     $(document).on('click', closeMobileMenuOnClickOutside);
-    // Use our helper function for the touchstart event with passive behavior
-    window.addPassiveEventListener(document, 'touchstart', closeMobileMenuOnClickOutside, true);
+    // CORRECTED: Use native addEventListener for 'touchstart' with { passive: true }
+    document.addEventListener('touchstart', closeMobileMenuOnClickOutside, { passive: true });
 
 
     // Handle escape key to close menu
@@ -191,8 +187,8 @@ $(document).ready(function() {
     };
     // Use jQuery for 'click' event
     $(document).on('click', closeContactMenuOnClickOutside);
-    // Use our helper function for the touchstart event with passive behavior for the contact menu
-    window.addPassiveEventListener(document, 'touchstart', closeContactMenuOnClickOutside, true);
+    // CORRECTED: Use native addEventListener for 'touchstart' with { passive: true } for the contact menu
+    document.addEventListener('touchstart', closeContactMenuOnClickOutside, { passive: true });
 
 
     // Animated counter for statistics
@@ -238,13 +234,9 @@ $(document).ready(function() {
     function animateStats() {
         const statsSection = $('.stats-section');
         if (statsSection.length) {
-            // Remove previous jQuery scroll listener if any, to avoid multiple bindings
-            // $(window).off('scroll', checkIfInView); // Not strictly necessary if addEventListener is used once
-
-            // Use our helper function for scroll event with passive behavior
-            window.addPassiveEventListener(window, 'scroll', checkIfInView, true);
-
-            checkIfInView(); // Initial check on page load
+            // CORRECTED: Use native addEventListener for 'scroll' with { passive: true }
+            window.addEventListener('scroll', checkIfInView, { passive: true });
+            checkIfInView(); // Initial check
         }
     }
 
@@ -356,82 +348,86 @@ $(document).ready(function() {
                              .attr('tabindex', '-1');
 
             $($slides[index]).addClass('active')
+                             .attr('aria-selected', 'false')
+                             .attr('tabindex', '-1');
+
+            $($slides[index]).addClass('active')
                            .attr('aria-hidden', 'false')
                            .attr('tabindex', '0');
 
-            $($('.carousel-dot')[index]).addClass('active')
-                                      .attr('aria-selected', 'true')
-                                      .attr('tabindex', '0');
+            $($('.carousel-dot')[index]).addClass('active')s('active')
+                                      .attr('aria-selected', 'true')ed', 'true')
+                                      .attr('tabindex', '0');dex', '0');
 
             // Announce slide change to screen readers
-            $('.image-carousel').attr('aria-label', `Design inspiration gallery, showing slide ${index + 1} of ${slideCount}: ${slideLabels[index]}`);
+            $('.image-carousel').attr('aria-label', `Design inspiration gallery, showing slide ${index + 1} of ${slideCount}: ${slideLabels[index]}`);ion gallery, showing slide ${index + 1} of ${slideCount}: ${slideLabels[index]}`);
 
-            currentIndex = index;
+            currentIndex = index;            currentIndex = index;
         }
 
-        // Next button
-        $('.carousel-control.next').click(function() {
-            const nextIndex = (currentIndex + 1) % slideCount;
-            showSlide(nextIndex);
+        // Next button        // Next button
+        $('.carousel-control.next').click(function() {').click(function() {
+            const nextIndex = (currentIndex + 1) % slideCount;   const nextIndex = (currentIndex + 1) % slideCount;
+            showSlide(nextIndex);            showSlide(nextIndex);
         });
 
         // Previous button
-        $('.carousel-control.prev').click(function() {
-            const prevIndex = (currentIndex - 1 + slideCount) % slideCount;
-            showSlide(prevIndex);
+        $('.carousel-control.prev').click(function() {').click(function() {
+            const prevIndex = (currentIndex - 1 + slideCount) % slideCount; const prevIndex = (currentIndex - 1 + slideCount) % slideCount;
+            showSlide(prevIndex);            showSlide(prevIndex);
         });
 
         // Dot navigation
-        $('.carousel-dot').click(function() {
-            const dotIndex = $(this).data('index');
-            showSlide(dotIndex);
+        $('.carousel-dot').click(function() {function() {
+            const dotIndex = $(this).data('index'); const dotIndex = $(this).data('index');
+            showSlide(dotIndex);            showSlide(dotIndex);
         });
 
-        // Add keyboard support for carousel navigation
-        $('.image-carousel').keydown(function(e) {
-            // Right arrow or down arrow
-            if (e.keyCode === 39 || e.keyCode === 40) {
-                const nextIndex = (currentIndex + 1) % slideCount;
+        // Add keyboard support for carousel navigationtion
+        $('.image-carousel').keydown(function(e) {down(function(e) {
+            // Right arrow or down arrow // Right arrow or down arrow
+            if (e.keyCode === 39 || e.keyCode === 40) {            if (e.keyCode === 39 || e.keyCode === 40) {
+                const nextIndex = (currentIndex + 1) % slideCount;slideCount;
                 showSlide(nextIndex);
-                e.preventDefault(); // For keyboard navigation
+                e.preventDefault(); // For keyboard navigationor keyboard navigation
             }
             // Left arrow or up arrow
-            else if (e.keyCode === 37 || e.keyCode === 38) {
-                const prevIndex = (currentIndex - 1 + slideCount) % slideCount;
-                showSlide(prevIndex);
-                e.preventDefault(); // For keyboard navigation
+            else if (e.keyCode === 37 || e.keyCode === 38) { || e.keyCode === 38) {
+                const prevIndex = (currentIndex - 1 + slideCount) % slideCount;nt) % slideCount;
+                showSlide(prevIndex);   showSlide(prevIndex);
+                e.preventDefault(); // For keyboard navigation/ For keyboard navigation
             }
         });
 
         // Auto-advance every 5 seconds
-        let carouselInterval = setInterval(function() {
-            const nextIndex = (currentIndex + 1) % slideCount;
-            showSlide(nextIndex);
+        let carouselInterval = setInterval(function() {arouselInterval = setInterval(function() {
+            const nextIndex = (currentIndex + 1) % slideCount; const nextIndex = (currentIndex + 1) % slideCount;
+            showSlide(nextIndex);            showSlide(nextIndex);
         }, 5000);
 
         // Pause auto-advance on hover or focus
-        // These are not scroll/touch events that need passive listeners for scroll performance.
-        $('.image-carousel').hover(
-            function() { clearInterval(carouselInterval); },
+        // These are not scroll/touch events that need passive listeners for scroll performance.ouch events that need passive listeners for scroll performance.
+        $('.image-carousel').hover(-carousel').hover(
+            function() { clearInterval(carouselInterval); },            function() { clearInterval(carouselInterval); },
             function() {
                 carouselInterval = setInterval(function() {
-                    const nextIndex = (currentIndex + 1) % slideCount;
+                    const nextIndex = (currentIndex + 1) % slideCount; = (currentIndex + 1) % slideCount;
                     showSlide(nextIndex);
-                }, 5000);
+                }, 5000);;
             }
         ).focus(function() {
-            clearInterval(carouselInterval);
-        }).blur(function() {
-            carouselInterval = setInterval(function() {
-                const nextIndex = (currentIndex + 1) % slideCount;
+            clearInterval(carouselInterval);l);
+        }).blur(function() {) {
+            carouselInterval = setInterval(function() {arouselInterval = setInterval(function() {
+                const nextIndex = (currentIndex + 1) % slideCount;dex = (currentIndex + 1) % slideCount;
                 showSlide(nextIndex);
             }, 5000);
         });
     }
 
-    // Testing code to verify jQuery is working correctly
-    console.log('jQuery version:', $.fn.jquery);
-    console.log('Dropdowns found:', $('.dropdown').length);
-    console.log('Dropdown links found:', $('.dropdown > a').length);
+    // Testing code to verify jQuery is working correctlyo verify jQuery is working correctly
+    console.log('jQuery version:', $.fn.jquery);.log('jQuery version:', $.fn.jquery);
+    console.log('Dropdowns found:', $('.dropdown').length);onsole.log('Dropdowns found:', $('.dropdown').length);
+    console.log('Dropdown links found:', $('.dropdown > a').length);    console.log('Dropdown links found:', $('.dropdown > a').length);
 
 });
