@@ -348,86 +348,82 @@ $(document).ready(function() {
                              .attr('tabindex', '-1');
 
             $($slides[index]).addClass('active')
-                             .attr('aria-selected', 'false')
-                             .attr('tabindex', '-1');
-
-            $($slides[index]).addClass('active')
                            .attr('aria-hidden', 'false')
                            .attr('tabindex', '0');
 
-            $($('.carousel-dot')[index]).addClass('active')s('active')
-                                      .attr('aria-selected', 'true')ed', 'true')
-                                      .attr('tabindex', '0');dex', '0');
+            $($('.carousel-dot')[index]).addClass('active')
+                                      .attr('aria-selected', 'true')
+                                      .attr('tabindex', '0');
 
             // Announce slide change to screen readers
-            $('.image-carousel').attr('aria-label', `Design inspiration gallery, showing slide ${index + 1} of ${slideCount}: ${slideLabels[index]}`);ion gallery, showing slide ${index + 1} of ${slideCount}: ${slideLabels[index]}`);
+            $('.image-carousel').attr('aria-label', `Design inspiration gallery, showing slide ${index + 1} of ${slideCount}: ${slideLabels[index]}`);
 
-            currentIndex = index;            currentIndex = index;
+            currentIndex = index;
         }
 
-        // Next button        // Next button
-        $('.carousel-control.next').click(function() {').click(function() {
-            const nextIndex = (currentIndex + 1) % slideCount;   const nextIndex = (currentIndex + 1) % slideCount;
-            showSlide(nextIndex);            showSlide(nextIndex);
+        // Next button
+        $('.carousel-control.next').click(function() {
+            const nextIndex = (currentIndex + 1) % slideCount;
+            showSlide(nextIndex);
         });
 
         // Previous button
-        $('.carousel-control.prev').click(function() {').click(function() {
-            const prevIndex = (currentIndex - 1 + slideCount) % slideCount; const prevIndex = (currentIndex - 1 + slideCount) % slideCount;
-            showSlide(prevIndex);            showSlide(prevIndex);
+        $('.carousel-control.prev').click(function() {
+            const prevIndex = (currentIndex - 1 + slideCount) % slideCount;
+            showSlide(prevIndex);
         });
 
         // Dot navigation
-        $('.carousel-dot').click(function() {function() {
-            const dotIndex = $(this).data('index'); const dotIndex = $(this).data('index');
-            showSlide(dotIndex);            showSlide(dotIndex);
+        $('.carousel-dot').click(function() {
+            const dotIndex = $(this).data('index');
+            showSlide(dotIndex);
         });
 
-        // Add keyboard support for carousel navigationtion
-        $('.image-carousel').keydown(function(e) {down(function(e) {
-            // Right arrow or down arrow // Right arrow or down arrow
-            if (e.keyCode === 39 || e.keyCode === 40) {            if (e.keyCode === 39 || e.keyCode === 40) {
-                const nextIndex = (currentIndex + 1) % slideCount;slideCount;
+        // Add keyboard support for carousel navigation
+        $('.image-carousel').keydown(function(e) {
+            // Right arrow or down arrow
+            if (e.keyCode === 39 || e.keyCode === 40) {
+                const nextIndex = (currentIndex + 1) % slideCount;
                 showSlide(nextIndex);
-                e.preventDefault(); // For keyboard navigationor keyboard navigation
+                e.preventDefault(); // For keyboard navigation
             }
             // Left arrow or up arrow
-            else if (e.keyCode === 37 || e.keyCode === 38) { || e.keyCode === 38) {
-                const prevIndex = (currentIndex - 1 + slideCount) % slideCount;nt) % slideCount;
-                showSlide(prevIndex);   showSlide(prevIndex);
-                e.preventDefault(); // For keyboard navigation/ For keyboard navigation
+            else if (e.keyCode === 37 || e.keyCode === 38) {
+                const prevIndex = (currentIndex - 1 + slideCount) % slideCount;
+                showSlide(prevIndex);
+                e.preventDefault(); // For keyboard navigation
             }
         });
 
         // Auto-advance every 5 seconds
-        let carouselInterval = setInterval(function() {arouselInterval = setInterval(function() {
-            const nextIndex = (currentIndex + 1) % slideCount; const nextIndex = (currentIndex + 1) % slideCount;
-            showSlide(nextIndex);            showSlide(nextIndex);
+        let carouselInterval = setInterval(function() {
+            const nextIndex = (currentIndex + 1) % slideCount;
+            showSlide(nextIndex);
         }, 5000);
 
         // Pause auto-advance on hover or focus
-        // These are not scroll/touch events that need passive listeners for scroll performance.ouch events that need passive listeners for scroll performance.
-        $('.image-carousel').hover(-carousel').hover(
-            function() { clearInterval(carouselInterval); },            function() { clearInterval(carouselInterval); },
+        // These are not scroll/touch events that need passive listeners for scroll performance.
+        $('.image-carousel').hover(
+            function() { clearInterval(carouselInterval); },
             function() {
                 carouselInterval = setInterval(function() {
-                    const nextIndex = (currentIndex + 1) % slideCount; = (currentIndex + 1) % slideCount;
+                    const nextIndex = (currentIndex + 1) % slideCount;
                     showSlide(nextIndex);
-                }, 5000);;
+                }, 5000);
             }
         ).focus(function() {
-            clearInterval(carouselInterval);l);
-        }).blur(function() {) {
-            carouselInterval = setInterval(function() {arouselInterval = setInterval(function() {
-                const nextIndex = (currentIndex + 1) % slideCount;dex = (currentIndex + 1) % slideCount;
+            clearInterval(carouselInterval);
+        }).blur(function() {
+            carouselInterval = setInterval(function() {
+                const nextIndex = (currentIndex + 1) % slideCount;
                 showSlide(nextIndex);
             }, 5000);
         });
     }
 
-    // Testing code to verify jQuery is working correctlyo verify jQuery is working correctly
-    console.log('jQuery version:', $.fn.jquery);.log('jQuery version:', $.fn.jquery);
-    console.log('Dropdowns found:', $('.dropdown').length);onsole.log('Dropdowns found:', $('.dropdown').length);
-    console.log('Dropdown links found:', $('.dropdown > a').length);    console.log('Dropdown links found:', $('.dropdown > a').length);
+    // Testing code to verify jQuery is working correctly
+    console.log('jQuery version:', $.fn.jquery);
+    console.log('Dropdowns found:', $('.dropdown').length);
+    console.log('Dropdown links found:', $('.dropdown > a').length);
 
 });
