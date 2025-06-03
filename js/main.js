@@ -57,9 +57,10 @@ $(document).ready(function() {
     }
 
     // Enhanced mobile dropdown toggle for better reliability
+    // This touchstart calls preventDefault(), so it CANNOT be passive.
     $('.dropdown > a').on('click touchstart', function(e) {
         if ($(window).width() <= 768) {
-            e.preventDefault();
+            e.preventDefault(); // This listener calls preventDefault, so {passive: true} is not applicable here for touchstart
             e.stopPropagation();
 
             const $dropdown = $(this).parent('.dropdown');
@@ -111,18 +112,34 @@ $(document).ready(function() {
     });
 
     // Ensure submenu links navigate correctly on mobile and don't close the menu prematurely
-    $('.dropdown-content a').on('click touchstart', function(e) {
-        if ($(window).width() <= 768) {
-            e.stopPropagation(); // Prevent this click from closing the main menu
-                                 // The default link navigation will proceed as e.preventDefault() is NOT called here.
-                                 // You might want to explicitly navigate if issues persist:
-                                 // window.location.href = $(this).attr('href');
-        }
+    // This touchstart listener does not call preventDefault for the touch event itself.
+    // We can make its touchstart part passive.
+    $('.dropdown-content a').each(function() {
+        const linkElement = this;
+
+        // Handle click with jQuery as before
+        $(linkElement).on('click', function(e) {
+            if ($(window).width() <= 768) {
+                e.stopPropagation(); // Prevent this click from closing the main menu
+                                     // The default link navigation will proceed as e.preventDefault() is NOT called here.
+            }
+        });
+
+        // Handle touchstart with a native passive listener
+        // This helps ensure that if the user is trying to scroll through the dropdown content on a touch device,
+        // the browser doesn't wait for this listener.
+        linkElement.addEventListener('touchstart', function(e) {
+            if (window.innerWidth <= 768) { // Using window.innerWidth for consistency
+                e.stopPropagation();
+            }
+        }, { passive: true }); // PASSIVE LISTENER ADDED
     });
 
-    // Close mobile menu when clicking outside
-    $(document).on('click touchstart', function(event) {
-        if (!$(event.target).closest('.menu-toggle, .nav-links').length) {
+
+    // Handler function for closing mobile menu when clicking outside
+    const closeMobileMenuOnClickOutside = function(event) {
+        // Check if the menu is active and the click is outside
+        if ($('.nav-links').hasClass('active') && !$(event.target).closest('.menu-toggle, .nav-links').length) {
             $('.nav-links').removeClass('active');
             $('.dropdown-content').removeClass('active'); // Ensure submenus also close
             $('.dropdown').removeClass('active');
@@ -130,7 +147,14 @@ $(document).ready(function() {
             $('.menu-toggle').attr('aria-expanded', 'false');
             $('.dropdown > a').attr('aria-expanded', 'false'); // Reset services dropdown parent
         }
-    });
+    };
+
+    // Use jQuery for 'click' event as before
+    $(document).on('click', closeMobileMenuOnClickOutside);
+    // Use native addEventListener for 'touchstart' with { passive: true }
+    // This ensures that touch interactions for scrolling are not blocked by this listener.
+    document.addEventListener('touchstart', closeMobileMenuOnClickOutside, { passive: true }); // PASSIVE LISTENER ADDED
+
 
     // Handle escape key to close menu
     $(document).on('keydown', function(e) {
@@ -159,59 +183,71 @@ $(document).ready(function() {
         $(this).attr('aria-expanded', isExpanded ? 'true' : 'false');
     });
 
-    // Close contact menu when clicking outside
-    $(document).on('click touchstart', function(event) {
+    // Handler for closing contact menu when clicking outside
+    const closeContactMenuOnClickOutside = function(event) {
         if (!$(event.target).closest('#floating-contact').length && floatingContact.hasClass('active')) {
             floatingContact.removeClass('active');
             contactButton.attr('aria-expanded', 'false');
         }
-    });
+    };
+    // Use jQuery for 'click' event
+    $(document).on('click', closeContactMenuOnClickOutside);
+    // Use native addEventListener for 'touchstart' with { passive: true } for the contact menu
+    document.addEventListener('touchstart', closeContactMenuOnClickOutside, { passive: true }); // PASSIVE LISTENER ADDED
+
 
     // Animated counter for statistics
+    // The actual checkIfInView function for stats, to be used by the event listener
+    let statsAnimated = false; // Moved to a broader scope if animateStats is called multiple times or if checkIfInView is global
+    function checkIfInView() {
+        const statsSection = $('.stats-section'); // Re-select or ensure it's available
+        if (!statsSection.length) return; // Exit if section not found
+
+        const windowHeight = $(window).height();
+        const windowTopPosition = $(window).scrollTop();
+        const windowBottomPosition = (windowTopPosition + windowHeight);
+
+        const elementTopPosition = statsSection.offset().top;
+        const elementBottomPosition = (elementTopPosition + statsSection.outerHeight());
+
+        // Check if stats section is in view and hasn't been animated yet
+        if ((elementBottomPosition >= windowTopPosition) &&
+            (elementTopPosition <= windowBottomPosition) &&
+            !statsAnimated) { // Use the correctly scoped 'statsAnimated'
+
+            const statItems = $('.stat-number'); // Re-select or ensure it's available
+            // Animate each stat counter
+            statItems.each(function() {
+                const $this = $(this);
+                const finalValue = $this.data('count');
+
+                $({ Counter: 0 }).animate({ Counter: finalValue }, {
+                    duration: 2000,
+                    easing: 'swing',
+                    step: function() {
+                        $this.text(Math.ceil(this.Counter));
+                    },
+                    complete: function() {
+                        $this.text(finalValue);
+                    }
+                });
+            });
+            statsAnimated = true; // Set flag after animation starts
+        }
+    }
+
     function animateStats() {
         const statsSection = $('.stats-section');
-
         if (statsSection.length) {
-            const statItems = $('.stat-number');
-            let animated = false;
+            // Remove previous jQuery scroll listener if any, to avoid multiple bindings
+            // $(window).off('scroll', checkIfInView); // Not strictly necessary if addEventListener is used once
 
-            function checkIfInView() {
-                const windowHeight = $(window).height();
-                const windowTopPosition = $(window).scrollTop();
-                const windowBottomPosition = (windowTopPosition + windowHeight);
+            // Use native addEventListener for 'scroll' with { passive: true }
+            // 'scroll' events are not the primary target for 'passive' benefits in the same way as touch/wheel,
+            // as they fire after scroll has happened. However, it's good practice if preventDefault is not called.
+            window.addEventListener('scroll', checkIfInView, { passive: true }); // PASSIVE LISTENER ADDED
 
-                const elementTopPosition = statsSection.offset().top;
-                const elementBottomPosition = (elementTopPosition + statsSection.outerHeight());
-
-                // Check if stats section is in view and hasn't been animated yet
-                if ((elementBottomPosition >= windowTopPosition) &&
-                    (elementTopPosition <= windowBottomPosition) &&
-                    !animated) {
-
-                    // Animate each stat counter
-                    statItems.each(function() {
-                        const $this = $(this);
-                        const finalValue = $this.data('count');
-
-                        $({ Counter: 0 }).animate({ Counter: finalValue }, {
-                            duration: 2000,
-                            easing: 'swing',
-                            step: function() {
-                                $this.text(Math.ceil(this.Counter));
-                            },
-                            complete: function() {
-                                $this.text(finalValue);
-                            }
-                        });
-                    });
-
-                    animated = true;
-                }
-            }
-
-            // Check on scroll and on page load
-            $(window).on('scroll', checkIfInView);
-            checkIfInView();
+            checkIfInView(); // Initial check on page load
         }
     }
 
@@ -232,7 +268,7 @@ $(document).ready(function() {
         $item.on('keydown', function(e) {
             // Space or Enter toggles between before/after
             if (e.key === ' ' || e.key === 'Enter') {
-                e.preventDefault();
+                e.preventDefault(); // This preventDefault is for keyboard interaction, not scrolling.
 
                 if ($before.css('opacity') !== '0') {
                     $before.css('opacity', '0');
@@ -266,7 +302,7 @@ $(document).ready(function() {
     // Add keyboard support for accordions
     $('.accordion-header').on('keydown', function(e) {
         if (e.key === ' ' || e.key === 'Enter') {
-            e.preventDefault();
+            e.preventDefault(); // For keyboard interaction
             $(this).click();
         }
     });
@@ -360,13 +396,13 @@ $(document).ready(function() {
             if (e.keyCode === 39 || e.keyCode === 40) {
                 const nextIndex = (currentIndex + 1) % slideCount;
                 showSlide(nextIndex);
-                e.preventDefault();
+                e.preventDefault(); // For keyboard navigation
             }
             // Left arrow or up arrow
             else if (e.keyCode === 37 || e.keyCode === 38) {
                 const prevIndex = (currentIndex - 1 + slideCount) % slideCount;
                 showSlide(prevIndex);
-                e.preventDefault();
+                e.preventDefault(); // For keyboard navigation
             }
         });
 
@@ -377,6 +413,7 @@ $(document).ready(function() {
         }, 5000);
 
         // Pause auto-advance on hover or focus
+        // These are not scroll/touch events that need passive listeners for scroll performance.
         $('.image-carousel').hover(
             function() { clearInterval(carouselInterval); },
             function() {
@@ -400,6 +437,4 @@ $(document).ready(function() {
     console.log('Dropdowns found:', $('.dropdown').length);
     console.log('Dropdown links found:', $('.dropdown > a').length);
 
-    // Add class for dropdown styling
-    $('.dropdown').addClass('dropdown-test');
 });
