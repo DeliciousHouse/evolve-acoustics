@@ -1,0 +1,118 @@
+/* Mobile Menu and Navigation Enhancements for Evolve Acoustics website */
+/* Created on: June 3, 2025 */
+/* Files consolidated:
+   - mobile-menu-enhancements.css
+*/
+
+/* ========== MOBILE NAVIGATION ENHANCEMENTS ========== */
+@media (max-width: 768px) {
+    .dropdown-content {
+        /* Core visibility properties */
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transition: max-height 0.35s ease, opacity 0.3s ease, visibility 0.3s ease;
+
+        /* Essential display properties */
+        position: static !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        background-color: rgba(26, 77, 109, 0.2) !important;
+        margin: 5px 0 5px 15px !important;
+        border-left: 2px solid #4fd5ff !important;
+        padding: 0 !important;
+
+        /* Force initial state */
+        display: block !important;
+    }
+
+    /* Active state */
+    .dropdown-content.active {
+        max-height: 500px;
+        opacity: 1;
+        visibility: visible;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+    }
+
+    /* Override hover effects on mobile */
+    .dropdown:hover .dropdown-content:not(.active) {
+        max-height: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    /* Explicit styling for active dropdown */
+    .dropdown.active > .dropdown-content {
+        max-height: 500px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+    }
+
+    /* Services dropdown specific styling */
+    li.dropdown:has(a:contains("Services")).active > .dropdown-content {
+        display: block !important;
+    }
+
+    /* Clear dropdown indicator */
+    .dropdown > a::after {
+        content: "▼";
+        display: inline-block;
+        margin-left: 8px;
+        font-size: 12px;
+        transition: transform 0.3s ease;
+        color: #4fd5ff;
+    }
+
+    .dropdown.active > a::after {
+        transform: rotate(180deg);
+    }
+
+    /* Enhanced tap target */
+    .dropdown > a {
+        -webkit-tap-highlight-color: rgba(79, 213, 255, 0.4);
+        display: block;
+        border: 2px solid #4fd5ff;
+        border-radius: 5px;
+        padding: 10px 15px;
+        margin: 5px 0;
+        font-weight: bold;
+        transition: all 0.2s ease;
+    }
+
+    .dropdown > a:active {
+        background-color: rgba(79, 213, 255, 0.2);
+    }
+
+    /* Active dropdown styling */
+    .dropdown.active > a {
+        background-color: rgba(79, 213, 255, 0.15);
+        color: #4fd5ff;
+    }
+
+    /* Dropdown links styling */
+    .dropdown-content a {
+        padding: 10px 15px !important;
+        margin: 3px 0 !important;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        display: block;
+    }
+
+    .dropdown-content a:active,
+    .dropdown-content a:focus {
+        background-color: rgba(79, 213, 255, 0.2);
+    }
+
+    /* Current page indication */
+    .dropdown-content a.active {
+        background-color: rgba(79, 213, 255, 0.25);
+        color: #ffffff;
+        font-weight: bold;
+    }
+}
+
+/* ========== DESKTOP NAVIGATION ENHANCEMENTS ========== */
+/* Desktop-specific navigation enhancements can be added here in the future */

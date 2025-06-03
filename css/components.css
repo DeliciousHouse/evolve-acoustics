@@ -1,0 +1,155 @@
+/*
+ * CONSOLIDATED COMPONENTS CSS
+ * This file combines:
+ * - application-card-fixes.css
+ * - about-team-fixes.css
+ */
+
+/* ========== APPLICATION CARD FIXES ========== */
+/* Enhanced application card styles for acoustic installation page */
+
+.applications-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+/* Fix sizing issues that may cause content cut-off */
+.application-card {
+    flex: 1;
+    min-width: 240px;
+    max-width: 280px;
+    /* Set min-height to accommodate potential taller content */
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+/* Ensure images have consistent sizing */
+.application-figure img {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Ensure text content doesn't get cut off */
+.application-card p {
+    padding: 15px;
+    flex-grow: 1; /* Allow paragraphs to expand */
+}
+
+/* Additional space at the bottom of the card */
+.application-card p:last-child {
+    margin-bottom: 15px;
+}
+
+/* ========== TEAM MEMBER FIXES ========== */
+/* Team Member Image Size Fixes for About Us Page - Higher specificity to override existing styles */
+.team-section .team-member-image-left,
+.team-section .team-member-image-right {
+    flex: 0 0 30% !important;
+    max-width: 30% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-section .team-member-info-left,
+.team-section .team-member-info-right {
+    flex: 0 0 65% !important;
+    max-width: 65% !important;
+    padding: 0 20px;
+}
+
+/* Override image styles with higher specificity */
+.team-section .team-member-image-left img,
+.team-section .team-member-image-right img {
+    width: auto !important;
+    max-width: 250px !important;
+    height: auto !important;
+    max-height: 350px !important;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    object-fit: cover;
+    aspect-ratio: auto !important; /* Override any fixed aspect ratio */
+}
+
+/* Remove width: 100% that might be causing the issue */
+.team-member-image-left img,
+.team-member-image-right img {
+    width: auto !important;
+}
+
+/* Increase spacing between team members */
+.team-section .team-member-row {
+    margin-bottom: 80px;
+}
+
+/* ========== RESPONSIVE STYLES ========== */
+/* Desktop-specific styles */
+@media (min-width: 1024px) {
+    .team-section .team-member-image-left img,
+    .team-section .team-member-image-right img {
+        max-width: 250px !important;
+        width: 250px !important;
+    }
+
+    .team-section .team-member-row {
+        align-items: center;
+        gap: 40px;
+    }
+
+    .team-section .team-member-image-left,
+    .team-section .team-member-image-right {
+        flex: 0 0 auto !important;
+        width: 250px !important;
+    }
+
+    .team-section .team-member-info-left,
+    .team-section .team-member-info-right {
+        flex: 1 !important;
+        max-width: calc(100% - 290px) !important;
+    }
+}
+
+/* Tablet-specific styles */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .team-section .team-member-image-left img,
+    .team-section .team-member-image-right img {
+        max-width: 220px !important;
+        max-height: 300px !important;
+        width: 220px !important;
+    }
+
+    .team-section .team-member-image-left,
+    .team-section .team-member-image-right {
+        flex: 0 0 auto !important;
+        width: 220px !important;
+    }
+}
+
+/* Application card responsive adjustments */
+@media (max-width: 768px) {
+    .applications-grid {
+        gap: 20px;
+    }
+
+    .application-card {
+        min-width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Fix mobile view issues */
+@media (max-width: 480px) {
+    .application-card {
+        min-height: 350px;
+    }
+
+    .application-figure img {
+        height: 180px;
+    }
+}
