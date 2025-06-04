@@ -171,6 +171,7 @@ RUN mkdir -p js && \
   w.loadCSS = loadCSS;
 }(typeof global !== "undefined" ? global : this));
 EOL
+EOL
 
 # Create passive event fix for touchstart and touchmove events
 RUN cat > js/passive-event-fix.js << 'EOL'
