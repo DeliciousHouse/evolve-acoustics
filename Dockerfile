@@ -49,7 +49,8 @@ RUN if [ -f "/app/css/responsive-images.css" ]; then \
 RUN echo "Creating required CSS files with minimal content..." && \
     mkdir -p ./css && \
     # Create visual-fixes.css
-    echo "/* Visual fixes CSS - Created during Docker build */
+    cat > ./css/visual-fixes.css << 'EOCSS'
+/* Visual fixes CSS - Created during Docker build */
 
 .blog-grid {
   display: grid;
@@ -66,9 +67,12 @@ RUN echo "Creating required CSS files with minimal content..." && \
 img {
   max-width: 100%;
   height: auto;
-}" > ./css/visual-fixes.css && \
+}
+EOCSS
+    && \
     # Create enhanced-visual-fixes.css
-    echo "/* Enhanced visual fixes CSS - Created during Docker build */
+    cat > ./css/enhanced-visual-fixes.css << 'EOCSS'
+/* Enhanced visual fixes CSS - Created during Docker build */
 
 .button:hover,
 .btn:hover,
@@ -88,9 +92,12 @@ textarea:focus {
 
 .animated-element {
   transition: all 0.3s ease-in-out;
-}" > ./css/enhanced-visual-fixes.css && \
+}
+EOCSS
+    && \
     # Create enhanced-preloader.css
-    echo "/* Enhanced preloader CSS - Created during Docker build */
+    cat > ./css/enhanced-preloader.css << 'EOCSS'
+/* Enhanced preloader CSS - Created during Docker build */
 
 .evolve-preloader {
   position: fixed;
@@ -142,7 +149,9 @@ textarea:focus {
   margin-top: 10px;
   font-family: Arial, sans-serif;
   font-size: 14px;
-}" > ./css/enhanced-preloader.css && \
+}
+EOCSS
+    && \
     echo "Created all required CSS files"
 
 # Copy FontAwesome CSS files (typically already minified)
