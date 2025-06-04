@@ -333,41 +333,27 @@ RUN echo "Adding passive-event-fix.js to HTML files..." && \
     # Add to pages/blogs/*.html
     find /app/dist/pages/blogs -maxdepth 1 -name "*.html" -type f -exec sed -i "/<head>/a \    <script data-cfasync=\"false\" src=\"../../js/passive-event-fix.js\"></script>" {} \;
 
-# Inject critical CSS and optimize CSS loading with simple inline script approach
-RUN mkdir -p js && echo '/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */' > js/css-loader-min.js && \
-    echo '(function(w){' >> js/css-loader-min.js && \
-    echo '  var loadCSS = function(href, before, media) {' >> js/css-loader-min.js && \
-    echo '    var doc = w.document;' >> js/css-loader-min.js && \
-    echo '    var ss = doc.createElement("link");' >> js/css-loader-min.js && \
-    echo '    ss.rel = "stylesheet";' >> js/css-loader-min.js && \
-    echo '    ss.href = href;' >> js/css-loader-min.js && \
-    echo '    ss.media = "only x";' >> js/css-loader-min.js && \
-    echo '    doc.head.appendChild(ss);' >> js/css-loader-min.js && \
-    echo '    setTimeout(function(){' >> js/css-loader-min.js && \
-    echo '      ss.media = media || "all";' >> js/css-loader-min.js && \
-    echo '    }, 0);' >> js/css-loader-min.js && \
-    echo '    return ss;' >> js/css-loader-min.js && \
-    echo '  };' >> js/css-loader-min.js && \
-    echo '  w.loadCSS = loadCSS;' >> js/css-loader-min.js && \
-    echo '}(typeof global !== "undefined" ? global : this));' >> js/css-loader-min.js
+# This section is intentionally removed as it's redundant with the command above
 
 # Simply inject critical CSS and optimize CSS loading with simple inline script approach
-RUN mkdir -p js && echo '/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
-(function(w){
-  var loadCSS = function(href, before, media) {
-    var doc = w.document;
-    var ss = doc.createElement("link");
-    ss.rel = "stylesheet";
-    ss.href = href;
-    ss.media = "only x";
-    doc.head.appendChild(ss);
-    setTimeout(function(){
-      ss.media = media || "all";
-    }, 0);
-    return ss;
-  };
-  w.loadCSS = loadCSS;
-}(typeof global !== "undefined" ? global : this));' > js/css-loader-min.js
+RUN mkdir -p js && \
+    printf "%s\n" \
+    "/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */" \
+    "(function(w){" \
+    "  var loadCSS = function(href, before, media) {" \
+    "    var doc = w.document;" \
+    "    var ss = doc.createElement(\"link\");" \
+    "    ss.rel = \"stylesheet\";" \
+    "    ss.href = href;" \
+    "    ss.media = \"only x\";" \
+    "    doc.head.appendChild(ss);" \
+    "    setTimeout(function(){" \
+    "      ss.media = media || \"all\";" \
+    "    }, 0);" \
+    "    return ss;" \
+    "  };" \
+    "  w.loadCSS = loadCSS;" \
+    "}(typeof global !== \"undefined\" ? global : this));" > js/css-loader-min.js
 
 # Add script reference to HTML files
 RUN if [ -f "index.html" ]; then \
