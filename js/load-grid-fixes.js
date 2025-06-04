@@ -7,7 +7,18 @@
 
 // Use passive event listener for DOMContentLoaded
 window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
-    const cssPath = '/css/visual-fixes.css'; // Ensure this is the correct absolute path from your site's root
+    // Determine the base path based on the current URL
+    function getBasePath() {
+        const path = window.location.pathname;
+        if (path.includes('/pages/blogs/')) {
+            return '../../';
+        } else if (path.includes('/pages/') || path.includes('/templates/')) {
+            return '../';
+        }
+        return '';
+    }
+
+    const cssPath = getBasePath() + 'css/visual-fixes.css'; // Use relative path based on current location
     // Check if the CSS is already linked
     if (!document.querySelector(`link[href$="${cssPath}"]`)) {
         const cssLink = document.createElement('link');

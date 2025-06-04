@@ -1,0 +1,59 @@
+/*
+ * Enhanced preloader styles for Evolve Acoustics website
+ * This file contains styles for the preloader animation
+ */
+
+/* Empty placeholder file that is dynamically referenced by JS */
+/* Adding minimal styling for preloader functionality */
+
+.evolve-preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #171717;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease-out, visibility 0.5s;
+}
+
+.evolve-preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.logo {
+  max-width: 200px;
+  height: auto;
+}
+
+.progress-container {
+  width: 80%;
+  max-width: 300px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #f7f7f7;
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+.loading-text {
+  color: #f7f7f7;
+  margin-top: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}

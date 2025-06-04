@@ -8,6 +8,17 @@
 
 // Use passive event listener for DOMContentLoaded
 window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
+    // Determine the base path based on the current URL
+    function getBasePath() {
+        const path = window.location.pathname;
+        if (path.includes('/pages/blogs/')) {
+            return '../../';
+        } else if (path.includes('/pages/') || path.includes('/templates/')) {
+            return '../';
+        }
+        return '';
+    }
+
     // Load CSS fixes if not already loaded
     function loadCSS(href) {
         // Check if the CSS has already been loaded
@@ -27,9 +38,9 @@ window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
         console.log('Visual fixes CSS loaded: ' + href);
     }
 
-    // Load our visual fixes CSS files
-    loadCSS('/css/visual-fixes.css');
-    loadCSS('/css/enhanced-visual-fixes.css');
+    // Load our visual fixes CSS files with relative paths
+    loadCSS(getBasePath() + 'css/visual-fixes.css');
+    loadCSS(getBasePath() + 'css/enhanced-visual-fixes.css');
 
     // Fix for blog grid layout - especially on page 1
     const fixBlogGrid = function() {
