@@ -236,6 +236,7 @@ RUN cat > js/passive-event-fix.js << 'EOL'
   }
 })();
 EOL
+EOL
 
 # Add script reference to HTML files
 RUN if [ -f "index.html" ]; then \
