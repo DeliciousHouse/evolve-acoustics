@@ -56,6 +56,7 @@ RUN if [ -d "/app/src/assets/webfonts" ]; then cp -r /app/src/assets/webfonts/* 
 RUN npx uglify-js /app/src/js/main.js -c -m -o ./js/main.js
 RUN npx uglify-js /app/src/js/image-fallback.js -c -m -o ./js/image-fallback.js
 RUN npx uglify-js /app/src/js/favicon-fix.js -c -m -o ./js/favicon-fix.js
+RUN npx uglify-js /app/src/js/passive-event-fix.js -c -m -o ./js/passive-event-fix.js
 
 # ADD THESE LINES for the missing JS files:
 RUN if [ -f "/app/src/js/enhanced-preloader.js" ]; then npx uglify-js /app/src/js/enhanced-preloader.js -c -m -o ./js/enhanced-preloader.js; fi
@@ -109,10 +110,27 @@ RUN node /app/scripts/generate-responsive-images.js
 # Process HTML files to use responsive images
 RUN node /app/scripts/process-html-images.js
 
+# Add defer attribute to JavaScript files
+COPY ./add-defer-to-scripts.sh /app/
+RUN chmod +x /app/add-defer-to-scripts.sh && /app/add-defer-to-scripts.sh
+
+# Add passive event fix script to HTML files
+COPY ./add-passive-event-fix.sh /app/
+RUN chmod +x /app/add-passive-event-fix.sh && /app/add-passive-event-fix.sh
+
 # Inject critical CSS and optimize CSS loading with simple inline script approach
 RUN mkdir -p js && \
     echo '/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */\n\
 (function(w){var loadCSS=function(href,before,media){var doc=w.document;var ss=doc.createElement("link");ss.rel="stylesheet";ss.href=href;ss.media="only x";doc.head.appendChild(ss);setTimeout(function(){ss.media=media||"all";},0);return ss;};w.loadCSS=loadCSS;}(typeof global!=="undefined"?global:this));' > js/css-loader-min.js
+
+# Create passive event fix for touchstart and touchmove events
+RUN echo '/**\n\
+ * Passive Event Listeners Fix\n\
+ *\n\
+ * This script makes touch events passive by default to improve\n\
+ * scrolling performance on mobile devices.\n\
+ */\n\
+(function(){let e=!1;try{const t=Object.defineProperty({},"passive",{get:function(){return e=!0,!0}});window.addEventListener("testPassive",null,t),window.removeEventListener("testPassive",null,t)}catch(t){}if(e){const t=EventTarget.prototype.addEventListener;EventTarget.prototype.addEventListener=function(e,n,s){if("touchstart"===e||"touchmove"===e||"wheel"===e||"mousewheel"===e){let o=s;s===undefined||!1===s?o={passive:!0}:"object"==typeof s&&s.passive===undefined&&(o=Object.assign({},s,{passive:!0})),t.call(this,e,n,o)}else t.call(this,e,n,s)},window.addPassiveEventListener=function(e,t,n){e.addEventListener(t,n,{passive:!0})}}else window.addPassiveEventListener=function(e,t,n){e.addEventListener(t,n)};"undefined"!=typeof jQuery&&function(){const e=jQuery.fn.on;jQuery.fn.on=function(){const t=Array.prototype.slice.call(arguments);"string"==typeof t[0]&&(t[0].includes("touchstart")||t[0].includes("touchmove"))&&(t.length<4||"object"!=typeof t[3]?t[3]={passive:!0}:t[3].passive===undefined&&(t[3].passive=!0));return e.apply(this,t)}}();})();' > js/passive-event-fix.js
 
 # Add script reference to HTML files
 RUN if [ -f "index.html" ]; then \
