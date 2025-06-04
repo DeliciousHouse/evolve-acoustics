@@ -45,6 +45,26 @@ RUN if [ -f "/app/css/responsive-images.css" ]; then \
       npx csso-cli --input "/app/css/responsive-images.css" --output "./css/responsive-images.css" --comments none; \
     fi
 
+# Copy fix script to create missing CSS files and fix references
+COPY fix_missing_css_references.sh ./
+RUN chmod +x ./fix_missing_css_references.sh && \
+    ./fix_missing_css_references.sh || echo "Script execution failed, creating files manually"
+
+# Always check and create CSS files if they don't exist
+RUN mkdir -p ./css && \
+    if [ ! -f "./css/visual-fixes.css" ]; then \
+      echo "/* Visual fixes CSS - Created during Docker build */\n\n.blog-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }\n.blog-card { display: flex; flex-direction: column; height: 100%; }\nimg { max-width: 100%; height: auto; }" > ./css/visual-fixes.css; \
+      echo "Created visual-fixes.css"; \
+    fi && \
+    if [ ! -f "./css/enhanced-visual-fixes.css" ]; then \
+      echo "/* Enhanced visual fixes CSS - Created during Docker build */\n\n.button:hover, .btn:hover, a.cta-button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; }\na:focus, button:focus, input:focus, textarea:focus { outline: 2px solid #4a90e2; outline-offset: 2px; }\n.animated-element { transition: all 0.3s ease-in-out; }" > ./css/enhanced-visual-fixes.css; \
+      echo "Created enhanced-visual-fixes.css"; \
+    fi && \
+    if [ ! -f "./css/enhanced-preloader.css" ]; then \
+      echo "/* Enhanced preloader CSS - Created during Docker build */\n\n.evolve-preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #171717; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.5s ease-out, visibility 0.5s; }\n.evolve-preloader.hidden { opacity: 0; visibility: hidden; }\n.logo-container { margin-bottom: 20px; }\n.logo { max-width: 200px; height: auto; }\n.progress-container { width: 80%; max-width: 300px; height: 4px; background-color: rgba(255, 255, 255, 0.2); border-radius: 2px; overflow: hidden; }\n.progress-bar { height: 100%; background-color: #f7f7f7; width: 0; transition: width 0.3s ease; }\n.loading-text { color: #f7f7f7; margin-top: 10px; font-family: Arial, sans-serif; font-size: 14px; }" > ./css/enhanced-preloader.css; \
+      echo "Created enhanced-preloader.css"; \
+    fi
+
 # Copy FontAwesome CSS files (typically already minified)
 RUN if [ -d "/app/src/css/fontawesome" ]; then cp -r /app/src/css/fontawesome ./css/; fi
 # Copy FontAwesome webfonts from src/assets/webfonts to dist/webfonts
@@ -57,6 +77,25 @@ RUN npx uglify-js /app/src/js/main.js -c -m -o ./js/main.js
 RUN npx uglify-js /app/src/js/image-fallback.js -c -m -o ./js/image-fallback.js
 RUN npx uglify-js /app/src/js/favicon-fix.js -c -m -o ./js/favicon-fix.js
 RUN npx uglify-js /app/src/js/passive-event-fix.js -c -m -o ./js/passive-event-fix.js
+
+# Fix any absolute paths in JavaScript files
+RUN echo "Checking and fixing absolute paths in JavaScript files..." && \
+    for js_file in ./js/*.js; do \
+      if [ -f "$js_file" ]; then \
+        # Replace any references to '/css/' with relative paths using getBasePath()
+        if grep -q "loadCSS(\"/css/" "$js_file" || grep -q "href = \"/css/" "$js_file" || grep -q "cssPath = '/css/" "$js_file"; then \
+          echo "Fixing absolute CSS paths in $js_file"; \
+          # Add getBasePath function if it doesn't exist
+          if ! grep -q "function getBasePath()" "$js_file"; then \
+            sed -i '/loadCSS(/i \    // Determine the base path based on the current URL\n    function getBasePath() {\n        const path = window.location.pathname;\n        if (path.includes("/pages/blogs/")) {\n            return "../../";\n        } else if (path.includes("/pages/") || path.includes("/templates/")) {\n            return "../";\n        }\n        return "";\n    }' "$js_file"; \
+          fi; \
+          # Replace absolute paths with relative paths using getBasePath()
+          sed -i 's|loadCSS("/css/|loadCSS(getBasePath() + "css/|g' "$js_file"; \
+          sed -i 's|href = "/css/|href = getBasePath() + "css/|g' "$js_file"; \
+          sed -i 's|cssPath = \'/css/|cssPath = getBasePath() + \'css/|g' "$js_file"; \
+        fi; \
+      fi; \
+    done
 
 # ADD THESE LINES for the missing JS files:
 RUN if [ -f "/app/src/js/enhanced-preloader.js" ]; then npx uglify-js /app/src/js/enhanced-preloader.js -c -m -o ./js/enhanced-preloader.js; fi
