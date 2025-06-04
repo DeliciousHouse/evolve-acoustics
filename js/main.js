@@ -56,11 +56,17 @@ $(document).ready(function() {
         }
     }
 
-    // Enhanced mobile dropdown toggle for better reliability
-    // This touchstart calls preventDefault(), so it CANNOT be passive.
-    $('.dropdown > a').on('click touchstart', function(e) {
+    // Enhanced mobile dropdown toggle with passive event handling
+    // Split touchstart and click events for better performance
+    $('.dropdown > a').on('touchstart', function() {
+        // Just mark it as touched without preventing default (passive event)
+        $(this).data('touched', true);
+    });
+
+    // Handle actual functionality in the click event
+    $('.dropdown > a').on('click', function(e) {
         if ($(window).width() <= 768) {
-            e.preventDefault(); // This listener calls preventDefault, so {passive: true} is not applicable here for touchstart
+            e.preventDefault();
             e.stopPropagation();
 
             const $dropdown = $(this).parent('.dropdown');

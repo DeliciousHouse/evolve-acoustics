@@ -19,6 +19,8 @@ During the build process, the following steps are executed:
 
 1. Original images are processed to create multiple resolutions
 2. Each image is converted to WebP and AVIF formats for better compression
+3. JavaScript files are configured to load with defer attribute to improve page loading performance
+4. Passive event listeners are implemented for touch and wheel events to improve scrolling performance
 3. HTML files are scanned and `<img>` elements are replaced with responsive `<picture>` elements
 4. A manifest file is generated listing all processed images and their variations
 
@@ -83,3 +85,35 @@ When adding new images:
 
 - Modern browsers (Chrome, Firefox, Safari, Edge): Full support for WebP and/or AVIF
 - Older browsers: Will use JPG/PNG fallbacks automatically
+
+## JavaScript Performance Optimizations
+
+In addition to responsive images, we've implemented several JavaScript performance optimizations:
+
+### 1. Deferred Script Loading
+
+All non-critical JavaScript files are loaded with the `defer` attribute, which:
+- Allows HTML parsing to continue uninterrupted
+- Improves initial page load and rendering times
+- Maintains script execution order
+
+Example:
+```html
+<script src="js/utilities.js" defer></script>
+<script src="js/main.js" defer></script>
+```
+
+### 2. Passive Event Listeners
+
+Touch and wheel events are configured as passive by default to improve scrolling performance:
+- Implemented via a polyfill loaded early in the page
+- Split event handlers for cases where `preventDefault()` is needed
+- Optimizes scrolling on mobile devices
+
+### 3. Image Loading Optimizations
+
+- Lazy loading of images below the fold
+- Format detection to serve appropriate image formats
+- Progressive loading for better perceived performance
+
+For more details, see the [JavaScript Performance Optimizations](javascript-performance-optimizations.md) document.

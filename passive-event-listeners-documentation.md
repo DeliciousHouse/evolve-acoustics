@@ -17,7 +17,24 @@ Passive event listeners are a web platform feature that improve scrolling perfor
 
 ## Implementation Details
 
-### 1. Feature Detection
+### 1. Deferred JavaScript Loading
+
+We've implemented deferred JavaScript loading to improve initial page load performance. All non-critical JavaScript files are loaded with the `defer` attribute, which allows the browser to continue parsing the HTML while downloading the script in the background, and only executes it after the HTML parsing is complete.
+
+Benefits:
+- Faster initial page rendering
+- Reduced blocking of critical resources
+- Better user experience, especially on slower connections
+
+### 2. Split Touchstart/Click Event Handling
+
+For mobile menu interactions that previously used combined `touchstart` and `click` events with `preventDefault()`, we've split these into separate handlers:
+- A passive `touchstart` event that doesn't call `preventDefault()`
+- A separate `click` event that handles the actual UI changes
+
+This allows the browser to optimize touch interactions while maintaining the same user experience.
+
+### 3. Feature Detection
 
 We've added feature detection for passive event listeners support in `utilities.js`:
 

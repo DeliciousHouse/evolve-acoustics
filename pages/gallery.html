@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="../js/passive-event-fix.js"></script>
     <meta charset="UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preload" href="../css/responsive-images.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="../css/responsive-images.css"></noscript>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7G1H497STH"></script>
     <script>
@@ -115,13 +116,13 @@
             <p class="attribution">Designed and Developed by HID Consult</p>
         </div>
     </footer>
-    <script src="../js/main.js"></script>
+    <script src="../js/main.js" defer></script>
 
     <!-- Elfsight All-in-One Chat | Evolve-Acoustics Chat -->
     <script src="https://static.elfsight.com/platform/platform.js" async></script>
     <div class="elfsight-app-5bec1035-3020-43d1-a3a2-b1a23e3c7efc" data-elfsight-app-lazy></div>
-<script src="../js/evolve-visual-fixes.js"></script>
-<script src="../js/image-optimization.js"></script>
-<script src="../js/visual-issue-detector.js"></script>
+<script src="../js/evolve-visual-fixes.js" defer></script>
+<script src="../js/image-optimization.js" defer></script>
+<script src="../js/visual-issue-detector.js" defer></script>
 </body>
 </html>
