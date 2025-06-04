@@ -15,16 +15,26 @@ window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
         const images = document.querySelectorAll('img:not([loading])');
 
         images.forEach(img => {
-            // Skip logo, critical images, or already processed images
+            // Explicitly ensure LCP images are NOT lazy-loaded
+            if (img.classList.contains('hero-image') || img.classList.contains('blog-featured-image') || img.classList.contains('hero-img')) {
+                img.removeAttribute('loading'); // Remove 'loading' if it was ever set to 'lazy'
+                img.removeAttribute('data-src'); // Ensure it uses its direct 'src'
+                // Ensure it's visible if preloader or other scripts might hide it
+                img.style.opacity = '1';
+                img.style.visibility = 'visible';
+                console.log('LCP image processed, ensuring it is not lazy-loaded:', img.src);
+                return; // Skip further processing for this LCP image
+            }
+
+            // Skip logo or already processed images (original logic)
             if (img.classList.contains('logo-img') ||
-                img.classList.contains('hero-img') ||
                 img.hasAttribute('data-src') ||
                 img.hasAttribute('loading') ||
-                isInViewport(img)) {
+                isInViewport(img)) { // This isInViewport might be tricky with preloader
                 return;
             }
 
-            // Set native lazy loading attribute
+            // Set native lazy loading attribute for non-LCP images
             img.setAttribute('loading', 'lazy');
 
             // For browsers that don't support native lazy loading
