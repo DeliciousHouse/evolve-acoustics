@@ -144,26 +144,97 @@ RUN echo "Adding defer attribute to scripts in HTML files..." && \
 RUN echo "Adding passive-event-fix.js to HTML files..." && \
     # Add to index.html
     if [ -f "/app/dist/index.html" ]; then \
-      sed -i "/<head>/a \    <script src=\"js/passive-event-fix.js\"></script>" "/app/dist/index.html"; \
+      sed -i "/<head>/a \    <script data-cfasync=\"false\" src=\"js/passive-event-fix.js\"></script>" "/app/dist/index.html"; \
     fi && \
     # Add to pages/*.html
-    find /app/dist/pages -maxdepth 1 -name "*.html" -type f -exec sed -i "/<head>/a \    <script src=\"../js/passive-event-fix.js\"></script>" {} \; && \
+    find /app/dist/pages -maxdepth 1 -name "*.html" -type f -exec sed -i "/<head>/a \    <script data-cfasync=\"false\" src=\"../js/passive-event-fix.js\"></script>" {} \; && \
     # Add to pages/blogs/*.html
-    find /app/dist/pages/blogs -maxdepth 1 -name "*.html" -type f -exec sed -i "/<head>/a \    <script src=\"../../js/passive-event-fix.js\"></script>" {} \;
+    find /app/dist/pages/blogs -maxdepth 1 -name "*.html" -type f -exec sed -i "/<head>/a \    <script data-cfasync=\"false\" src=\"../../js/passive-event-fix.js\"></script>" {} \;
 
 # Inject critical CSS and optimize CSS loading with simple inline script approach
 RUN mkdir -p js && \
-    echo '/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */\n\
-(function(w){var loadCSS=function(href,before,media){var doc=w.document;var ss=doc.createElement("link");ss.rel="stylesheet";ss.href=href;ss.media="only x";doc.head.appendChild(ss);setTimeout(function(){ss.media=media||"all";},0);return ss;};w.loadCSS=loadCSS;}(typeof global!=="undefined"?global:this));' > js/css-loader-min.js
+    cat > js/css-loader-min.js << 'EOL'
+/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+(function(w){
+  var loadCSS = function(href, before, media) {
+    var doc = w.document;
+    var ss = doc.createElement("link");
+    ss.rel = "stylesheet";
+    ss.href = href;
+    ss.media = "only x";
+    doc.head.appendChild(ss);
+    setTimeout(function(){
+      ss.media = media || "all";
+    }, 0);
+    return ss;
+  };
+  w.loadCSS = loadCSS;
+}(typeof global !== "undefined" ? global : this));
+EOL
 
 # Create passive event fix for touchstart and touchmove events
-RUN echo '/**\n\
- * Passive Event Listeners Fix\n\
- *\n\
- * This script makes touch events passive by default to improve\n\
- * scrolling performance on mobile devices.\n\
- */\n\
-(function(){let e=!1;try{const t=Object.defineProperty({},"passive",{get:function(){return e=!0,!0}});window.addEventListener("testPassive",null,t),window.removeEventListener("testPassive",null,t)}catch(t){}if(e){const t=EventTarget.prototype.addEventListener;EventTarget.prototype.addEventListener=function(e,n,s){if("touchstart"===e||"touchmove"===e||"wheel"===e||"mousewheel"===e){let o=s;s===undefined||!1===s?o={passive:!0}:"object"==typeof s&&s.passive===undefined&&(o=Object.assign({},s,{passive:!0})),t.call(this,e,n,o)}else t.call(this,e,n,s)},window.addPassiveEventListener=function(e,t,n){e.addEventListener(t,n,{passive:!0})}}else window.addPassiveEventListener=function(e,t,n){e.addEventListener(t,n)};"undefined"!=typeof jQuery&&function(){const e=jQuery.fn.on;jQuery.fn.on=function(){const t=Array.prototype.slice.call(arguments);"string"==typeof t[0]&&(t[0].includes("touchstart")||t[0].includes("touchmove"))&&(t.length<4||"object"!=typeof t[3]?t[3]={passive:!0}:t[3].passive===undefined&&(t[3].passive=!0));return e.apply(this,t)}}();})();' > js/passive-event-fix.js
+RUN cat > js/passive-event-fix.js << 'EOL'
+/**
+ * Passive Event Listeners Fix
+ *
+ * This script makes touch events passive by default to improve
+ * scrolling performance on mobile devices.
+ */
+(function(){
+  let supportsPassive = false;
+  try {
+    const opts = Object.defineProperty({}, "passive", {
+      get: function() { supportsPassive = true; return true; }
+    });
+    window.addEventListener("testPassive", null, opts);
+    window.removeEventListener("testPassive", null, opts);
+  } catch (e) {}
+
+  if (supportsPassive) {
+    const originalAddEventListener = EventTarget.prototype.addEventListener;
+    EventTarget.prototype.addEventListener = function(type, listener, options) {
+      if (type === "touchstart" || type === "touchmove" || type === "wheel" || type === "mousewheel") {
+        let opts = options;
+        if (options === undefined || options === false) {
+          opts = { passive: true };
+        } else if (typeof options === "object" && options.passive === undefined) {
+          opts = Object.assign({}, options, { passive: true });
+        }
+        originalAddEventListener.call(this, type, listener, opts);
+      } else {
+        originalAddEventListener.call(this, type, listener, options);
+      }
+    };
+
+    window.addPassiveEventListener = function(element, eventName, handler) {
+      element.addEventListener(eventName, handler, { passive: true });
+    };
+  } else {
+    window.addPassiveEventListener = function(element, eventName, handler) {
+      element.addEventListener(eventName, handler);
+    };
+  }
+
+  // jQuery integration if jQuery is loaded
+  if (typeof jQuery !== "undefined") {
+    (function() {
+      const originalOn = jQuery.fn.on;
+      jQuery.fn.on = function() {
+        const args = Array.prototype.slice.call(arguments);
+        if (typeof args[0] === "string" &&
+            (args[0].includes("touchstart") || args[0].includes("touchmove"))) {
+          if (args.length < 4 || typeof args[3] !== "object") {
+            args[3] = { passive: true };
+          } else if (args[3].passive === undefined) {
+            args[3].passive = true;
+          }
+        }
+        return originalOn.apply(this, args);
+      };
+    })();
+  }
+})();
+EOL
 
 # Add script reference to HTML files
 RUN if [ -f "index.html" ]; then \
