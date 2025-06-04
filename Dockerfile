@@ -110,13 +110,46 @@ RUN node /app/scripts/generate-responsive-images.js
 # Process HTML files to use responsive images
 RUN node /app/scripts/process-html-images.js
 
-# Add defer attribute to JavaScript files
-COPY ./add-defer-to-scripts.sh /app/
-RUN chmod +x /app/add-defer-to-scripts.sh && /app/add-defer-to-scripts.sh
+# Add defer attribute to JavaScript files directly in the build process
+RUN echo "Adding defer attribute to scripts in HTML files..." && \
+    # Process index.html
+    if [ -f "/app/dist/index.html" ]; then \
+      sed -i 's|<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>|<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>|g' "/app/dist/index.html" && \
+      sed -i 's|<script src="js/utilities.js"></script>|<script src="js/utilities.js" defer></script>|g' "/app/dist/index.html" && \
+      sed -i 's|<script src="js/main.js"></script>|<script src="js/main.js" defer></script>|g' "/app/dist/index.html" && \
+      sed -i 's|<script src="js/image-fallback.js"></script>|<script src="js/image-fallback.js" defer></script>|g' "/app/dist/index.html" && \
+      sed -i 's|<script src="js/evolve-visual-fixes.js"></script>|<script src="js/evolve-visual-fixes.js" defer></script>|g' "/app/dist/index.html" && \
+      sed -i 's|<script src="js/image-optimization.js"></script>|<script src="js/image-optimization.js" defer></script>|g' "/app/dist/index.html" && \
+      sed -i 's|<script src="js/visual-issue-detector.js"></script>|<script src="js/visual-issue-detector.js" defer></script>|g' "/app/dist/index.html" && \
+      sed -i 's|<script src="js/performance-monitor.js"></script>|<script src="js/performance-monitor.js" defer></script>|g' "/app/dist/index.html"; \
+    fi && \
+    # Process HTML files in pages directory
+    find /app/dist/pages -name "*.html" -type f -exec sed -i 's|<script src="../js/utilities.js"></script>|<script src="../js/utilities.js" defer></script>|g; \
+      s|<script src="../js/main.js"></script>|<script src="../js/main.js" defer></script>|g; \
+      s|<script src="../js/image-fallback.js"></script>|<script src="../js/image-fallback.js" defer></script>|g; \
+      s|<script src="../js/evolve-visual-fixes.js"></script>|<script src="../js/evolve-visual-fixes.js" defer></script>|g; \
+      s|<script src="../js/image-optimization.js"></script>|<script src="../js/image-optimization.js" defer></script>|g; \
+      s|<script src="../js/visual-issue-detector.js"></script>|<script src="../js/visual-issue-detector.js" defer></script>|g; \
+      s|<script src="../js/performance-monitor.js"></script>|<script src="../js/performance-monitor.js" defer></script>|g;' {} \; && \
+    # Process HTML files in pages/blogs directory
+    find /app/dist/pages/blogs -name "*.html" -type f -exec sed -i 's|<script src="../../js/utilities.js"></script>|<script src="../../js/utilities.js" defer></script>|g; \
+      s|<script src="../../js/main.js"></script>|<script src="../../js/main.js" defer></script>|g; \
+      s|<script src="../../js/image-fallback.js"></script>|<script src="../../js/image-fallback.js" defer></script>|g; \
+      s|<script src="../../js/evolve-visual-fixes.js"></script>|<script src="../../js/evolve-visual-fixes.js" defer></script>|g; \
+      s|<script src="../../js/image-optimization.js"></script>|<script src="../../js/image-optimization.js" defer></script>|g; \
+      s|<script src="../../js/visual-issue-detector.js"></script>|<script src="../../js/visual-issue-detector.js" defer></script>|g; \
+      s|<script src="../../js/performance-monitor.js"></script>|<script src="../../js/performance-monitor.js" defer></script>|g;' {} \;
 
 # Add passive event fix script to HTML files
-COPY ./add-passive-event-fix.sh /app/
-RUN chmod +x /app/add-passive-event-fix.sh && /app/add-passive-event-fix.sh
+RUN echo "Adding passive-event-fix.js to HTML files..." && \
+    # Add to index.html
+    if [ -f "/app/dist/index.html" ]; then \
+      sed -i "/<head>/a \    <script src=\"js/passive-event-fix.js\"></script>" "/app/dist/index.html"; \
+    fi && \
+    # Add to pages/*.html
+    find /app/dist/pages -maxdepth 1 -name "*.html" -type f -exec sed -i "/<head>/a \    <script src=\"../js/passive-event-fix.js\"></script>" {} \; && \
+    # Add to pages/blogs/*.html
+    find /app/dist/pages/blogs -maxdepth 1 -name "*.html" -type f -exec sed -i "/<head>/a \    <script src=\"../../js/passive-event-fix.js\"></script>" {} \;
 
 # Inject critical CSS and optimize CSS loading with simple inline script approach
 RUN mkdir -p js && \
