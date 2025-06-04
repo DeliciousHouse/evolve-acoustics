@@ -45,25 +45,105 @@ RUN if [ -f "/app/css/responsive-images.css" ]; then \
       npx csso-cli --input "/app/css/responsive-images.css" --output "./css/responsive-images.css" --comments none; \
     fi
 
-# Copy fix script to create missing CSS files and fix references
-COPY fix_missing_css_references.sh ./
-RUN chmod +x ./fix_missing_css_references.sh && \
-    ./fix_missing_css_references.sh || echo "Script execution failed, creating files manually"
+# Create required CSS files with basic content
+RUN echo "Creating required CSS files with minimal content..." && \
+    mkdir -p ./css && \
+    # Create visual-fixes.css
+    echo "/* Visual fixes CSS - Created during Docker build */
 
-# Always check and create CSS files if they don't exist
-RUN mkdir -p ./css && \
-    if [ ! -f "./css/visual-fixes.css" ]; then \
-      echo "/* Visual fixes CSS - Created during Docker build */\n\n.blog-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }\n.blog-card { display: flex; flex-direction: column; height: 100%; }\nimg { max-width: 100%; height: auto; }" > ./css/visual-fixes.css; \
-      echo "Created visual-fixes.css"; \
-    fi && \
-    if [ ! -f "./css/enhanced-visual-fixes.css" ]; then \
-      echo "/* Enhanced visual fixes CSS - Created during Docker build */\n\n.button:hover, .btn:hover, a.cta-button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; }\na:focus, button:focus, input:focus, textarea:focus { outline: 2px solid #4a90e2; outline-offset: 2px; }\n.animated-element { transition: all 0.3s ease-in-out; }" > ./css/enhanced-visual-fixes.css; \
-      echo "Created enhanced-visual-fixes.css"; \
-    fi && \
-    if [ ! -f "./css/enhanced-preloader.css" ]; then \
-      echo "/* Enhanced preloader CSS - Created during Docker build */\n\n.evolve-preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #171717; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.5s ease-out, visibility 0.5s; }\n.evolve-preloader.hidden { opacity: 0; visibility: hidden; }\n.logo-container { margin-bottom: 20px; }\n.logo { max-width: 200px; height: auto; }\n.progress-container { width: 80%; max-width: 300px; height: 4px; background-color: rgba(255, 255, 255, 0.2); border-radius: 2px; overflow: hidden; }\n.progress-bar { height: 100%; background-color: #f7f7f7; width: 0; transition: width 0.3s ease; }\n.loading-text { color: #f7f7f7; margin-top: 10px; font-family: Arial, sans-serif; font-size: 14px; }" > ./css/enhanced-preloader.css; \
-      echo "Created enhanced-preloader.css"; \
-    fi
+.blog-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}" > ./css/visual-fixes.css && \
+    # Create enhanced-visual-fixes.css
+    echo "/* Enhanced visual fixes CSS - Created during Docker build */
+
+.button:hover,
+.btn:hover,
+a.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+a:focus,
+button:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+.animated-element {
+  transition: all 0.3s ease-in-out;
+}" > ./css/enhanced-visual-fixes.css && \
+    # Create enhanced-preloader.css
+    echo "/* Enhanced preloader CSS - Created during Docker build */
+
+.evolve-preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #171717;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease-out, visibility 0.5s;
+}
+
+.evolve-preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.logo {
+  max-width: 200px;
+  height: auto;
+}
+
+.progress-container {
+  width: 80%;
+  max-width: 300px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #f7f7f7;
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+.loading-text {
+  color: #f7f7f7;
+  margin-top: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}" > ./css/enhanced-preloader.css && \
+    echo "Created all required CSS files"
 
 # Copy FontAwesome CSS files (typically already minified)
 RUN if [ -d "/app/src/css/fontawesome" ]; then cp -r /app/src/css/fontawesome ./css/; fi
@@ -71,50 +151,110 @@ RUN if [ -d "/app/src/css/fontawesome" ]; then cp -r /app/src/css/fontawesome ./
 # This path is relative to /app/dist (current WORKDIR)
 RUN if [ -d "/app/src/assets/webfonts" ]; then cp -r /app/src/assets/webfonts/* ./webfonts/; fi
 
-# --- JavaScript Minification ---
-# Existing files:
-RUN npx uglify-js /app/src/js/main.js -c -m -o ./js/main.js
-RUN npx uglify-js /app/src/js/image-fallback.js -c -m -o ./js/image-fallback.js
-RUN npx uglify-js /app/src/js/favicon-fix.js -c -m -o ./js/favicon-fix.js
-RUN npx uglify-js /app/src/js/passive-event-fix.js -c -m -o ./js/passive-event-fix.js
+# --- JavaScript File Preparation and Path Fixing ---
+# Copy JS files first
+RUN mkdir -p ./js && \
+    echo "Copying JavaScript files from source..." && \
+    if [ -d "/app/src/js" ]; then \
+      find /app/src/js -type f -name "*.js" -exec cp {} ./js/ \; 2>/dev/null || true; \
+    fi && \
+    if [ -d "/app/js" ]; then \
+      find /app/js -type f -name "*.js" -exec cp {} ./js/ \; 2>/dev/null || true; \
+    fi
 
-# Fix any absolute paths in JavaScript files
+# Fix any absolute paths in JavaScript files before minification
 RUN echo "Checking and fixing absolute paths in JavaScript files..." && \
+    # First copy source JS files to ensure we have them
+    mkdir -p ./js && \
+    if [ -d "/app/src/js" ]; then \
+      find /app/src/js -type f -name "*.js" -exec cp {} ./js/ \; 2>/dev/null || true; \
+    fi && \
+    if [ -d "/app/js" ]; then \
+      find /app/js -type f -name "*.js" -exec cp {} ./js/ \; 2>/dev/null || true; \
+    fi && \
+    # Now fix any absolute paths
     for js_file in ./js/*.js; do \
       if [ -f "$js_file" ]; then \
-        # Replace any references to '/css/' with relative paths using getBasePath()
-        if grep -q "loadCSS(\"/css/" "$js_file" || grep -q "href = \"/css/" "$js_file" || grep -q "cssPath = '/css/" "$js_file"; then \
-          echo "Fixing absolute CSS paths in $js_file"; \
+        # First check if the file has any absolute paths
+        if grep -q "/css/" "$js_file"; then \
+          echo "Found absolute CSS path in $js_file, fixing..."; \
           # Add getBasePath function if it doesn't exist
           if ! grep -q "function getBasePath()" "$js_file"; then \
-            sed -i '/loadCSS(/i \    // Determine the base path based on the current URL\n    function getBasePath() {\n        const path = window.location.pathname;\n        if (path.includes("/pages/blogs/")) {\n            return "../../";\n        } else if (path.includes("/pages/") || path.includes("/templates/")) {\n            return "../";\n        }\n        return "";\n    }' "$js_file"; \
+            echo "Adding getBasePath() function to $js_file"; \
+            # Create a temporary file for holding modified content
+            TEMP_FILE=$(mktemp); \
+            # Extract filename without path
+            JS_FILENAME=$(basename "$js_file"); \
+            echo "/**" > $TEMP_FILE; \
+            echo " * Fixed version of $JS_FILENAME with relative paths" >> $TEMP_FILE; \
+            echo " * Generated on $(date)" >> $TEMP_FILE; \
+            echo " */" >> $TEMP_FILE; \
+            echo "" >> $TEMP_FILE; \
+            # Add getBasePath function early in the file
+            if grep -q "DOMContentLoaded" "$js_file"; then \
+              # For files with DOMContentLoaded event listener
+              sed -n '1,/DOMContentLoaded/p' "$js_file" >> $TEMP_FILE; \
+              echo "    // Determine the base path based on the current URL" >> $TEMP_FILE; \
+              echo "    function getBasePath() {" >> $TEMP_FILE; \
+              echo "        const path = window.location.pathname;" >> $TEMP_FILE; \
+              echo "        if (path.includes('/pages/blogs/')) {" >> $TEMP_FILE; \
+              echo "            return '../../';" >> $TEMP_FILE; \
+              echo "        } else if (path.includes('/pages/') || path.includes('/templates/')) {" >> $TEMP_FILE; \
+              echo "            return '../';" >> $TEMP_FILE; \
+              echo "        }" >> $TEMP_FILE; \
+              echo "        return '';" >> $TEMP_FILE; \
+              echo "    }" >> $TEMP_FILE; \
+              echo "" >> $TEMP_FILE; \
+              sed -n '/DOMContentLoaded/,$p' "$js_file" | tail -n +2 >> $TEMP_FILE; \
+            else \
+              # For files without DOMContentLoaded event listener
+              echo "// Determine the base path based on the current URL" >> $TEMP_FILE; \
+              echo "function getBasePath() {" >> $TEMP_FILE; \
+              echo "    const path = window.location.pathname;" >> $TEMP_FILE; \
+              echo "    if (path.includes('/pages/blogs/')) {" >> $TEMP_FILE; \
+              echo "        return '../../';" >> $TEMP_FILE; \
+              echo "    } else if (path.includes('/pages/') || path.includes('/templates/')) {" >> $TEMP_FILE; \
+              echo "        return '../';" >> $TEMP_FILE; \
+              echo "    }" >> $TEMP_FILE; \
+              echo "    return '';" >> $TEMP_FILE; \
+              echo "}" >> $TEMP_FILE; \
+              echo "" >> $TEMP_FILE; \
+              cat "$js_file" >> $TEMP_FILE; \
+            fi; \
+            # Replace the original file with our modified version
+            cat $TEMP_FILE > "$js_file"; \
+            rm $TEMP_FILE; \
           fi; \
-          # Replace absolute paths with relative paths using getBasePath()
-          sed -i 's|loadCSS("/css/|loadCSS(getBasePath() + "css/|g' "$js_file"; \
-          sed -i 's|href = "/css/|href = getBasePath() + "css/|g' "$js_file"; \
-          sed -i 's|cssPath = \'/css/|cssPath = getBasePath() + \'css/|g' "$js_file"; \
+          \
+          # Replace all instances of absolute paths with relative paths
+          sed -i 's|"/css/|"" + getBasePath() + "css/|g' "$js_file"; \
+          sed -i "s|'/css/|'' + getBasePath() + 'css/|g" "$js_file"; \
+          echo "Fixed absolute paths in $js_file"; \
+        else \
+          echo "No absolute paths found in $js_file"; \
         fi; \
       fi; \
     done
 
-# ADD THESE LINES for the missing JS files:
-RUN if [ -f "/app/src/js/enhanced-preloader.js" ]; then npx uglify-js /app/src/js/enhanced-preloader.js -c -m -o ./js/enhanced-preloader.js; fi
-RUN if [ -f "/app/src/js/utilities.js" ]; then npx uglify-js /app/src/js/utilities.js -c -m -o ./js/utilities.js; fi
-RUN if [ -f "/app/src/js/format-support-detector.js" ]; then npx uglify-js /app/src/js/format-support-detector.js -c -m -o ./js/format-support-detector.js; fi
-RUN if [ -f "/app/js/format-support-detector.js" ]; then npx uglify-js /app/js/format-support-detector.js -c -m -o ./js/format-support-detector.js; fi
-RUN if [ -f "/app/js/css-loader.js" ]; then npx uglify-js /app/js/css-loader.js -c -m -o ./js/css-loader.js; fi
-RUN if [ -f "/app/src/js/evolve-visual-fixes.js" ]; then npx uglify-js /app/src/js/evolve-visual-fixes.js -c -m -o ./js/evolve-visual-fixes.js; fi
-RUN if [ -f "/app/src/js/image-optimization.js" ]; then npx uglify-js /app/src/js/image-optimization.js -c -m -o ./js/image-optimization.js; fi
-RUN if [ -f "/app/src/js/visual-issue-detector.js" ]; then npx uglify-js /app/src/js/visual-issue-detector.js -c -m -o ./js/visual-issue-detector.js; fi
-RUN if [ -f "/app/src/js/performance-monitor.js" ]; then npx uglify-js /app/src/js/performance-monitor.js -c -m -o ./js/performance-monitor.js; fi
+# Minify all JavaScript files in one step
+RUN echo "Minifying all JavaScript files..." && \
+    mkdir -p /tmp/js_original && \
+    cp -r ./js/* /tmp/js_original/ && \
+    for js_file in /tmp/js_original/*.js; do \
+      if [ -f "$js_file" ]; then \
+        filename=$(basename "$js_file"); \
+        echo "Minifying $filename..."; \
+        npx uglify-js "$js_file" -c -m -o "./js/$filename" || \
+          echo "Warning: Could not minify $filename, keeping original"; \
+      fi; \
+    done && \
+    echo "JavaScript minification complete"
 
-# Your other files that were listed in your js/ directory (add as needed):
-RUN if [ -f "/app/src/js/blog-grid-fix.js" ]; then npx uglify-js /app/src/js/blog-grid-fix.js -c -m -o ./js/blog-grid-fix.js; fi
-RUN if [ -f "/app/src/js/load-grid-fixes.js" ]; then npx uglify-js /app/src/js/load-grid-fixes.js -c -m -o ./js/load-grid-fixes.js; fi
-RUN if [ -f "/app/src/js/related-posts-clickable.js" ]; then npx uglify-js /app/src/js/related-posts-clickable.js -c -m -o ./js/related-posts-clickable.js; fi
-RUN if [ -f "/app/src/js/related-posts-fix.js" ]; then npx uglify-js /app/src/js/related-posts-fix.js -c -m -o ./js/related-posts-fix.js; fi
-# Note: a root preloader.js, if it's different from enhanced-preloader.js
-RUN if [ -f "/app/src/preloader.js" ]; then npx uglify-js /app/src/preloader.js -c -m -o ./preloader.js; fi
+# Process any special JavaScript files that might be in different locations
+RUN if [ -f "/app/src/preloader.js" ]; then \
+      echo "Processing special preloader.js..."; \
+      npx uglify-js /app/src/preloader.js -c -m -o ./preloader.js; \
+    fi
 
 
 # --- HTML Minification (maintaining directory structure) ---
@@ -208,67 +348,23 @@ RUN mkdir -p js && echo '/*! loadCSS. [c]2017 Filament Group, Inc. MIT License *
     echo '  w.loadCSS = loadCSS;' >> js/css-loader-min.js && \
     echo '}(typeof global !== "undefined" ? global : this));' >> js/css-loader-min.js
 
-# Create passive event fix for touchstart and touchmove events
-RUN echo '/**' > js/passive-event-fix.js && \
-    echo ' * Passive Event Listeners Fix' >> js/passive-event-fix.js && \
-    echo ' *' >> js/passive-event-fix.js && \
-    echo ' * This script makes touch events passive by default to improve' >> js/passive-event-fix.js && \
-    echo ' * scrolling performance on mobile devices.' >> js/passive-event-fix.js && \
-    echo ' */' >> js/passive-event-fix.js && \
-    echo '(function(){' >> js/passive-event-fix.js && \
-    echo '  let supportsPassive = false;' >> js/passive-event-fix.js && \
-    echo '  try {' >> js/passive-event-fix.js && \
-    echo '    const opts = Object.defineProperty({}, "passive", {' >> js/passive-event-fix.js && \
-    echo '      get: function() { supportsPassive = true; return true; }' >> js/passive-event-fix.js && \
-    echo '    });' >> js/passive-event-fix.js && \
-    echo '    window.addEventListener("testPassive", null, opts);' >> js/passive-event-fix.js && \
-    echo '    window.removeEventListener("testPassive", null, opts);' >> js/passive-event-fix.js && \
-    echo '  } catch (e) {}' >> js/passive-event-fix.js && \
-    echo '' >> js/passive-event-fix.js && \
-    echo '  if (supportsPassive) {' >> js/passive-event-fix.js && \
-    echo '    const originalAddEventListener = EventTarget.prototype.addEventListener;' >> js/passive-event-fix.js && \
-    echo '    EventTarget.prototype.addEventListener = function(type, listener, options) {' >> js/passive-event-fix.js && \
-    echo '      if (type === "touchstart" || type === "touchmove" || type === "wheel" || type === "mousewheel") {' >> js/passive-event-fix.js && \
-    echo '        let opts = options;' >> js/passive-event-fix.js && \
-    echo '        if (options === undefined || options === false) {' >> js/passive-event-fix.js && \
-    echo '          opts = { passive: true };' >> js/passive-event-fix.js && \
-    echo '        } else if (typeof options === "object" && options.passive === undefined) {' >> js/passive-event-fix.js && \
-    echo '          opts = Object.assign({}, options, { passive: true });' >> js/passive-event-fix.js && \
-    echo '        }' >> js/passive-event-fix.js && \
-    echo '        originalAddEventListener.call(this, type, listener, opts);' >> js/passive-event-fix.js && \
-    echo '      } else {' >> js/passive-event-fix.js && \
-    echo '        originalAddEventListener.call(this, type, listener, options);' >> js/passive-event-fix.js && \
-    echo '      }' >> js/passive-event-fix.js && \
-    echo '    };' >> js/passive-event-fix.js && \
-    echo '' >> js/passive-event-fix.js && \
-    echo '    window.addPassiveEventListener = function(element, eventName, handler) {' >> js/passive-event-fix.js && \
-    echo '      element.addEventListener(eventName, handler, { passive: true });' >> js/passive-event-fix.js && \
-    echo '    };' >> js/passive-event-fix.js && \
-    echo '  } else {' >> js/passive-event-fix.js && \
-    echo '    window.addPassiveEventListener = function(element, eventName, handler) {' >> js/passive-event-fix.js && \
-    echo '      element.addEventListener(eventName, handler);' >> js/passive-event-fix.js && \
-    echo '    };' >> js/passive-event-fix.js && \
-    echo '  }' >> js/passive-event-fix.js && \
-    echo '' >> js/passive-event-fix.js && \
-    echo '  // jQuery integration if jQuery is loaded' >> js/passive-event-fix.js && \
-    echo '  if (typeof jQuery !== "undefined") {' >> js/passive-event-fix.js && \
-    echo '    (function() {' >> js/passive-event-fix.js && \
-    echo '      const originalOn = jQuery.fn.on;' >> js/passive-event-fix.js && \
-    echo '      jQuery.fn.on = function() {' >> js/passive-event-fix.js && \
-    echo '        const args = Array.prototype.slice.call(arguments);' >> js/passive-event-fix.js && \
-    echo '        if (typeof args[0] === "string" &&' >> js/passive-event-fix.js && \
-    echo '            (args[0].includes("touchstart") || args[0].includes("touchmove"))) {' >> js/passive-event-fix.js && \
-    echo '          if (args.length < 4 || typeof args[3] !== "object") {' >> js/passive-event-fix.js && \
-    echo '            args[3] = { passive: true };' >> js/passive-event-fix.js && \
-    echo '          } else if (args[3].passive === undefined) {' >> js/passive-event-fix.js && \
-    echo '            args[3].passive = true;' >> js/passive-event-fix.js && \
-    echo '          }' >> js/passive-event-fix.js && \
-    echo '        }' >> js/passive-event-fix.js && \
-    echo '        return originalOn.apply(this, args);' >> js/passive-event-fix.js && \
-    echo '      };' >> js/passive-event-fix.js && \
-    echo '    })();' >> js/passive-event-fix.js && \
-    echo '  }' >> js/passive-event-fix.js && \
-    echo '})();' >> js/passive-event-fix.js
+# Simply inject critical CSS and optimize CSS loading with simple inline script approach
+RUN mkdir -p js && echo '/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+(function(w){
+  var loadCSS = function(href, before, media) {
+    var doc = w.document;
+    var ss = doc.createElement("link");
+    ss.rel = "stylesheet";
+    ss.href = href;
+    ss.media = "only x";
+    doc.head.appendChild(ss);
+    setTimeout(function(){
+      ss.media = media || "all";
+    }, 0);
+    return ss;
+  };
+  w.loadCSS = loadCSS;
+}(typeof global !== "undefined" ? global : this));' > js/css-loader-min.js
 
 # Add script reference to HTML files
 RUN if [ -f "index.html" ]; then \
