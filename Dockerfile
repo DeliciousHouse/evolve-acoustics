@@ -45,113 +45,107 @@ RUN if [ -f "/app/css/responsive-images.css" ]; then \
       npx csso-cli --input "/app/css/responsive-images.css" --output "./css/responsive-images.css" --comments none; \
     fi
 
-# Create required CSS files with basic content
+# Create required CSS files with basic content - using printf instead of cat
 RUN echo "Creating required CSS files with minimal content..." && \
     mkdir -p ./css && \
-    # Create visual-fixes.css
-    cat > ./css/visual-fixes.css << 'EOCSS'
-/* Visual fixes CSS - Created during Docker build */
-
-.blog-grid {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
-.blog-card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-EOCSS
-    && \
+    # Create visual-fixes.css with printf to avoid heredoc issues
+    printf "%s\n" \
+    "/* Visual fixes CSS - Created during Docker build */" \
+    "" \
+    ".blog-grid {" \
+    "  display: grid;" \
+    "  gap: 20px;" \
+    "  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));" \
+    "}" \
+    "" \
+    ".blog-card {" \
+    "  display: flex;" \
+    "  flex-direction: column;" \
+    "  height: 100%;" \
+    "}" \
+    "" \
+    "img {" \
+    "  max-width: 100%;" \
+    "  height: auto;" \
+    "}" > ./css/visual-fixes.css && \
     # Create enhanced-visual-fixes.css
-    cat > ./css/enhanced-visual-fixes.css << 'EOCSS'
-/* Enhanced visual fixes CSS - Created during Docker build */
-
-.button:hover,
-.btn:hover,
-a.cta-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-a:focus,
-button:focus,
-input:focus,
-textarea:focus {
-  outline: 2px solid #4a90e2;
-  outline-offset: 2px;
-}
-
-.animated-element {
-  transition: all 0.3s ease-in-out;
-}
-EOCSS
-    && \
+    printf "%s\n" \
+    "/* Enhanced visual fixes CSS - Created during Docker build */" \
+    "" \
+    ".button:hover," \
+    ".btn:hover," \
+    "a.cta-button:hover {" \
+    "  transform: translateY(-2px);" \
+    "  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" \
+    "  transition: all 0.3s ease;" \
+    "}" \
+    "" \
+    "a:focus," \
+    "button:focus," \
+    "input:focus," \
+    "textarea:focus {" \
+    "  outline: 2px solid #4a90e2;" \
+    "  outline-offset: 2px;" \
+    "}" \
+    "" \
+    ".animated-element {" \
+    "  transition: all 0.3s ease-in-out;" \
+    "}" > ./css/enhanced-visual-fixes.css && \
     # Create enhanced-preloader.css
-    cat > ./css/enhanced-preloader.css << 'EOCSS'
-/* Enhanced preloader CSS - Created during Docker build */
-
-.evolve-preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #171717;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.5s ease-out, visibility 0.5s;
-}
-
-.evolve-preloader.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.logo-container {
-  margin-bottom: 20px;
-}
-
-.logo {
-  max-width: 200px;
-  height: auto;
-}
-
-.progress-container {
-  width: 80%;
-  max-width: 300px;
-  height: 4px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 100%;
-  background-color: #f7f7f7;
-  width: 0;
-  transition: width 0.3s ease;
-}
-
-.loading-text {
-  color: #f7f7f7;
-  margin-top: 10px;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-}
-EOCSS
-    && \
+    printf "%s\n" \
+    "/* Enhanced preloader CSS - Created during Docker build */" \
+    "" \
+    ".evolve-preloader {" \
+    "  position: fixed;" \
+    "  top: 0;" \
+    "  left: 0;" \
+    "  width: 100%;" \
+    "  height: 100%;" \
+    "  background-color: #171717;" \
+    "  z-index: 9999;" \
+    "  display: flex;" \
+    "  flex-direction: column;" \
+    "  justify-content: center;" \
+    "  align-items: center;" \
+    "  transition: opacity 0.5s ease-out, visibility 0.5s;" \
+    "}" \
+    "" \
+    ".evolve-preloader.hidden {" \
+    "  opacity: 0;" \
+    "  visibility: hidden;" \
+    "}" \
+    "" \
+    ".logo-container {" \
+    "  margin-bottom: 20px;" \
+    "}" \
+    "" \
+    ".logo {" \
+    "  max-width: 200px;" \
+    "  height: auto;" \
+    "}" \
+    "" \
+    ".progress-container {" \
+    "  width: 80%;" \
+    "  max-width: 300px;" \
+    "  height: 4px;" \
+    "  background-color: rgba(255, 255, 255, 0.2);" \
+    "  border-radius: 2px;" \
+    "  overflow: hidden;" \
+    "}" \
+    "" \
+    ".progress-bar {" \
+    "  height: 100%;" \
+    "  background-color: #f7f7f7;" \
+    "  width: 0;" \
+    "  transition: width 0.3s ease;" \
+    "}" \
+    "" \
+    ".loading-text {" \
+    "  color: #f7f7f7;" \
+    "  margin-top: 10px;" \
+    "  font-family: Arial, sans-serif;" \
+    "  font-size: 14px;" \
+    "}" > ./css/enhanced-preloader.css && \
     echo "Created all required CSS files"
 
 # Copy FontAwesome CSS files (typically already minified)
