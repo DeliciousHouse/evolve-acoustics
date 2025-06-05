@@ -27,7 +27,7 @@ const config = {
         '/app/src/assets/images/**/*.{jpg,jpeg,png,webp}',
         '!./app/src/assets/images/icons/**/*',
         '!./app/src/assets/images/placeholders/**/*',
-        '!./app/src/assets/images/favicon.png',
+        '!./app/src/assets/images/favicon.ico',
         '!./app/src/assets/images/logo_*.{png,jpg,jpeg}'
     ],
 
