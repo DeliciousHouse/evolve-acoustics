@@ -81,18 +81,19 @@
 }
 
 .blog-card {
-    flex: 0 0 calc(33.333% - 20px);
-    max-width: calc(33.333% - 20px);
+    flex: 0 0 calc(33.333% - 15px); /* Increase from -20px to -15px for wider cards */
+    max-width: calc(33.333% - 15px); /* Increase from -20px to -15px for wider cards */
     margin: 0;
     background-color: rgba(38, 70, 83, 0.5);
     border-radius: 8px;
-    overflow: hidden;
+    overflow: visible; /* Changed from hidden to visible */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     cursor: pointer; /* Add cursor pointer to indicate clickability */
     height: auto;
+    min-height: 350px; /* Ensure consistent card height */
 }
 
 .blog-card:hover {
@@ -132,6 +133,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center; /* Ensure proper centering */
     transition: transform 0.5s ease;
 }
 
@@ -140,7 +142,7 @@
 }
 
 .blog-card-content {
-    padding: 1.5rem;
+    padding: 2rem; /* Increase from 1.5rem for more space */
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -172,36 +174,39 @@
     margin-bottom: 10px;
     line-height: 1.3;
     color: #ffffff;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2; /* Add this line to silence the warning */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: block; /* Change from -webkit-box to block */
+    /* Remove line clamping */
+    /* -webkit-line-clamp: 2; */
+    /* line-clamp: 2; */
+    /* -webkit-box-orient: vertical; */
+    overflow: visible; /* Change from hidden to visible */
     height: auto;
-    max-height: 3.6rem;
+    max-height: none; /* Remove height restriction */
 }
 
 .blog-card h3 {
     overflow: visible; /* Change from 'hidden' or 'text-overflow: ellipsis' */
     white-space: normal; /* Change from 'nowrap' */
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Allow up to 2 lines for titles */
-    line-clamp: 2; /* Add this line to silence the warning */
-    -webkit-box-orient: vertical;
-    max-height: 3em; /* Approximately 2 lines of text */
+    display: block; /* Change from -webkit-box to block */
+    /* Remove line clamping */
+    /* -webkit-line-clamp: 2; */
+    /* line-clamp: 2; */
+    /* -webkit-box-orient: vertical; */
+    max-height: none; /* Remove height restriction */
     margin-bottom: 10px;
 }
 
 .blog-card p {
     color: #e0e0e0;
     margin-bottom: 15px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3; /* Add this line to silence the warning */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: block; /* Change from -webkit-box to block */
+    /* Remove line clamping */
+    /* -webkit-line-clamp: 3; */
+    /* line-clamp: 3; */
+    /* -webkit-box-orient: vertical; */
+    overflow: visible; /* Change from hidden to visible */
     height: auto;
-    max-height: 4.5em; /* Approximately 3 lines of text */
+    max-height: none; /* Remove height restriction */
     line-height: 1.6;
 }
 
