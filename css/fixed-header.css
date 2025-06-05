@@ -6,8 +6,9 @@
  */
 
 /* === FIXED HEADER STYLES === */
-header.site-header, /* Be specific with your main header selector */
-nav.navbar { /* Add other common header selectors if needed */
+header, /* Target the main header element */
+header.site-header,
+nav.navbar {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -33,72 +34,51 @@ nav.navbar { /* Add other common header selectors if needed */
 
 /* Create space for the fixed header */
 body {
-  padding-top: 230px; /* Adjust based on header height + extra padding */
+  /* NO STATIC PADDING-TOP HERE - it's handled by JavaScript */
+  /* js/fixed-header.js should be adding padding-top based on actual header.offsetHeight */
 }
 
-/* Header shrink effect on scroll */
-.header-shrink {
-  transform: translateY(-20px); /* Slightly shift up to show less of the header */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-}
-
-.header-shrink .logo-img {
-  height: 150px; /* Reduce logo size when scrolling */
-  transition: height 0.3s ease;
-}
+/* Commented out potentially conflicting generic shrink rules from previous versions */
+/* .header-shrink { ... } */
+/* .header-shrink .logo-img { ... } */
 
 /* Hide header when scrolling down (optional) */
 .header-hidden {
   transform: translateY(-100%);
+  transition: transform 0.3s ease-out; /* Added transition */
 }
 
 /* Ensure content stays behind the header */
 main {
   position: relative;
-  z-index: 1;
+  z-index: 1; /* Lower than header's z-index */
 }
 
 /* Smooth transition for logo */
 .logo-img {
+  display: block;
+  width: auto;
+  object-fit: contain;
   transition: height 0.3s ease;
+}
+
+/* Default logo size */
+header .logo-img,
+header.site-header .logo-img,
+nav.navbar .logo-img {
+  height: 40px; /* Default height when not shrunk */
+}
+
+/* Shrunk header logo size */
+header.header-shrink .logo-img,
+header.site-header.header-shrink .logo-img,
+nav.navbar.header-shrink .logo-img {
+  height: 30px; /* Smaller when header is shrunk */
 }
 
 /* Adjust navigation for fixed header */
 nav ul {
   transition: padding 0.3s ease;
-}
-
-/* Make room for fixed header on anchor links */
-:target::before {
-  content: "";
-  display: block;
-  height: 230px; /* Adjust to match header height */
-  margin-top: -230px;
-  visibility: hidden;
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 768px) {
-  body {
-    padding-top: 100px; /* Less padding for mobile */
-  }
-
-  header {
-    padding: 10px 15px;
-  }
-
-  .logo-img {
-    height: 80px; /* Smaller logo for mobile */
-  }
-
-  .header-shrink .logo-img {
-    height: 60px;
-  }
-
-  :target::before {
-    height: 100px;
-    margin-top: -100px;
-  }
 }
 
 /* Styles for when the header shrinks (class added by js/fixed-header.js) */
@@ -107,6 +87,8 @@ nav.navbar.header-shrink {
     height: 55px; /* Reduced height */
     background-color: rgba(25, 40, 50, 0.98); /* Slightly more opaque or different color */
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    /* Ensure transform from generic .header-shrink is not applied or is overridden if necessary */
+    transform: translateY(0); /* Explicitly reset transform if the generic one was causing issues */
 }
 
 /* Header Logo Styling - CRITICAL FOR "IMAGE SIZE AWARENESS" */
