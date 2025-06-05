@@ -14,11 +14,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (existingFavicon) {
             // Set the cache control attribute to prevent refreshing
             existingFavicon.setAttribute('crossorigin', 'anonymous');
+            // Update to use .ico type
+            existingFavicon.setAttribute('type', 'image/x-icon');
 
             // Ensure the favicon path is correct
             const path = window.location.pathname.includes('/blogs/')
-                ? '../../assets/images/favicon.png'
-                : '../assets/images/favicon.png';
+                ? '../../assets/images/favicon.ico'
+                : '../assets/images/favicon.ico';
 
             existingFavicon.setAttribute('href', path);
         }
