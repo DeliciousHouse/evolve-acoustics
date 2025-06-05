@@ -92,13 +92,64 @@
     display: flex;
     flex-direction: column;
     cursor: pointer; /* Add cursor pointer to indicate clickability */
-    height: auto;
-    min-height: 350px; /* Ensure consistent card height */
+    height: 450px; /* Fixed height for consistent appearance */
 }
 
 .blog-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Fix blog card title truncation - balanced approach */
+.blog-card h2 {
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.3;
+    color: #ffffff;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Show exactly 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: auto;
+    max-height: 3.6rem; /* Approximately 2 lines of text at 1.3 line-height */
+}
+
+/* Fix blog card description truncation - balanced approach */
+.blog-card p {
+    color: #e0e0e0;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Show exactly 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: auto;
+    max-height: 4.8rem; /* Approximately 3 lines of text at 1.6 line-height */
+    line-height: 1.6;
+}
+
+/* Set consistent card dimensions */
+.blog-card {
+    flex: 0 0 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+    height: 450px; /* Fixed height for consistent appearance */
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Make sure images are consistent */
+.blog-card-image {
+    height: 180px; /* Fixed height */
+    overflow: hidden;
 }
 
 /* Enhance hover effect for clickable cards */
@@ -174,14 +225,13 @@
     margin-bottom: 10px;
     line-height: 1.3;
     color: #ffffff;
-    display: block; /* Change from -webkit-box to block */
-    /* Remove line clamping */
-    /* -webkit-line-clamp: 2; */
-    /* line-clamp: 2; */
-    /* -webkit-box-orient: vertical; */
-    overflow: visible; /* Change from hidden to visible */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Show exactly 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     height: auto;
-    max-height: none; /* Remove height restriction */
+    max-height: 3.6rem; /* Approximately 2 lines of text at 1.3 line-height */
 }
 
 .blog-card h3 {
@@ -199,14 +249,13 @@
 .blog-card p {
     color: #e0e0e0;
     margin-bottom: 15px;
-    display: block; /* Change from -webkit-box to block */
-    /* Remove line clamping */
-    /* -webkit-line-clamp: 3; */
-    /* line-clamp: 3; */
-    /* -webkit-box-orient: vertical; */
-    overflow: visible; /* Change from hidden to visible */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Show exactly 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     height: auto;
-    max-height: none; /* Remove height restriction */
+    max-height: 4.8rem; /* Approximately 3 lines of text at 1.6 line-height */
     line-height: 1.6;
 }
 
