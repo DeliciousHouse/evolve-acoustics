@@ -1,19 +1,37 @@
 /**
- * Blog Text Fix Script
+ * Blog Text Fix Script - ULTIMATE VERSION
  *
- * This script ensures blog card text is displayed properly without unwanted truncation.
- * It overrides any CSS issues that might be causing the text to be cut off prematurely.
+ * This script ensures blog card text is displayed properly without unwanted truncation,
+ * using multiple strategies to guarantee text display regardless of CSS conflicts.
+ *
+ * Features:
+ * - Aggressive CSS !important rules
+ * - Direct inline style application
+ * - MutationObserver for dynamic content changes
+ * - Multiple timers at different intervals
+ * - Style prioritization techniques
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Blog text fix script loaded - ENHANCED VERSION');
+    console.log('Blog text fix script loaded - ULTIMATE VERSION');
 
     // Inject a style element with !important rules to override any conflicting styles
+    // Use higher specificity selectors with multiple classes and attributes for extra power
     function injectCriticalCSSFix() {
         const styleEl = document.createElement('style');
         styleEl.id = 'critical-blog-text-fix';
+        styleEl.setAttribute('data-priority', 'maximum');
+
+        // Using extremely specific selectors for maximum override power
         styleEl.innerHTML = `
-            .blog-card h2, .blog-card h3 {
+            html body .blog-container .blog-grid .blog-card h2,
+            html body .blog-container .blog-grid .blog-card h3,
+            html body .blog-card h2,
+            html body .blog-card h3,
+            .blog-card h2[class],
+            .blog-card h3[class],
+            html body main .blog-card h2,
+            html body main .blog-card h3 {
                 display: block !important;
                 overflow: visible !important;
                 white-space: normal !important;
@@ -31,9 +49,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 box-orient: unset !important;
                 word-break: normal !important;
                 word-wrap: break-word !important;
+                font-size: 1.4rem !important;
             }
 
-            .blog-card p {
+            html body .blog-container .blog-grid .blog-card p,
+            html body .blog-card p,
+            .blog-card p[class],
+            html body main .blog-card p {
                 display: block !important;
                 overflow: visible !important;
                 white-space: normal !important;
@@ -52,7 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 word-wrap: break-word !important;
             }
 
-            .blog-card-content {
+            html body .blog-card-content,
+            .blog-card-content[class] {
                 flex: 1 !important;
                 display: flex !important;
                 flex-direction: column !important;
@@ -60,14 +83,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 padding: 2rem !important;
             }
 
-            .blog-card {
+            html body .blog-card,
+            .blog-card[class] {
+                flex: 0 0 calc(33.333% - 15px) !important;
+                max-width: calc(33.333% - 15px) !important;
+                min-width: 280px !important;
                 overflow: visible !important;
                 min-height: 350px !important;
                 height: auto !important;
             }
         `;
+
+        // Add to head with priority
         document.head.appendChild(styleEl);
-        console.log('Critical CSS fix injected');
+        console.log('Critical CSS fix injected with maximum priority');
     }
 
     // Fix function to handle all text elements in cards with inline styling
@@ -101,7 +130,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 box-orient: unset !important;
                 word-break: normal !important;
                 word-wrap: break-word !important;
+                font-size: 1.4rem !important;
             `);
+
+            // Add data attribute to mark as fixed
+            title.setAttribute('data-text-fixed', 'true');
         });
 
         // Fix descriptions with aggressive inline styling
@@ -124,6 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 word-break: normal !important;
                 word-wrap: break-word !important;
             `);
+
+            // Add data attribute to mark as fixed
+            description.setAttribute('data-text-fixed', 'true');
         });
 
         // Fix content containers
@@ -135,16 +171,60 @@ document.addEventListener('DOMContentLoaded', function() {
                 overflow: visible !important;
                 padding: 2rem !important;
             `);
+
+            content.setAttribute('data-content-fixed', 'true');
         });
 
         // Get all blog cards and ensure they have proper height and overflow
         blogCards.forEach(card => {
             card.setAttribute('style', `
+                flex: 0 0 calc(33.333% - 15px) !important;
+                max-width: calc(33.333% - 15px) !important;
+                min-width: 280px !important;
                 overflow: visible !important;
                 min-height: 350px !important;
                 height: auto !important;
             `);
+
+            card.setAttribute('data-card-fixed', 'true');
         });
+    }
+
+    // Setup mutation observer to watch for dynamically added blog cards
+    function setupMutationObserver() {
+        const targetNode = document.querySelector('.blog-grid') || document.body;
+
+        const config = {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            characterData: true
+        };
+
+        const callback = function(mutationsList, observer) {
+            let needsRefix = false;
+
+            for(const mutation of mutationsList) {
+                if (mutation.type === 'childList' ||
+                    (mutation.type === 'attributes' &&
+                    (mutation.target.classList.contains('blog-card') ||
+                     mutation.target.querySelector('.blog-card')))) {
+                    needsRefix = true;
+                    break;
+                }
+            }
+
+            if (needsRefix) {
+                console.log('DOM changes detected, re-applying text fixes');
+                fixTextTruncation();
+            }
+        };
+
+        const observer = new MutationObserver(callback);
+        observer.observe(targetNode, config);
+        console.log('Mutation observer setup for dynamic content');
+
+        return observer;
     }
 
     // Inject critical CSS fix
@@ -154,14 +234,24 @@ document.addEventListener('DOMContentLoaded', function() {
     fixTextTruncation();
 
     // Run fix again after a short delay to ensure it applies after any dynamic content loads
+    setTimeout(fixTextTruncation, 100);
     setTimeout(fixTextTruncation, 500);
 
-    // Run again after all images load, which might affect layout
-    window.addEventListener('load', fixTextTruncation);
+    // More aggressive multi-timing approach for extra reliability
+    const timings = [1000, 2000, 3000, 5000, 8000];
+    timings.forEach(timing => {
+        setTimeout(fixTextTruncation, timing);
+    });
 
-    // Apply fix periodically for 5 seconds to ensure it sticks
+    // Run again after all images and resources load
+    window.addEventListener('load', () => {
+        fixTextTruncation();
+        setTimeout(fixTextTruncation, 500);
+    });
+
+    // Apply fix periodically to ensure it sticks
     let attempts = 0;
-    const maxAttempts = 10;
+    const maxAttempts = 20;
     const interval = setInterval(() => {
         fixTextTruncation();
         attempts++;
@@ -169,8 +259,24 @@ document.addEventListener('DOMContentLoaded', function() {
         if (attempts >= maxAttempts) {
             clearInterval(interval);
             console.log('Blog text fix completed after multiple attempts');
+
+            // One final check after everything else
+            setTimeout(fixTextTruncation, 10000);
         }
     }, 500);
 
-    console.log('Enhanced blog text fix initialized');
+    // Setup mutation observer for dynamic content
+    const observer = setupMutationObserver();
+
+    // Handle any future dynamic content additions
+    document.addEventListener('DOMNodeInserted', (event) => {
+        if (event.target.classList &&
+            (event.target.classList.contains('blog-card') ||
+             event.target.querySelector('.blog-card'))) {
+            console.log('New blog card detected, applying fixes');
+            fixTextTruncation();
+        }
+    });
+
+    console.log('Ultimate blog text fix initialized with multiple protection layers');
 });

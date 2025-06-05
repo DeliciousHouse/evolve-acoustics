@@ -45,10 +45,10 @@ RUN if [ -f "/app/css/responsive-images.css" ]; then \
       npx csso-cli --input "/app/css/responsive-images.css" --output "./css/responsive-images.css" --comments none; \
     fi
 
-# Create required CSS files with basic content - using printf instead of cat
+# Create required CSS files with basic content - using printf to avoid heredoc issues
 RUN echo "Creating required CSS files with minimal content..." && \
     mkdir -p ./css && \
-    # Create visual-fixes.css with printf to avoid heredoc issues
+    # Create visual-fixes.css
     printf "%s\n" \
     "/* Visual fixes CSS - Created during Docker build */" \
     "" \
@@ -91,6 +91,97 @@ RUN echo "Creating required CSS files with minimal content..." && \
     ".animated-element {" \
     "  transition: all 0.3s ease-in-out;" \
     "}" > ./css/enhanced-visual-fixes.css && \
+    # Create anti-jitter.css
+    printf "%s\n" \
+    "/**" \
+    " * Anti-Jitter CSS" \
+    " * " \
+    " * This stylesheet prevents screen jitter and improves the visual stability" \
+    " * of the Evolve Acoustics website through several optimizations." \
+    " */" \
+    "" \
+    "/* Content-Visibility Control - Improve rendering performance */" \
+    ".content-block {" \
+    "  content-visibility: auto;" \
+    "  contain-intrinsic-size: 1px 1000px; /* Reserve space for content */" \
+    "}" \
+    "" \
+    "/* Force hardware acceleration for smoother animations and scrolling */" \
+    "body {" \
+    "  -webkit-transform: translateZ(0);" \
+    "  -moz-transform: translateZ(0);" \
+    "  -ms-transform: translateZ(0);" \
+    "  -o-transform: translateZ(0);" \
+    "  transform: translateZ(0);" \
+    "  -webkit-backface-visibility: hidden;" \
+    "  -moz-backface-visibility: hidden;" \
+    "  -ms-backface-visibility: hidden;" \
+    "  backface-visibility: hidden;" \
+    "  -webkit-perspective: 1000;" \
+    "  -moz-perspective: 1000;" \
+    "  -ms-perspective: 1000;" \
+    "  perspective: 1000;" \
+    "}" \
+    "" \
+    "/* Prevent CLS (Cumulative Layout Shift) for images */" \
+    "img, picture, video, canvas, svg {" \
+    "  display: block;" \
+    "  max-width: 100%;" \
+    "  height: auto;" \
+    "}" \
+    "" \
+    "/* Pre-define aspect ratio for common elements to prevent layout shifts */" \
+    ".blog-card-image {" \
+    "  aspect-ratio: 16 / 9;" \
+    "  overflow: hidden;" \
+    "}" \
+    "" \
+    "/* Prevent font-based layout shifts */" \
+    "html {" \
+    "  font-size: 100%; /* Ensures consistent base font size */" \
+    "  text-size-adjust: 100%; /* Prevents mobile browsers from automatically adjusting font sizes */" \
+    "  -webkit-text-size-adjust: 100%;" \
+    "  -moz-text-size-adjust: 100%;" \
+    "}" > ./css/anti-jitter.css && \
+    # Create fixed-header.css
+    printf "%s\n" \
+    "/**" \
+    " * Fixed Header CSS" \
+    " * " \
+    " * This stylesheet implements a fixed header that remains visible while scrolling" \
+    " * without causing layout shifts or performance issues." \
+    " */" \
+    "" \
+    "/* Fixed header base styles */" \
+    "header {" \
+    "  position: fixed;" \
+    "  top: 0;" \
+    "  left: 0;" \
+    "  width: 100%;" \
+    "  z-index: 1000;" \
+    "  transition: transform 0.3s ease, box-shadow 0.3s ease;" \
+    "  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);" \
+    "  " \
+    "  /* Hardware acceleration for smoother performance */" \
+    "  transform: translateZ(0);" \
+    "  will-change: transform, box-shadow;" \
+    "}" \
+    "" \
+    "/* Create space for the fixed header */" \
+    "body {" \
+    "  padding-top: 230px; /* Adjust based on header height + extra padding */" \
+    "}" \
+    "" \
+    "/* Header shrink effect on scroll */" \
+    ".header-shrink {" \
+    "  transform: translateY(-20px);" \
+    "  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);" \
+    "}" \
+    "" \
+    ".header-shrink .logo-img {" \
+    "  height: 150px; /* Reduce logo size when scrolling */" \
+    "  transition: height 0.3s ease;" \
+    "}" > ./css/fixed-header.css && \
     # Create enhanced-preloader.css
     printf "%s\n" \
     "/* Enhanced preloader CSS - Created during Docker build */" \
@@ -259,6 +350,21 @@ RUN if [ -f "/app/src/preloader.js" ]; then \
       npx uglify-js /app/src/preloader.js -c -m -o ./preloader.js; \
     fi
 
+# Create fixed-header.js script
+RUN echo "Creating fixed-header.js..." && \
+    mkdir -p ./js && \
+    printf "%s\n" \
+    "/**" \
+    " * Fixed Header Script" \
+    " * " \
+    " * This script handles the behavior of the fixed header, implementing:" \
+    " * - Header shrinking on scroll" \
+    " * - Performance optimized with throttling" \
+    " */" \
+    "" \
+    "document.addEventListener('DOMContentLoaded',function(){const e=document.querySelector('header');if(!e)return;let t=0,n=!1;function r(){const r=window.pageYOffset||document.documentElement.scrollTop;r>50?e.classList.add('header-shrink'):e.classList.remove('header-shrink'),t=r<=0?0:r}function o(){n||(window.requestAnimationFrame(()=>{r(),n=!1}),n=!0)}r(),window.addEventListener('scroll',o,{passive:!0}),document.querySelectorAll('a[href^=\"#\"]').forEach(t=>{t.addEventListener('click',function(t){const n=document.querySelector(this.getAttribute('href'));if(n){t.preventDefault();const r=e.offsetHeight,o=n.getBoundingClientRect().top+window.pageYOffset-r-20;window.scrollTo({top:o,behavior:'smooth'})}})})});" > ./js/fixed-header.js && \
+    echo "Created fixed-header.js"
+
 
 # --- HTML Minification (maintaining directory structure) ---
 # Root HTML files (e.g., index.html)
@@ -312,7 +418,9 @@ RUN echo "Adding defer attribute to scripts in HTML files..." && \
       s|<script src="../js/evolve-visual-fixes.js"></script>|<script src="../js/evolve-visual-fixes.js" defer></script>|g; \
       s|<script src="../js/image-optimization.js"></script>|<script src="../js/image-optimization.js" defer></script>|g; \
       s|<script src="../js/visual-issue-detector.js"></script>|<script src="../js/visual-issue-detector.js" defer></script>|g; \
-      s|<script src="../js/performance-monitor.js"></script>|<script src="../js/performance-monitor.js" defer></script>|g;' {} \; && \
+      s|<script src="../js/performance-monitor.js"></script>|<script src="../js/performance-monitor.js" defer></script>|g; \
+      s|<script src="../js/fixed-header.js"></script>|<script src="../js/fixed-header.js" defer></script>|g; \
+      s|<script src="../js/blog-text-fix.js"></script>|<script src="../js/blog-text-fix.js" defer></script>|g;' {} \; && \
     # Process HTML files in pages/blogs directory
     find /app/dist/pages/blogs -name "*.html" -type f -exec sed -i 's|<script src="../../js/utilities.js"></script>|<script src="../../js/utilities.js" defer></script>|g; \
       s|<script src="../../js/main.js"></script>|<script src="../../js/main.js" defer></script>|g; \

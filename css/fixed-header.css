@@ -1,0 +1,94 @@
+/**
+ * Fixed Header CSS
+ *
+ * This stylesheet implements a fixed header that remains visible while scrolling
+ * without causing layout shifts or performance issues.
+ */
+
+/* Fixed header base styles */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-image: url('../assets/images/mahogany_texture.webp');
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+  /* Hardware acceleration for smoother performance */
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
+}
+
+/* Create space for the fixed header */
+body {
+  padding-top: 230px; /* Adjust based on header height + extra padding */
+}
+
+/* Header shrink effect on scroll */
+.header-shrink {
+  transform: translateY(-20px); /* Slightly shift up to show less of the header */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.header-shrink .logo-img {
+  height: 150px; /* Reduce logo size when scrolling */
+  transition: height 0.3s ease;
+}
+
+/* Hide header when scrolling down (optional) */
+.header-hidden {
+  transform: translateY(-100%);
+}
+
+/* Ensure content stays behind the header */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Smooth transition for logo */
+.logo-img {
+  transition: height 0.3s ease;
+}
+
+/* Adjust navigation for fixed header */
+nav ul {
+  transition: padding 0.3s ease;
+}
+
+/* Make room for fixed header on anchor links */
+:target::before {
+  content: "";
+  display: block;
+  height: 230px; /* Adjust to match header height */
+  margin-top: -230px;
+  visibility: hidden;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  body {
+    padding-top: 100px; /* Less padding for mobile */
+  }
+
+  header {
+    padding: 10px 15px;
+  }
+
+  .logo-img {
+    height: 80px; /* Smaller logo for mobile */
+  }
+
+  .header-shrink .logo-img {
+    height: 60px;
+  }
+
+  :target::before {
+    height: 100px;
+    margin-top: -100px;
+  }
+}
