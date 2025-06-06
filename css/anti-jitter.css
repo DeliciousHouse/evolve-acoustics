@@ -51,8 +51,10 @@ html {
 
 /* Improve scrolling performance */
 html, body {
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-x: hidden !important; /* Prevent horizontal scrolling */
   scroll-behavior: smooth;
+  max-width: 100% !important;
+  overscroll-behavior-y: none !important;
 }
 
 /* Reduce paint area by isolating elements that change often */
@@ -83,4 +85,49 @@ body {
     transition-duration: 0.25s;
     transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
   }
+}
+
+/* Prevent jitter with hardware acceleration and content-visibility */
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+    overscroll-behavior-y: none !important;
+}
+
+/* Force hardware acceleration on scrollable elements */
+body, main, section, .scrollable {
+    -webkit-overflow-scrolling: touch !important;
+    backface-visibility: hidden !important;
+    transform: translateZ(0) !important;
+}
+
+/* Prevent layout shift during page load */
+body {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+body.header-initialized {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Stabilize images to prevent content shifts */
+img {
+    height: auto !important;
+    width: auto !important;
+    max-width: 100% !important;
+}
+
+/* Stabilize content areas */
+main, section, article {
+    contain: layout !important;
+}
+
+/* Reduce animation work during scroll */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth !important;
+    }
 }

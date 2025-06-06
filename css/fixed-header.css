@@ -2,6 +2,19 @@
  * Fixed Header CSS - Corrected for actual HTML structure
  */
 
+/* Ensure clean rendering for header */
+header {
+    contain: layout style !important;
+    will-change: transform, height, background-color !important;
+    backface-visibility: hidden !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+
+/* Prevent repaints during scroll */
+header * {
+    transform: translateZ(0) !important;
+}
+
 /* Base header styles */
 header {
     position: fixed !important;
