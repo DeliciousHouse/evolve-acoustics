@@ -14,6 +14,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('header');
     if (!header) return;
 
+    // Set padding on body to match header height - CRITICAL FIX
+    function adjustBodyPadding() {
+        const headerHeight = header.offsetHeight;
+        document.body.style.paddingTop = headerHeight + 'px';
+        console.log('Body padding set to:', headerHeight + 'px');
+    }
+    
+    // Initial padding adjustment
+    adjustBodyPadding();
+
     // Variables for scroll handling
     let lastScrollTop = 0;
     let ticking = false;
@@ -33,6 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle header state based on scroll position
     function handleHeaderOnScroll() {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Track if header state changed (for body padding adjustment)
+        const wasHeaderShrunk = header.classList.contains('header-shrink');
 
         // Add shrink effect when scrolled down
         if (currentScroll > scrollThreshold) {
@@ -48,6 +61,12 @@ document.addEventListener('DOMContentLoaded', function() {
             header.classList.remove('header-shrink');
             // header.classList.remove('header-hidden');
         }
+        
+        // If header state changed, adjust body padding
+        if (wasHeaderShrunk !== header.classList.contains('header-shrink')) {
+            // Small delay to allow the header transition to start
+            setTimeout(adjustBodyPadding, 10);
+        }
 
         lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }
@@ -57,6 +76,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Listen for scroll events with throttling
     window.addEventListener('scroll', throttleScroll, { passive: true });
+    
+    // Update body padding when window is resized
+    window.addEventListener('resize', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                adjustBodyPadding();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
 
     // Handle anchor links to account for fixed header
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
