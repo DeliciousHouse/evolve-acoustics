@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Logo image
         const logoImg = document.createElement('img');
-        logoImg.src = getBasePath() + 'assets/images/logo_light.png';
+        logoImg.src = getBasePath() + 'assets/images/logo_light.ico';
         logoImg.alt = 'Evolve Acoustics';
         logoImg.className = 'logo';
 
