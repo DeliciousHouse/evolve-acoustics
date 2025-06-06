@@ -149,8 +149,32 @@
 hgtyq                                               U7
 /* Make sure images are consistent */
 .blog-card-image {
-    height: 180px; /* Fixed height */
-    overflow: hidden;
+    position: relative !important;
+    height: 180px !important;
+    overflow: hidden !important;
+    border-radius: 8px 8px 0 0 !important;
+    background-color: rgba(38, 70, 83, 0.7) !important;
+}
+
+.blog-card-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Additional fix for standalone blog images after removing image-fallback.js */
+.blog-content > img {
+    display: block !important;
+    margin: 2rem auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: 8px !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 /* Enhance hover effect for clickable cards */
@@ -240,10 +264,6 @@ hgtyq                                               U7
     line-height: 1.6 !important;
     margin-bottom: 15px !important;
     color: #e0e0e0 !important;
-    -webkit-line-clamp: unset !important;
-    line-clamp: unset !important;
-    -webkit-box-orient: unset !important;
-    box-orient: unset !important;
 }
 
 .blog-card-link {
@@ -411,6 +431,16 @@ hgtyq                                               U7
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* Fix for blog content images */
+.blog-content img {
+    display: block;
+    margin: 2rem auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
 /* Placeholder image styling */
 .placeholder-image {
     position: relative;
@@ -430,7 +460,7 @@ hgtyq                                               U7
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('../assets/images/logo_light.ico');
+    background-image: url('../assets/images/logo_light.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 60px;
