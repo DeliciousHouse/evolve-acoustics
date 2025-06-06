@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.paddingTop = headerHeight + 'px';
         console.log('Body padding set to:', headerHeight + 'px');
     }
-    
+
     // Initial padding adjustment
     adjustBodyPadding();
 
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle header state based on scroll position
     function handleHeaderOnScroll() {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        
+
         // Track if header state changed (for body padding adjustment)
         const wasHeaderShrunk = header.classList.contains('header-shrink');
 
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             header.classList.remove('header-shrink');
             // header.classList.remove('header-hidden');
         }
-        
+
         // If header state changed, adjust body padding
         if (wasHeaderShrunk !== header.classList.contains('header-shrink')) {
             // Small delay to allow the header transition to start
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Listen for scroll events with throttling
     window.addEventListener('scroll', throttleScroll, { passive: true });
-    
+
     // Update body padding when window is resized
     window.addEventListener('resize', function() {
         if (!ticking) {
