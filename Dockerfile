@@ -405,7 +405,7 @@ RUN echo "Adding defer attribute to scripts in HTML files..." && \
       sed -i 's|<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>|<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>|g' "/app/dist/index.html" && \
       sed -i 's|<script src="js/utilities.js"></script>|<script src="js/utilities.js" defer></script>|g' "/app/dist/index.html" && \
       sed -i 's|<script src="js/main.js"></script>|<script src="js/main.js" defer></script>|g' "/app/dist/index.html" && \
-      sed -i 's|<script src="js/image-fallback.js"></script>|<script src="js/image-fallback.js" defer></script>|g' "/app/dist/index.html" && \
+      # Removed image-fallback.js script reference
       sed -i 's|<script src="js/evolve-visual-fixes.js"></script>|<script src="js/evolve-visual-fixes.js" defer></script>|g' "/app/dist/index.html" && \
       sed -i 's|<script src="js/image-optimization.js"></script>|<script src="js/image-optimization.js" defer></script>|g' "/app/dist/index.html" && \
       sed -i 's|<script src="js/visual-issue-detector.js"></script>|<script src="js/visual-issue-detector.js" defer></script>|g' "/app/dist/index.html" && \
@@ -414,7 +414,7 @@ RUN echo "Adding defer attribute to scripts in HTML files..." && \
     # Process HTML files in pages directory
     find /app/dist/pages -name "*.html" -type f -exec sed -i 's|<script src="../js/utilities.js"></script>|<script src="../js/utilities.js" defer></script>|g; \
       s|<script src="../js/main.js"></script>|<script src="../js/main.js" defer></script>|g; \
-      s|<script src="../js/image-fallback.js"></script>|<script src="../js/image-fallback.js" defer></script>|g; \
+      # Removed image-fallback.js script reference
       s|<script src="../js/evolve-visual-fixes.js"></script>|<script src="../js/evolve-visual-fixes.js" defer></script>|g; \
       s|<script src="../js/image-optimization.js"></script>|<script src="../js/image-optimization.js" defer></script>|g; \
       s|<script src="../js/visual-issue-detector.js"></script>|<script src="../js/visual-issue-detector.js" defer></script>|g; \
@@ -424,7 +424,7 @@ RUN echo "Adding defer attribute to scripts in HTML files..." && \
     # Process HTML files in pages/blogs directory
     find /app/dist/pages/blogs -name "*.html" -type f -exec sed -i 's|<script src="../../js/utilities.js"></script>|<script src="../../js/utilities.js" defer></script>|g; \
       s|<script src="../../js/main.js"></script>|<script src="../../js/main.js" defer></script>|g; \
-      s|<script src="../../js/image-fallback.js"></script>|<script src="../../js/image-fallback.js" defer></script>|g; \
+      # Removed image-fallback.js script reference
       s|<script src="../../js/evolve-visual-fixes.js"></script>|<script src="../../js/evolve-visual-fixes.js" defer></script>|g; \
       s|<script src="../../js/image-optimization.js"></script>|<script src="../../js/image-optimization.js" defer></script>|g; \
       s|<script src="../../js/visual-issue-detector.js"></script>|<script src="../../js/visual-issue-detector.js" defer></script>|g; \

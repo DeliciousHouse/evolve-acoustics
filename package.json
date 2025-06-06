@@ -5,7 +5,7 @@
   "scripts": {
     "minify-html": "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true --input-dir ./src --output-dir ./dist",
     "minify-css": "csso --input ./src/css/ --output ./dist/css/ --recursive",
-    "minify-js": "uglifyjs --compress --mangle --output ./dist/js/main.js -- ./src/js/main.js && uglifyjs --compress --mangle --output ./dist/js/image-fallback.js -- ./src/js/image-fallback.js",
+    "minify-js": "uglifyjs --compress --mangle --output ./dist/js/main.js -- ./src/js/main.js",
     "optimize-images": "imagemin ./src/assets/images/* --out-dir=./dist/assets/images --plugin=mozjpeg --plugin=pngquant --plugin=gifsicle --plugin=svgo",
     "responsive-images": "node scripts/generate-responsive-images.js",
     "process-html": "node scripts/process-html-images.js",
