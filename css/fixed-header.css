@@ -87,6 +87,12 @@ header.header-hidden {
     transform: translateY(-100%) !important;
 }
 
+/* Body padding will be set dynamically by JavaScript */
+body {
+    /* DO NOT set static padding-top here - it will be set by js/fixed-header.js */
+    transition: padding-top 0.3s ease-out !important; /* Smooth transition for padding changes */
+}
+
 /* Responsive styles */
 @media screen and (max-width: 768px) {
     header .menu-toggle {
