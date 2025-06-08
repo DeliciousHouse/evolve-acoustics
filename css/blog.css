@@ -1222,6 +1222,37 @@ hgtyq                                               U7
         gap: 1rem;
         text-align: center;
     }
+
+    /* Mobile optimizations for blog cards */
+    .blog-card {
+        min-height: 300px !important; /* Slightly shorter on mobile */
+        max-height: 380px !important;
+    }
+
+    .blog-card-image {
+        height: 140px !important; /* Shorter image container on mobile */
+    }
+
+    .blog-card-content {
+        padding: 1rem !important; /* Reduced padding on mobile */
+    }
+
+    .blog-card h2,
+    .blog-card h3 {
+        font-size: 1.1rem !important;
+        max-height: 3.6rem !important; /* Adjust for smaller font */
+    }
+
+    .blog-card p {
+        font-size: 0.9rem !important;
+        max-height: 4.05rem !important; /* Adjust for smaller font */
+        -webkit-line-clamp: 3 !important;
+        line-clamp: 3 !important;
+    }
+
+    .blog-card-footer {
+        padding-top: 0.5rem !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1287,6 +1318,10 @@ hgtyq                                               U7
 /* === CRITICAL FIX: Blog Card Text Truncation Issues === */
 /* This section intentionally overrides previous conflicting styles */
 
+/* Let the comprehensive fix handle text styling
+ * Commenting these out to avoid conflicts
+ */
+/*
 .blog-card h2,
 .blog-card h3 {
     display: block !important;
@@ -1314,6 +1349,7 @@ hgtyq                                               U7
     margin-bottom: 15px !important;
     color: #e0e0e0 !important;
 }
+*/
 
 .blog-card-content {
     flex: 1 !important;
@@ -1323,73 +1359,211 @@ hgtyq                                               U7
     padding: 2rem !important;
 }
 
-/* CRITICAL FIX: Blog Card Height and Image Display */
+/* COMPREHENSIVE BLOG CARD FIX - Updated June 8, 2025 */
 .blog-card {
-    min-height: 320px !important; /* Reduced from 350px */
-    max-height: 450px !important; /* Add maximum height constraint */
-    height: auto !important; /* Allow natural sizing within constraints */
+  min-height: 320px !important;
+  max-height: 400px !important; /* Shorter to prevent awkward spacing */
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin-bottom: 20px !important; /* Ensure consistent spacing between cards */
+  background-color: rgba(38, 70, 83, 0.5) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important; /* Ensure contents stay within the card bounds */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 
-.blog-card-content {
-    padding: 1.5rem !important; /* Reduce from 2rem to save vertical space */
-    max-height: 250px !important; /* Limit content height */
-    overflow: hidden !important; /* Hide overflow content */
+.blog-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Make blog card description shorter */
-.blog-card p {
-    max-height: 72px !important; /* ~3 lines of text */
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    display: -webkit-box !important;
-    display: box !important;
-    -webkit-line-clamp: 3 !important; /* Limit to 3 lines */
-    line-clamp: 3 !important; /* Standard property for compatibility */
-    -webkit-box-orient: vertical !important;
-    box-orient: vertical !important;
-    margin-bottom: 10px !important; /* Reduced from 15px */
-}
-
-/* Ensure blog images display properly */
+/* Image container fix */
 .blog-card-image {
-    position: relative !important;
-    height: 180px !important;
-    overflow: hidden !important;
-    border-radius: 8px 8px 0 0 !important;
-    background-color: rgba(38, 70, 83, 0.7) !important;
-    display: block !important;
+  height: 160px !important; /* Slightly shorter for better proportions */
+  position: relative !important;
+  overflow: hidden !important;
+  background-color: rgba(38, 70, 83, 0.7) !important;
+  border-radius: 8px 8px 0 0 !important;
+  display: block !important;
+  width: 100% !important; /* Ensure full width */
 }
 
+/* Image display fix */
 .blog-card-image img,
 .blog-card-image .blog-image {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+  position: absolute !important; /* Absolute positioning for proper coverage */
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 1 !important; /* Ensure image appears above background */
 }
 
-/* Adjust footer spacing */
+/* Content area fix */
+.blog-card-content {
+  padding: 1.25rem !important; /* Reduced padding */
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
+  overflow: hidden !important;
+  max-height: none !important;
+  position: relative !important; /* Needed for proper stacking context */
+}
+
+/* Title display fix */
+.blog-card h2,
+.blog-card h3 {
+  font-size: 1.2rem !important;
+  line-height: 1.3 !important;
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;
+  height: auto !important;
+  max-height: 3.9rem !important; /* Exactly 3 lines of text */
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  text-overflow: ellipsis !important;
+  color: #ffffff !important;
+  font-weight: 500 !important; /* Slightly bolder for better readability */
+}
+
+/* Description text fix */
+.blog-card p {
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
+  margin-bottom: 10px !important;
+  height: auto !important;
+  max-height: 4.5rem !important; /* Exactly 3 lines */
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  line-clamp: 3 !important; /* Standard property for compatibility */
+  -webkit-box-orient: vertical !important;
+  box-orient: vertical !important;
+  text-overflow: ellipsis !important;
+  color: #e0e0e0 !important;
+}
+
+/* Blog date display fix */
+.blog-card .blog-date {
+  display: block !important;
+  margin-bottom: 6px !important;
+  font-size: 0.85rem !important;
+  color: #e0e0e0 !important;
+  opacity: 0.9 !important;
+}
+
+/* Footer spacing fix */
 .blog-card-footer {
-    margin-top: auto !important; /* Push to bottom of card */
-    padding-top: 0.75rem !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
+  margin-top: auto !important;
+  padding-top: 0.75rem !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Add smaller font size for titles on smaller cards */
+/* Read More link styling */
+.blog-card-footer .read-more {
+  color: #4fd5ff !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  transition: color 0.3s ease !important;
+}
+
+.blog-card-footer .read-more:hover {
+  color: #8be0ff !important;
+}
+
+.blog-card-footer .read-more i {
+  margin-left: 5px !important;
+  transition: transform 0.3s ease !important;
+}
+
+.blog-card-footer .read-more:hover i {
+  transform: translateX(3px) !important;
+}
+
+/* Category tag styling */
+.blog-card-image .blog-category {
+  position: absolute !important;
+  top: 10px !important;
+  left: 10px !important;
+  z-index: 2 !important;
+  background-color: rgba(38, 70, 83, 0.7) !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+}
+
+.blog-card-image .blog-category span {
+  color: #4fd5ff !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Better responsive design for blog cards */
 @media (max-width: 768px) {
-    .blog-card h2 {
-        font-size: 1.2rem !important;
+    .blog-card {
+        min-height: 300px !important; /* Slightly shorter on mobile */
+        max-height: 380px !important;
+    }
+
+    .blog-card-image {
+        height: 140px !important; /* Shorter image container on mobile */
+    }
+
+    .blog-card h2,
+    .blog-card h3 {
+        font-size: 1.1rem !important;
+        line-height: 1.3 !important;
+        max-height: 3.6rem !important; /* Adjust for smaller font */
     }
 
     .blog-card p {
-        font-size: 0.95rem !important;
+        font-size: 0.9rem !important;
+        line-height: 1.5 !important;
+        max-height: 4.05rem !important;
     }
 
     .blog-card-content {
-        padding: 1.25rem !important;
+        padding: 1rem !important; /* Further reduced padding on mobile */
+    }
+
+    .blog-card-footer {
+        padding-top: 0.5rem !important;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .blog-card-image {
+        height: 130px !important;
+    }
+
+    .blog-card-content {
+        padding: 0.875rem !important;
+    }
+
+    .blog-card h2,
+    .blog-card h3 {
+        font-size: 1rem !important;
+    }
+
+    .blog-card p {
+        font-size: 0.85rem !important;
+        margin-bottom: 8px !important;
     }
 }
