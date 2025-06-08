@@ -1322,3 +1322,74 @@ hgtyq                                               U7
     overflow: visible !important;
     padding: 2rem !important;
 }
+
+/* CRITICAL FIX: Blog Card Height and Image Display */
+.blog-card {
+    min-height: 320px !important; /* Reduced from 350px */
+    max-height: 450px !important; /* Add maximum height constraint */
+    height: auto !important; /* Allow natural sizing within constraints */
+}
+
+.blog-card-content {
+    padding: 1.5rem !important; /* Reduce from 2rem to save vertical space */
+    max-height: 250px !important; /* Limit content height */
+    overflow: hidden !important; /* Hide overflow content */
+}
+
+/* Make blog card description shorter */
+.blog-card p {
+    max-height: 72px !important; /* ~3 lines of text */
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    display: box !important;
+    -webkit-line-clamp: 3 !important; /* Limit to 3 lines */
+    line-clamp: 3 !important; /* Standard property for compatibility */
+    -webkit-box-orient: vertical !important;
+    box-orient: vertical !important;
+    margin-bottom: 10px !important; /* Reduced from 15px */
+}
+
+/* Ensure blog images display properly */
+.blog-card-image {
+    position: relative !important;
+    height: 180px !important;
+    overflow: hidden !important;
+    border-radius: 8px 8px 0 0 !important;
+    background-color: rgba(38, 70, 83, 0.7) !important;
+    display: block !important;
+}
+
+.blog-card-image img,
+.blog-card-image .blog-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Adjust footer spacing */
+.blog-card-footer {
+    margin-top: auto !important; /* Push to bottom of card */
+    padding-top: 0.75rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+/* Add smaller font size for titles on smaller cards */
+@media (max-width: 768px) {
+    .blog-card h2 {
+        font-size: 1.2rem !important;
+    }
+
+    .blog-card p {
+        font-size: 0.95rem !important;
+    }
+
+    .blog-card-content {
+        padding: 1.25rem !important;
+    }
+}
