@@ -25,7 +25,7 @@ header {
     z-index: 1000 !important;
 
     /* Base styling */
-    height: 105px !important; /* Increased by 1.5x from 70px to accommodate larger logo */
+    height: 150px !important; /* Increased by 1.5x from 70px to accommodate larger logo */
     /* The background-color was removed from this rule to allow the style.css background-image to show. */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
 
@@ -42,9 +42,9 @@ header {
 
 /* Correct logo selector to match your HTML */
 header a img.logo-img {
-    height: 90px !important; /* Increased by 1.5x from 60px */
+    height: 150px !important; /* Increased by 1.5x from 60px */
     width: auto !important;
-    max-height: 90px !important; /* Increased by 1.5x from 60px */
+    max-height: 150px !important; /* Increased by 1.5x from 60px */
     object-fit: contain !important;
     transition: height 0.3s ease-out !important;
 }
@@ -92,7 +92,7 @@ header.header-shrink {
 }
 
 header.header-shrink a img.logo-img {
-    height: 67.5px !important; /* Increased by 1.5x from 45px */
+    height: 90px !important; /* Increased by 1.5x from 45px */
 }
 
 /* Hidden header state */

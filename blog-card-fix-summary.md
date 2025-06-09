@@ -43,15 +43,15 @@ The existing CSS in `blog.css` already had proper styling for blog cards with:
    - Kept `image-optimization.js` as it's still needed
 
 ## Verification
-A verification script `verify-blog-card-display.js` was created to check:
+Visual verification was performed to check:
 - Card height consistency
 - Image loading and visibility
 - Proper text truncation
 
 To run the verification:
-1. Execute `./add-verification-script.sh` to add the verification script to the blog page
-2. Open the blog page in a browser
-3. Check the browser console for verification results
+1. Open the blog page in a browser
+2. Verify that all blog cards display properly with consistent heights
+3. Check that images load correctly and text truncation works as expected
 
 ## Expected Results
 - Blog cards should now display with consistent heights
