@@ -103,11 +103,12 @@ body, main, section, .scrollable {
 
 /* Prevent layout shift during page load */
 body {
-    opacity: 0;
-    visibility: hidden;
+    opacity: 1; /* Changed from 0 */
+    visibility: visible; /* Changed from hidden */
     transition: opacity 0.3s ease;
 }
 
+/* This class is no longer needed but kept for compatibility */
 body.header-initialized {
     opacity: 1;
     visibility: visible;
