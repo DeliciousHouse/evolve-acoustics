@@ -3,9 +3,13 @@
   box-sizing: border-box;
 }
 
+/* Global Font Consistency */
+body, html, p, li, a, span, div, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+}
+
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
     background-color: #3a3f44; /* Dark, slightly warm grey, good for wood to pop */
     background-image:
         linear-gradient(45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.03) 75%, rgba(255, 255, 255, 0.03)),

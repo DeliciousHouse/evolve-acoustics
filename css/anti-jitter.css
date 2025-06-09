@@ -53,8 +53,7 @@ html {
 html, body {
   overflow-x: hidden !important; /* Prevent horizontal scrolling */
   scroll-behavior: smooth;
-  max-width: 100% !important;
-  overscroll-behavior-y: none !important;
+  max-width: 100% !important
 }
 
 /* Reduce paint area by isolating elements that change often */
@@ -91,7 +90,6 @@ body {
 html, body {
     overflow-x: hidden !important;
     max-width: 100% !important;
-    overscroll-behavior-y: none !important;
 }
 
 /* Force hardware acceleration on scrollable elements */
