@@ -9,7 +9,8 @@
     "optimize-images": "imagemin ./src/assets/images/* --out-dir=./dist/assets/images --plugin=mozjpeg --plugin=pngquant --plugin=gifsicle --plugin=svgo",
     "responsive-images": "node scripts/generate-responsive-images.js",
     "process-html": "node scripts/process-html-images.js",
-    "build": "npm run minify-html && npm run minify-css && npm run minify-js && npm run responsive-images && npm run process-html && npm run optimize-images"
+    "build-old": "npm run minify-html && npm run minify-css && npm run minify-js && npm run responsive-images && npm run process-html && npm run optimize-images",
+    "build": "node scripts/build.js"
   },
   "devDependencies": {
     "html-minifier": "^4.0.0",
@@ -25,6 +26,7 @@
     "glob": "^10.3.10",
     "cheerio": "^1.0.0-rc.12",
     "fs-extra": "^11.1.1",
-    "path": "^0.12.7"
+    "child_process": "^1.0.2",
+    "imagemin": "^8.0.1"
   }
 }

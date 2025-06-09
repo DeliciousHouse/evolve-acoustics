@@ -1,11 +1,11 @@
 *.sh
 ~/.git-credentials
-*.bak
+*.bak*
 css_archive/
 css_backup/
 html_backup_*/
 assets/placeholders/
-*.backup
+*.backup*
 testfile
 *.bin
 *.zip
