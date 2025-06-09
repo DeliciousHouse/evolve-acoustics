@@ -49,6 +49,10 @@ main::before, .services::before {
 }
 
 header {
+    /* FALLBACK: A dark background color that matches your site's theme */
+    background-color: #1E323C;
+
+    /* The primary background image you want */
     background-image: url('../assets/images/mahogany_texture.webp');
     background-size: cover;
     background-position: center;
