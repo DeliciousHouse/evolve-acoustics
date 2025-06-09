@@ -1,167 +1,89 @@
-/**
- * Fixed Header CSS - Corrected for actual HTML structure
+/*
+ * Fixed Header CSS - Corrected and Cleaned
  */
-
-/* Ensure clean rendering for header */
-header {
-    contain: layout style !important;
-    will-change: transform, height, background-color !important;
-    backface-visibility: hidden !important;
-    -webkit-font-smoothing: antialiased !important;
-}
-
-/* Prevent repaints during scroll */
-header * {
-    transform: translateZ(0) !important;
-}
 
 /* Base header styles */
 header {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    z-index: 1000 !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
 
     /* Base styling */
-    height: 150px !important; /* Increased by 1.5x from 70px to accommodate larger logo */
-    /* The background-color was removed from this rule to allow the style.css background-image to show. */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+    height: 150px; /* Your desired initial header height */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 
     /* Layout */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 0 20px !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
 
-    /* Performance */
-    transform: translateZ(0) !important;
-    transition: height 0.3s ease-out, background-color 0.3s ease-out !important;
+    /* Performance & Animation */
+    transition: height 0.3s ease-out, background-color 0.3s ease-out;
+    transform: translateZ(0); /* Apply transform to the header only */
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Correct logo selector to match your HTML */
-header a img.logo-img {
-    height: 150px !important; /* Increased by 1.5x from 60px */
-    width: auto !important;
-    max-height: 150px !important; /* Increased by 1.5x from 60px */
-    object-fit: contain !important;
-    transition: height 0.3s ease-out !important;
+/* Base logo styles */
+header .logo-img {
+    height: 130px; /* Slightly smaller than header to fit well */
+    width: auto;
+    object-fit: contain;
+    transition: height 0.3s ease-out;
 }
 
-/* Menu toggle button */
-header .menu-toggle {
-    display: none !important; /* Hide on desktop */
-    background: none !important;
-    border: none !important;
-    color: white !important;
-    font-size: 24px !important;
-    cursor: pointer !important;
-}
 
-/* Nav links container */
-header .nav-links {
-    flex: 1 !important;
-}
-
-/* Navigation styling */
-header .nav-links nav ul {
-    display: flex !important;
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    justify-content: flex-end !important;
-}
-
-header .nav-links nav ul li {
-    margin-left: 20px !important;
-}
-
-header .nav-links nav ul li a {
-    color: white !important;
-    text-decoration: none !important;
-    font-weight: 500 !important;
-    transition: color 0.3s ease !important;
-}
-
-/* Header shrink effect */
+/* Header shrink effect on scroll */
 header.header-shrink {
-    height: 55px !important;
-    background-color: rgba(25, 40, 50, 0.98) !important; /* This background-color applies only on scroll */
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2) !important;
+    height: 70px; /* A more reasonable smaller height */
+    background-color: rgba(25, 40, 50, 0.98); /* This background-color applies only on scroll */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
-header.header-shrink a img.logo-img {
-    height: 90px !important; /* Increased by 1.5x from 45px */
+/* Logo inside the shrunken header */
+header.header-shrink .logo-img {
+    height: 60px; /* Corrected: Logo is now smaller than the header */
 }
 
-/* Hidden header state */
+
+/* Hidden header state (when scrolling up) */
 header.header-hidden {
-    transform: translateY(-100%) !important;
+    transform: translateY(-100%);
 }
 
 /* Body padding will be set dynamically by JavaScript */
 body {
-    /* DO NOT set static padding-top here - it will be set by js/fixed-header.js */
-    transition: padding-top 0.3s ease-out !important; /* Smooth transition for padding changes */
+    transition: padding-top 0.3s ease-out;
 }
 
-/* Responsive styles */
+
+/* Responsive styles for mobile */
 @media screen and (max-width: 768px) {
     header .menu-toggle {
-        display: block !important; /* Show on mobile */
+        display: block;
     }
 
     header .nav-links {
-        position: fixed !important;
-        top: 135px !important; /* Adjusted for larger header height with 1.5x larger logo */
-        left: 0 !important;
-        width: 100% !important;
-        background-color: rgba(30, 50, 60, 0.95) !important;
-        display: none !important; /* Hidden by default on mobile */
+        position: fixed;
+        top: 70px; /* Adjusted to match the shrunken header height */
+        left: 0;
+        width: 100%;
+        background-color: rgba(30, 50, 60, 0.95);
+        display: none;
     }
 
     header .nav-links.active {
-        display: block !important;
+        display: block;
     }
 
     header .nav-links nav ul {
-        flex-direction: column !important;
-        padding: 10px 0 !important;
+        flex-direction: column;
+        padding: 10px 0;
     }
 
     header .nav-links nav ul li {
-        margin: 10px 20px !important;
+        margin: 10px 20px;
     }
-}
-
-/* Dropdown styling */
-header .dropdown {
-    position: relative !important;
-}
-
-header .dropdown-content {
-    display: none !important;
-    position: absolute !important;
-    top: 100% !important;
-    left: 0 !important;
-    background-color: rgba(30, 50, 60, 0.95) !important;
-    min-width: 200px !important;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
-    z-index: 1 !important;
-}
-
-header .dropdown:hover .dropdown-content {
-    display: block !important;
-}
-
-header .dropdown-content a {
-    color: white !important;
-    padding: 12px 16px !important;
-    text-decoration: none !important;
-    display: block !important;
-}
-
-header .dropdown-content a:hover {
-    background-color: rgba(45, 65, 75, 0.95) !important;
 }
