@@ -1,0 +1,535 @@
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .service-grid {
+        max-width: 900px;
+    }
+
+    .hero-image {
+        max-width: 70%;
+        max-height: 350px;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .service-container {
+        min-width: 220px;
+    }
+
+    .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .design-aspects {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .applications-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+
+    .process-steps {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .testimonial-highlight blockquote {
+        font-size: 1rem;
+    }
+
+    .before-after-item {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .carousel-slide img {
+        height: 350px;
+    }
+
+    .overlay-label {
+        font-size: 0.8rem;
+        padding: 0.2rem 0.6rem;
+    }
+
+    .content-card {
+        padding: 1.8rem;
+    }
+
+    .section-icon {
+        width: 50px;
+        height: 50px;
+        top: -10px;
+        right: -10px;
+    }
+
+    .section-icon i {
+        font-size: 20px;
+    }
+
+    .service-page-content {
+        padding-top: 2rem; /* Add a bit more top padding */
+    }
+
+    .service-intro {
+        margin-bottom: 3rem; /* Increase space after intro */
+    }
+
+    .service-section .section-icon {
+        width: 48px;
+        height: 48px;
+        top: -24px; /* Adjust protrusion */
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto; /* Ensure it's centered */
+    }
+
+    .service-section .section-icon i {
+        font-size: 20px;
+    }
+
+    /* Ensure first carded section has enough top margin if an icon is present */
+    .service-intro + .service-section.content-card {
+        margin-top: 40px; /* Add space above the first card that has an icon */
+    }
+
+    .philosophy-principles {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .benefit-item {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Header adjustments for mobile */
+    header {
+        padding: 12px 15px;
+    }
+
+    nav ul {
+        display: block;
+        text-align: center;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .service-page-content {
+        padding: 2.5rem 1rem 1.5rem;
+        margin-top: 0.75rem;
+    }
+
+    .service-page-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .service-section h2 {
+        font-size: 1.6rem; /* Adjusted from 1.5rem for better hierarchy */
+    }
+
+    .service-intro {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 1.25rem;
+        margin-bottom: 50px; /* Increased space after intro section */
+    }
+
+    /* Add margin to first content card */
+    .service-page-content .content-card:first-of-type {
+        margin-top: 2rem;
+    }
+
+    .service-section .section-icon {
+        width: 40px;
+        height: 40px;
+        top: -20px; /* Icon sits less outside the card */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .service-section .section-icon i {
+        font-size: 18px; /* Adjust icon size if needed */
+    }
+
+    /* Specific adjustment for the first section-card after intro */
+    .service-intro + .service-section.content-card {
+        margin-top: 45px; /* Ensure icon has space above it */
+    }
+
+    .service-list {
+        grid-template-columns: 1fr;
+    }
+
+    .service-list li {
+        padding: 1rem 1rem 1rem 3.5rem;
+    }
+
+    .service-list li:before {
+        font-size: 1.3rem;
+        top: 1rem;
+        left: 1rem;
+    }
+
+    .challenge-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-button {
+        padding: 0.8rem 1.4rem;
+        font-size: 1rem;
+    }
+
+    .hero {
+        padding: 80px 15px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .hero-image {
+        max-width: 85%;
+        max-height: 300px;
+    }
+
+    .service-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .service-item {
+        width: 90%; /* Full width on smaller screens */
+    }
+
+    main img {
+        margin: 15px auto;
+    }
+
+    .blog-header h1 {
+        font-size: 2rem;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .blog-card-image {
+        height: 220px;
+    }
+
+    .blog-cta {
+        padding: 1.5rem;
+    }
+
+    .blog-cta h3 {
+        font-size: 1.3rem;
+    }
+
+    .image-caption {
+        font-size: 0.85rem;
+    }
+
+    .carousel-slide img {
+        height: 300px;
+    }
+
+    .before-image img, .after-image img {
+        height: 200px;
+    }
+
+    .carousel-control {
+        width: 35px;
+        height: 35px;
+    }
+
+    .content-card {
+        padding: 1.5rem;
+        border-left-width: 3px;
+    }
+
+    .section-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .section-icon i {
+        font-size: 16px;
+    }
+
+    .philosophy-principles {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .principle-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .principle-icon i {
+        font-size: 24px;
+    }
+
+    .benefit-item i {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero {
+        padding: 60px 10px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .hero-image {
+        max-width: 95%;
+        max-height: 250px;
+    }
+
+    .services {
+        padding: 40px 15px;
+    }
+
+    .service-container {
+        min-width: 100%;
+    }
+
+    .service-container img {
+        height: 180px;
+    }
+
+    main {
+        padding: 20px 10px; /* Slightly reduced side padding */
+    }
+
+    .blog-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .blog-card-image {
+        height: 180px;
+    }
+
+    .blog-card h2 {
+        font-size: 1.2rem;
+    }
+
+    .category-tag {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .blog-pagination a {
+        height: 35px;
+        min-width: 35px;
+        padding: 0 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .blog-pagination a.prev,
+    .blog-pagination a.next {
+        padding: 0 0.7rem;
+    }
+
+    .service-intro {
+        margin-bottom: 40px;
+    }
+
+    .service-intro + .service-section.content-card {
+        margin-top: 35px; /* Adjust for very small screens */
+    }
+
+    .service-section h2 {
+        font-size: 1.4rem;
+    }
+
+    .image-caption {
+        font-size: 0.8rem;
+    }
+
+    .carousel-slide img {
+        height: 250px;
+    }
+
+    .before-image img, .after-image img {
+        height: 180px;
+    }
+
+    .carousel-control {
+        width: 30px;
+        height: 30px;
+    }
+
+    .content-card {
+        padding: 1.2rem;
+        margin-bottom: 2rem;
+        padding-top: 2rem; /* Increase top padding for section icons */
+    }
+
+    .section-icon {
+        top: -20px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .section-icon i {
+        font-size: 1.2rem;
+    }
+
+    .step-icon {
+        width: 35px;
+        height: 35px;
+        top: -10px;
+        right: -10px;
+    }
+
+    .step-icon i {
+        font-size: 16px;
+    }
+
+    .aspect-header i {
+        font-size: 20px;
+    }
+
+    .benefit-item {
+        font-size: 0.9rem;
+    }
+
+    .cta-button i {
+        margin-right: 6px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .menu-toggle,
+    nav {
+        display: none;
+    }
+
+    .hero,
+    .services,
+    main,
+    footer {
+        background: white !important;
+        color: black !important;
+        padding: 10px 0;
+        box-shadow: none;
+    }
+
+    .hero::before {
+        display: none;
+    }
+
+    img {
+        max-width: 500px;
+        margin: 10px auto;
+    }
+}
+
+/* Responsive Team Section Styles */
+@media (max-width: 1200px) {
+    .team-member-image-left,
+    .team-member-image-right {
+        flex: 0 0 40%;
+        max-width: 40%;
+    }
+
+    .team-member-info-left,
+    .team-member-info-right {
+        flex: 0 0 55%;
+        max-width: 55%;
+    }
+
+    .team-member-image-left img,
+    .team-member-image-right img {
+        max-height: 350px;
+    }
+}
+
+@media (max-width: 992px) {
+    .team-member-row {
+        padding: 15px;
+    }
+
+    .team-member-image-left,
+    .team-member-image-right,
+    .team-member-info-left,
+    .team-member-info-right {
+        flex: 0 0 48%;
+        max-width: 48%;
+    }
+
+    .team-member-image-left img,
+    .team-member-image-right img {
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-member-row {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .team-member-image-left,
+    .team-member-image-right,
+    .team-member-info-left,
+    .team-member-info-right {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding: 10px 0;
+        order: 0; /* Reset order for mobile */
+    }
+
+    .team-member-image-left img,
+    .team-member-image-right img {
+        max-width: 280px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .team-member-info-left,
+    .team-member-info-right {
+        text-align: center;
+    }
+
+    .team-member-info-left h3,
+    .team-member-info-right h3,
+    .team-member-info-left h4,
+    .team-member-info-right h4 {
+        text-align: center;
+    }
+
+    .team-heading {
+        font-size: 1.8em;
+        margin: 30px 0 15px;
+    }
+}

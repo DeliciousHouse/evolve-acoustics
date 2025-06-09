@@ -1,0 +1,1 @@
+window.addPassiveEventListener(document,"DOMContentLoaded",function(){document.querySelectorAll(".related-post").forEach(e=>{var n=e.querySelector("a");if(n){let t=n.getAttribute("href");window.addPassiveEventListener(e,"click",function(e){e.target.closest("a")||(window.location.href=t)})}})});

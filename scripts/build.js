@@ -319,14 +319,71 @@ function processCSSFiles() {
   // Copy CSS files from source
   const cssSourceDir = path.join(config.srcDir, 'css');
   if (fs.existsSync(cssSourceDir)) {
-    // Create command to minify all CSS files
+    // List all CSS files in source directory
+    const cssFiles = glob.sync(`${cssSourceDir}/*.css`);
+    logger.info(`Found ${cssFiles.length} CSS files in source directory: ${cssFiles.map(file => path.basename(file)).join(', ')}`);
+
+    // First try to minify all CSS files
     try {
       execSync(`npx csso-cli --input ${cssSourceDir} --output ${config.distDir}/css --comments none`, { stdio: 'inherit' });
       logger.info('CSS files minified successfully');
+
+      // Verify that all files were actually minified
+      const minifiedFiles = glob.sync(`${config.distDir}/css/*.css`);
+      logger.info(`Minified ${minifiedFiles.length} CSS files`);
+
+      // Check which files might be missing
+      const sourceFileNames = cssFiles.map(file => path.basename(file));
+      const minifiedFileNames = minifiedFiles.map(file => path.basename(file));
+
+      const missingFiles = sourceFileNames.filter(file => !minifiedFileNames.includes(file));
+      if (missingFiles.length > 0) {
+        logger.warn(`Some CSS files were not minified: ${missingFiles.join(', ')}`);
+        logger.info('Copying missing files directly without minification');
+
+        // Copy missing files directly
+        missingFiles.forEach(filename => {
+          const sourcePath = path.join(cssSourceDir, filename);
+          const destPath = path.join(config.distDir, 'css', filename);
+          fs.copyFileSync(sourcePath, destPath);
+          logger.info(`Copied (not minified): ${filename}`);
+        });
+      }
     } catch (error) {
-      logger.error('Error minifying CSS files');
+      logger.error('Error minifying CSS files, falling back to direct copy');
       console.error(error);
+
+      // Fallback: copy all CSS files directly
+      cssFiles.forEach(file => {
+        const filename = path.basename(file);
+        const destPath = path.join(config.distDir, 'css', filename);
+        fs.copyFileSync(file, destPath);
+        logger.info(`Copied (fallback): ${filename}`);
+      });
     }
+
+    // Check for specific critical CSS files
+    const requiredCssFiles = [
+      'style.css',
+      'responsive.css',
+      'navigation.css',
+      'visual-enhancements.css',
+      'forms-contact.css'
+    ];
+
+    // Verify each required file exists in the destination
+    requiredCssFiles.forEach(file => {
+      const destPath = path.join(config.distDir, 'css', file);
+      if (!fs.existsSync(destPath)) {
+        const sourcePath = path.join(cssSourceDir, file);
+        if (fs.existsSync(sourcePath)) {
+          fs.copyFileSync(sourcePath, destPath);
+          logger.info(`Copied missing required file: ${file}`);
+        } else {
+          logger.error(`CRITICAL: Required CSS file not found in source: ${file}`);
+        }
+      }
+    });
   } else {
     logger.warn('CSS source directory not found');
   }

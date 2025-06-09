@@ -1,0 +1,2320 @@
+/* Box Sizing Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #3a3f44; /* Dark, slightly warm grey, good for wood to pop */
+    background-image:
+        linear-gradient(45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.03) 75%, rgba(255, 255, 255, 0.03)),
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.03) 75%, rgba(255, 255, 255, 0.03));
+    background-size: 6px 6px;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); /* Enhance text readability with the dark theme */
+}
+
+/* Subtle wood grain overlay for the whole body */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-blend-mode: multiply; /* Multiply can darken and enrich the fabric */
+    opacity: 0.1; /* Adjust this for subtlety */
+    z-index: -1;
+}
+
+/* Add acoustic panel pattern with small perforations */
+main::before, .services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.08) 0.8px, transparent 1px);
+    background-size: 10px 10px;
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+}
+
+header {
+    /* FALLBACK: A dark background color that matches your site's theme */
+    background-color: #1E323C;
+
+    /* The primary background image you want */
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Optional: Add a subtle sheen or depth to header */
+header::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 10%);
+    pointer-events: none;
+}
+
+.logo-img {
+    height: 200px; /* Increased from 50px (5x larger) */
+    width: auto;
+    object-fit: contain;
+    margin-right: 20px; /* Add some spacing between logo and navigation */
+}
+
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #dbd2d2; /* Light color for visibility */
+    font-size: 26px;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.menu-toggle:hover {
+    color: #4fd5ff; /* Light blue to match other hover effects */
+}
+
+.menu-toggle:active {
+    transform: scale(0.95);
+}
+
+.menu-toggle[aria-expanded="true"] {
+    color: #4fd5ff; /* Light blue to indicate active state */
+}
+
+.nav-links {
+    display: block;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+    position: relative;
+}
+
+/* Dropdown Navigation Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-position: center;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5),
+                inset 0 0 0 1px rgba(255,255,255,0.05);
+    z-index: 10;
+    border-radius: 4px;
+    top: 100%;
+    left: 0;
+    border: 1px solid rgba(222, 184, 135, 0.15); /* Subtle wood-colored border */
+}
+
+/* Show dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Dropdown links */
+.dropdown-content a {
+    color: #dbd2d2;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add subtle wood grain accent to dropdown items */
+.dropdown-content a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right,
+        rgba(222, 184, 135, 0.01),
+        rgba(222, 184, 135, 0.1) 50%,
+        rgba(222, 184, 135, 0.01)
+    );
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+/* Dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: rgba(79, 213, 255, 0.1);
+    color: #4fd5ff;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.dropdown-content a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Dropdown indicator */
+.dropdown > a::after {
+    content: " ▼";
+    font-size: 10px;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+nav ul li a {
+    color: #dbd2d2; /* Pure #dbd2d2 to match the Evolve text in logo */
+    text-decoration: none;
+    font-weight: 500;
+    padding: 5px 0;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #4fd5ff; /* Light blue hover effect to match logo accent */
+    border-bottom: 2px solid #4fd5ff;
+}
+
+/* Hero Section */
+.hero {
+    background-image: url('../assets/images/Untitled-design-3.webp');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 100px 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    margin: 15px auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+    z-index: 0;
+}
+
+.hero h1, .hero p {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-image {
+    position: relative;
+    z-index: 1;
+    max-width: 80%;
+    max-height: 400px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+    display: block;
+    object-fit: contain;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Services Section */
+.services {
+    padding: 60px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    margin: 15px auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Testimonials Preview Section */
+.testimonials-preview {
+    padding: 60px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    margin: 15px auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.services h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #eae1e1; /* #dbd2d2 text to match logo */
+}
+
+.service-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-container {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    border: 1px solid rgba(222, 184, 135, 0.1);
+}
+
+/* Add subtle wood grain effect to service cards */
+.service-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right,
+        rgba(222, 184, 135, 0.2),
+        rgba(222, 184, 135, 0.5) 50%,
+        rgba(222, 184, 135, 0.2)
+    );
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.service-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2), 0 0 0 1px rgba(222, 184, 135, 0.2);
+}
+
+.service-container:hover::before {
+    opacity: 1;
+}
+
+.service-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.service-item {
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #106b96; /* Match main blue color */
+}
+
+/* Service Pages Styling */
+.service-page-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.service-page-content h1 {
+    font-size: 2.4rem;
+    margin-bottom: 1.5rem;
+    color: #4fd5ff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.service-page-content p {
+    color: #f5f5f5;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    margin-bottom: 1.2rem;
+}
+
+.service-intro {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.service-intro img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.service-intro img:hover {
+    transform: scale(1.02);
+}
+
+.service-section {
+    margin-bottom: 3rem;
+}
+
+.service-section h2 {
+    font-size: 1.8rem;
+    color: #4fd5ff;
+    border-left: 4px solid #4fd5ff;
+    padding-left: 1rem;
+    margin: 2rem 0 1rem;
+}
+
+.service-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.service-list li {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    padding: 1.2rem 1.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    position: relative;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    color: #eae1e1;
+}
+
+/* Step highlight styling */
+.step-highlight {
+    color: #4fd5ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.service-list li:hover {
+    background-color: rgba(79, 213, 255, 0.1);
+    transform: translateY(-5px);
+}
+
+.service-list li:before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 1.2rem;
+    top: 1.2rem;
+    color: #4fd5ff;
+    font-size: 1.5rem;
+}
+
+/* Custom icons for each list item */
+.service-list li:nth-child(1):before { content: "\f500"; } /* measurement icon */
+.service-list li:nth-child(2):before { content: "\f0e7"; } /* problem icon */
+.service-list li:nth-child(3):before { content: "\f1b2"; } /* modeling icon */
+.service-list li:nth-child(4):before { content: "\f303"; } /* design icon */
+.service-list li:nth-child(5):before { content: "\f53f"; } /* materials icon */
+.service-list li:nth-child(6):before { content: "\f562"; } /* testing icon */
+
+/* Challenge grid and cards */
+.challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.challenge-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.challenge-card:hover {
+    transform: translateY(-5px);
+    background-color: rgba(79, 213, 255, 0.1);
+}
+
+.challenge-card i {
+    font-size: 2.5rem;
+    color: #4fd5ff;
+    margin-bottom: 1rem;
+}
+
+.challenge-card h3 {
+    color: #4fd5ff;
+    margin-bottom: 0.8rem;
+}
+
+/* Mid-page CTA */
+.mid-page-cta {
+    background-color: rgba(79, 213, 255, 0.1);
+    border-left: 4px solid #4fd5ff;
+    padding: 2rem;
+    border-radius: 0 8px 8px 0;
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.mid-page-cta h3 {
+    color: #4fd5ff;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+/* Call to Action styling */
+.cta-container {
+    margin: 2.5rem 0;
+    text-align: center;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #4fd5ff;
+    color: #1a1a1a;
+    padding: 0.9rem 1.8rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 1.1rem;
+}
+
+.cta-button:hover {
+    background-color: #23b8e5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 213, 255, 0.3);
+}
+
+/* Animation for CTA button */
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(79, 213, 255, 0.7);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(79, 213, 255, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(79, 213, 255, 0);
+    }
+}
+
+.service-image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.service-image-gallery img {
+    width: calc(50% - 10px);
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    max-width: 390px;
+}
+
+@media (max-width: 768px) {
+    .service-image-gallery img {
+        width: 100%;
+    }
+}
+
+/* Content pages */
+main {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    margin: 15px auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+main h1 {
+    color: #eae1e1; /* #dbd2d2 text to match logo */
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add shadow for readability */
+}
+
+main p {
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+main img {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    display: block;
+}
+
+/* About Us Page Styling */
+.about-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.founder-image {
+    max-width: 350px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.about-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-content h2 {
+    color: #eae1e1;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.about-content p {
+    color: #f5f5f5;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        flex-direction: column;
+    }
+
+    .founder-image {
+        max-width: 100%;
+    }
+}
+
+/* Testimonials Page Styling */
+.testimonial-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.testimonial-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-left: 3px solid rgba(222, 184, 135, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.testimonial-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.03;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.testimonial-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial-item:hover::before {
+    opacity: 0.05;
+}
+
+/* Example testimonial styling */
+.example-testimonial {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+}
+
+.example-testimonial::before {
+    content: 'EXAMPLE';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(79, 213, 255, 0.2);
+    color: #4fd5ff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Notice styling */
+.notice {
+    background-color: #1a3c4a; /* Darker solid background for better contrast */
+    border-left: 4px solid #2a9d8f;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    color: #ffffff; /* Pure white for better visibility */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Add shadow for better visual distinction */
+}
+
+.notice p {
+    color: #ffffff; /* Pure white for better visibility */
+    margin: 0;
+    font-weight: 500; /* Slightly bolder for better visibility */
+    font-size: 1.05em; /* Slightly larger */
+}
+
+.notice a {
+    color: #4fd5ff; /* Bright blue for links */
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.notice a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.testimonial-content {
+    position: relative;
+    padding-left: 40px;
+    margin-bottom: 20px;
+}
+
+.testimonial-content::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -10px;
+    font-size: 60px;
+    color: rgba(0, 0, 0, 0.5);
+    font-family: Georgia, serif;
+    line-height: 1;
+}
+
+.testimonial-content p {
+    font-size: 18px;
+    font-style: italic;
+    color: #f5f5f5;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.testimonial-author {
+    padding-left: 40px;
+}
+
+.testimonial-author h3 {
+    color: #eae1e1;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.testimonial-author p {
+    color: #b3e0ff;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* Blog Page Styles */
+.blog-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.blog-header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.blog-header h1 {
+    color: #4fd5ff;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.blog-header p {
+    color: #f5f5f5;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.blog-filters {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.blog-search {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+.blog-search input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    padding-right: 3rem;
+    border: 2px solid rgba(79, 213, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.blog-search input:focus {
+    outline: none;
+    border-color: #4fd5ff;
+    box-shadow: 0 0 0 3px rgba(79, 213, 255, 0.2);
+}
+
+.blog-search button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #4fd5ff;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.blog-categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.blog-categories span {
+    color: #f5f5f5;
+    margin-right: 0.5rem;
+}
+
+.category-tag {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f5f5f5;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.category-tag:hover, .category-tag.active {
+    background-color: #4fd5ff;
+    color: #1a1a1a;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.blog-card {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: visible; /* Changed from hidden to visible */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: auto;
+    min-height: 350px;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.blog-card-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.blog-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.blog-card:hover .blog-image {
+    transform: scale(1.05);
+}
+
+.blog-category {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+.blog-category span {
+    background-color: #4fd5ff;
+    color: #1a1a1a;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.blog-card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.blog-date {
+    color: #b3e0ff;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-bottom: 0.8rem;
+}
+
+.blog-card h2 {
+    color: #4fd5ff;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.blog-card p {
+    color: #f5f5f5;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.blog-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.read-more {
+    color: #4fd5ff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.read-more i {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.read-more:hover {
+    color: #b3e0ff;
+}
+
+.read-more:hover i {
+    transform: translateX(3px);
+}
+
+.blog-social {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.blog-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f5f5f5;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.blog-social a:hover {
+    background-color: #4fd5ff;
+    color: #1a1a1a;
+    transform: translateY(-2px);
+}
+
+.blog-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 2rem 0;
+}
+
+.blog-pagination a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    min-width: 40px;
+    padding: 0 0.8rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f5f5f5;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.blog-pagination a.active,
+.blog-pagination a:hover {
+    background-color: #4fd5ff;
+    color: #1a1a1a;
+}
+
+.blog-pagination a.next,
+.blog-pagination a.prev {
+    padding: 0 1rem;
+}
+
+.blog-pagination a.next i {
+    margin-left: 5px;
+}
+
+.blog-pagination a.prev i {
+    margin-right: 5px;
+}
+
+.blog-cta {
+    background-color: rgba(79, 213, 255, 0.1);
+    border-left: 4px solid #4fd5ff;
+    padding: 2rem;
+    border-radius: 0 8px 8px 0;
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.blog-cta h3 {
+    color: #4fd5ff;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Acoustic Design Page Styles */
+.service-tagline {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #4fd5ff;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.process-step {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.5rem;
+    padding-top: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.process-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.step-number {
+    background-color: #4fd5ff;
+    color: #000;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.process-step h3 {
+    color: #eae1e1;
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+}
+
+.process-step p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.design-aspects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.aspect-column h3 {
+    color: #4fd5ff;
+    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
+}
+
+.applications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.application-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.application-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.application-card h3 {
+    color: #4fd5ff;
+    padding: 1.2rem;
+    margin: 0;
+    font-size: 1.3rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.application-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 0;
+}
+
+.application-card p {
+    padding: 1rem 1.5rem;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.application-card p:last-child {
+    padding-top: 0;
+    padding-bottom: 1.5rem;
+}
+
+.testimonial-highlight {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 3rem 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.testimonial-highlight blockquote {
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0 0 0 2rem;
+    position: relative;
+}
+
+.testimonial-highlight blockquote::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -15px;
+    font-size: 4rem;
+    color: #4fd5ff;
+    opacity: 0.5;
+    font-family: Georgia, serif;
+}
+
+.testimonial-highlight cite {
+    display: block;
+    margin-top: 1rem;
+    font-style: normal;
+    font-weight: bold;
+    text-align: right;
+    color: #eae1e1;
+}
+
+.cta-section {
+    text-align: center;
+    margin: 4rem 0 2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add subtle wood grain texture to buttons */
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: 200px 200px;
+    background-position: center;
+    opacity: 0.08;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.cta-button:hover::before {
+    opacity: 0.12;
+}
+
+.primary-cta {
+    background-color: #4fd5ff;
+    color: #000;
+}
+
+.primary-cta:hover {
+    background-color: #3ac4ef;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(79, 213, 255, 0.4);
+}
+
+.secondary-cta {
+    background-color: transparent;
+    color: #4fd5ff;
+    border: 2px solid #4fd5ff;
+}
+
+.secondary-cta:hover {
+    background-color: rgba(79, 213, 255, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(79, 213, 255, 0.2);
+}
+
+footer {
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: cover;
+    background-position: center;
+    color: #dbd2d2;
+    padding: 40px 20px 20px;
+    margin-top: 40px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+    position: relative;
+    /* Enhanced wood effect with grain overlay */
+    background-blend-mode: multiply;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    margin-bottom: 20px;
+    flex: 1;
+    min-width: 200px;
+    padding-right: 20px;
+}
+
+.footer-logo .logo {
+    max-width: 180px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.footer-logo p {
+    font-style: italic;
+    color: #dbd2d2;
+    margin-top: 10px;
+}
+
+.footer-section, .footer-links, .footer-contact {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+    position: relative;
+}
+
+/* Add decorative wooden divider between footer sections */
+.footer-section:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 1px;
+    background: linear-gradient(to bottom,
+        rgba(255,255,255,0.01),
+        rgba(222, 184, 135, 0.2) 15%,
+        rgba(222, 184, 135, 0.15) 50%,
+        rgba(222, 184, 135, 0.2) 85%,
+        rgba(255,255,255,0.01)
+    );
+}
+
+.footer-section h3, .footer-links h3, .footer-contact h3 {
+    color: #4fd5ff;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 8px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    position: relative;
+}
+
+/* Add subtle wood accent to footer headers */
+.footer-section h3::after, .footer-links h3::after, .footer-contact h3::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(to right, rgba(222, 184, 135, 0.7), rgba(222, 184, 135, 0.1));
+}
+
+.footer-links ul, .footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links ul li, .footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-links ul li a, .footer-section ul li a {
+    color: #dbd2d2;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover, .footer-section ul li a:hover {
+    color: #4fd5ff;
+    text-decoration: underline;
+}
+
+.footer-contact p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-contact p i {
+    margin-right: 10px;
+    color: #4fd5ff;
+    width: 16px;
+    text-align: center;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.1);
+    color: #dbd2d2;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: 100px 100px;
+    background-position: center;
+    opacity: 0.2;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.social-links a i {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-links a:hover {
+    background-color: #4fd5ff;
+    color: #106b96;
+    transform: translateY(-3px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+.social-links a:hover::before {
+    opacity: 0.4;
+}
+
+/* Ensure specific font awesome icons have proper coloring */
+.social-links .fab {
+    color: inherit;
+}
+
+.social-links a i.fab {
+    font-family: "Font Awesome 6 Brands" !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+    font-size: 18px !important;
+}
+
+.legal-links {
+    display: flex;
+    gap: 20px;
+}
+
+.legal-links a {
+    color: #dbd2d2;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.legal-links a:hover {
+    color: #4fd5ff;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 14px;
+    position: relative;
+}
+
+/* Add subtle wood grain accent to the footer bottom */
+.footer-bottom::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right,
+        rgba(222, 184, 135, 0.05),
+        rgba(222, 184, 135, 0.3) 20%,
+        rgba(222, 184, 135, 0.5) 50%,
+        rgba(222, 184, 135, 0.3) 80%,
+        rgba(222, 184, 135, 0.05)
+    );
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+}
+
+.attribution {
+    color: rgba(219,210,210,0.7);
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        z-index: 1000;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-image: url('../assets/images/mahogany_texture.webp');
+        background-size: cover;
+        background-position: center;
+        background-color: rgba(0, 0, 0, 0.95);
+        z-index: 100;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2),
+                    inset 0 0 0 1px rgba(222, 184, 135, 0.1);
+        border-bottom: 1px solid rgba(222, 184, 135, 0.15);
+
+        /* Simplified visibility approach */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+    }
+
+    .nav-links.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    nav ul li {
+        margin: 0;
+        width: 100%;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 12px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        color: #f5f5f5;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .dropdown-content {
+        position: static;
+        background-image: url('../assets/images/mahogany_texture.webp');
+        background-size: cover;
+        background-position: center;
+        background-color: rgba(0, 0, 0, 0.8);
+        box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.3),
+                    inset 0 0 0 1px rgba(222, 184, 135, 0.1);
+        width: 100%;
+        padding-left: 20px;
+        border: none;
+        border-top: 1px solid rgba(222, 184, 135, 0.1);
+        border-bottom: 1px solid rgba(222, 184, 135, 0.1);
+
+        /* Simplified dropdown visibility */
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.3s, opacity 0.3s;
+    }
+
+    .dropdown:hover .dropdown-content {
+        /* Prevent hover behavior on mobile */
+        max-height: 0;
+        opacity: 0;
+    }
+
+    .dropdown-content.active {
+        max-height: 500px;
+        opacity: 1;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .dropdown > a::after {
+        content: '\f107';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        margin-left: 5px;
+        transition: transform 0.3s;
+        position: absolute;
+        right: 20px;
+    }
+
+    .dropdown.active > a::after {
+        transform: rotate(180deg);
+    }
+}
+
+/* Contact Page Styling */
+.contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin: 40px 0;
+}
+
+.contact-info, .contact-form {
+    flex: 1;
+    min-width: 300px;
+}
+
+.contact-info h2, .contact-form h2 {
+    color: #eae1e1;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    color: #f5f5f5;
+    margin-bottom: 30px;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.contact-method h3 {
+    color: #4fd5ff;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.contact-method p {
+    margin: 0;
+}
+
+.contact-method a {
+    color: #f5f5f5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-method a:hover {
+    color: #4fd5ff;
+}
+
+/* Form styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #eae1e1;
+    font-weight: 500;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: #eae1e1;
+    font-family: inherit;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(222, 184, 135, 0.05);
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: #4fd5ff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(79, 213, 255, 0.3);
+}
+
+.submit-btn {
+    background-color: #4fd5ff;
+    color: #333;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../assets/images/mahogany_texture.webp');
+    background-size: 200px 200px;
+    background-position: center;
+    opacity: 0.08;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #3ac4f0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:hover::before {
+    opacity: 0.12;
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Legal Pages (Terms, Privacy) Styling */
+.legal-content {
+    color: #f5f5f5;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.legal-content section {
+    margin-bottom: 30px;
+}
+
+.legal-content h2 {
+    color: #eae1e1;
+    margin-bottom: 15px;
+    font-size: 22px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 10px;
+}
+
+.legal-content p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+/* Social Media Links Styling */
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: #f5f5f5;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-links a i {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-links a:hover {
+    background-color: #4fd5ff;
+    color: #333;
+    transform: translateY(-3px);
+}
+
+/* Ensure specific font awesome icons have proper coloring */
+.social-links .fab {
+    color: inherit !important;
+}
+
+.social-links .fa-facebook-f,
+.social-links .fa-instagram,
+.social-links .fa-google,
+.social-links .fa-yelp {
+    color: inherit !important;
+}
+
+/* Awesome icon display */
+.social-links a i.fab,
+.social-links a i.fa-facebook-f,
+.social-links a i.fa-instagram,
+social-links a i.fa-google,
+social-links a i.fa-yelp {
+    color: #dbd2d2 !important;
+    font-family: "Font Awesome 6 Brands" !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto !important;
+    line-height: 1 !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    -webkit-font-smoothing: antialiased !important;
+    display: inline-block !important;
+    font-size: 18px !important;
+}
+
+/* Unicode fallbacks in case font doesn't load */
+.social-links a i.fa-facebook-f:before {
+    content: "\f39e" !important;
+}
+.social-links a i.fa-instagram:before {
+    content: "\f16d" !important;
+}
+.social-links a i.fa-google:before {
+    content: "\f1a0" !important;
+}
+.social-links a i.fa-yelp:before {
+    content: "\f1e9" !important;
+}
+
+/* Image Caption Styles */
+.image-caption {
+    font-size: 0.9rem;
+    color: #c8c8c8;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+    text-align: center;
+}
+
+.service-intro .image-caption {
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+}
+
+/* Before & After Section */
+.before-after-section {
+    margin: 4rem 0;
+}
+
+.before-after-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.before-after-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.before-image, .after-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.before-image img, .after-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    margin: 0;
+    transition: transform 0.5s ease;
+}
+
+.before-image:hover img, .after-image:hover img {
+    transform: scale(1.05);
+}
+
+.overlay-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.before-image .overlay-label {
+    background-color: rgba(217, 83, 79, 0.8);
+}
+
+.after-image .overlay-label {
+    background-color: rgba(92, 184, 92, 0.8);
+}
+
+/* Image Carousel Styles */
+.image-carousel {
+    margin: 2rem 0;
+    position: relative;
+}
+
+.carousel-container {
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.carousel-slide {
+    display: none;
+    width: 100%;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+.carousel-control {
+    background-color: rgba(79, 213, 255, 0.2);
+    color: #4fd5ff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-control:hover {
+    background-color: rgba(79, 213, 255, 0.4);
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    background-color: #4fd5ff;
+    transform: scale(1.2);
+}
+
+/* Application Card Image Styles */
+.application-card .image-caption {
+    padding: 0 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Enhanced Layout Styles */
+.content-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid rgba(79, 213, 255, 0.7);
+}
+
+.content-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent);
+    pointer-events: none;
+}
+
+.highlight-card {
+    background-color: rgba(79, 213, 255, 0.1);
+    border-left: 4px solid rgba(79, 213, 255, 1);
+}
+
+.section-icon {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background-color: rgba(79, 213, 255, 0.7);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.section-icon i {
+    font-size: 24px;
+    color: #000;
+}
+
+/* Philosophy Section */
+.philosophy-principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.principle {
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.principle:hover {
+    transform: translateY(-5px);
+}
+
+.principle-icon {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(79, 213, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.principle-icon i {
+    font-size: 28px;
+    color: #4fd5ff;
+}
+
+.principle h3 {
+    color: #eae1e1;
+    margin: 0.5rem 0;
+    font-size: 1.3rem;
+}
+
+/* Process Step Icons */
+.step-icon {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background-color: rgba(79, 213, 255, 0.7);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.step-icon i {
+    font-size: 18px;
+    color: #000;
+}
+
+/* Aspect Headers */
+.aspect-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.aspect-header i {
+    font-size: 24px;
+    color: #4fd5ff;
+    margin-right: 1rem;
+}
+
+.service-list li {
+    display: flex;
+    align-items: flex-start;
+}
+
+.service-list li i {
+    color: #4fd5ff;
+    margin-right: 10px;
+    margin-top: 3px;
+    font-size: 1rem;
+    min-width: 20px;
+}
+
+/* Benefits Summary */
+.benefits-summary {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.benefit-item i {
+    color: #4fd5ff;
+    margin-right: 15px;
+    font-size: 1.2rem;
+}
+
+/* CTA Button Icons */
+.cta-button i {
+    margin-right: 8px;
+}
+
+/* Improve readability for light text on dark backgrounds */
+p, li, a, span, div {
+    font-weight: 400;
+    letter-spacing: 0.015em;
+}
+
+/* Enhance headings with subtle text effects */
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: 0.02em;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Enhanced Section Backgrounds with Wood Accents */
+.services, .testimonials-preview, main, .blog-container, .contact-container {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle wood grain border effects for sections */
+.services::after, .testimonials-preview::after, main::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(to right,
+        rgba(222, 184, 135, 0.01),
+        rgba(222, 184, 135, 0.3) 50%,
+        rgba(222, 184, 135, 0.01)
+    );
+    z-index: 1;
+}
+
+/* Team Section Styles */
+.team-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.team-member-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+    background-color: rgba(30, 30, 30, 0.5);
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    gap: 30px;
+    flex-wrap: nowrap;
+}
+
+.team-member-image-left,
+.team-member-image-right {
+    flex: 0 0 35%;
+    max-width: 35%;
+}
+
+.team-member-info-left,
+.team-member-info-right {
+    flex: 0 0 60%;
+    max-width: 60%;
+    padding: 0 20px;
+}
+
+.team-member-image-left img,
+.team-member-image-right img {
+    width: 250px;
+    max-width: 100%;
+    height: auto;
+    max-height: 350px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    object-fit: contain;
+}
+
+.team-heading {
+    text-align: center;
+    margin: 50px 0 20px;
+    font-size: 2.2em;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.team-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right,
+        rgba(222, 184, 135, 0.1),
+        rgba(222, 184, 135, 0.7) 50%,
+        rgba(222, 184, 135, 0.1)
+    );
+}
+
+/* Add subtle wood grain to section headers */
+main h1::after, .services h2::after, .testimonials-preview h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    margin: 15px auto 0;
+    background: linear-gradient(to right,
+        rgba(222, 184, 135, 0.2),
+        rgba(222, 184, 135, 0.6) 50%,
+        rgba(222, 184, 135, 0.2)
+    );
+}
