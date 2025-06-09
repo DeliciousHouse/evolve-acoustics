@@ -636,27 +636,44 @@ function addPassiveEventFix() {
 
 // Copy and optimize images
 function copyAndOptimizeImages() {
-  logger.step('Copying and optimizing images');
+  logger.step('Copying and optimizing all image assets');
 
-  // Copy all original images
   const imagesSourceDir = path.join(config.srcDir, 'assets/images');
   const imagesDistDir = path.join(config.distDir, 'assets/images');
 
-  if (fs.existsSync(imagesSourceDir)) {
-    fs.copySync(imagesSourceDir, imagesDistDir);
-    logger.info('Original images copied');
+  logger.info(`Source directory: ${imagesSourceDir}`);
+  logger.info(`Destination directory: ${imagesDistDir}`);
 
-    // Optimize all images
+  if (fs.existsSync(imagesSourceDir)) {
+    logger.info('Source directory found. Starting copy...');
     try {
+      // Ensure the destination directory exists
+      fs.ensureDirSync(imagesDistDir);
+
+      // Copy all files from source to destination, overwriting any existing files.
+      // This is crucial to ensure CSS background images are included.
+      fs.copySync(imagesSourceDir, imagesDistDir, { overwrite: true });
+      logger.info('Successfully copied all files from source assets/images.');
+
+      // Optional: Log files found in source to help debug
+      const sourceFiles = fs.readdirSync(imagesSourceDir);
+      logger.info(`Found ${sourceFiles.length} files in source, including: ${sourceFiles.slice(0, 5).join(', ')}...`);
+      if (!sourceFiles.includes('mahogany_texture.webp')) {
+          logger.warn('WARNING: mahogany_texture.webp was not found in the source directory!');
+      }
+
+      // After copying, optimize all images in the destination
+      logger.info('Optimizing images in destination directory...');
       execSync(`npx imagemin "${imagesDistDir}/**/*.{jpg,jpeg,png,gif,svg,webp}" --out-dir=${imagesDistDir} --plugin=mozjpeg --plugin=pngquant --plugin=gifsicle --plugin=svgo`,
         { stdio: 'inherit' });
-      logger.info('Images optimized successfully');
+      logger.info('Image optimization complete.');
+
     } catch (error) {
-      logger.error('Error optimizing images');
+      logger.error('An error occurred during image copy or optimization.');
       console.error(error);
     }
   } else {
-    logger.warn('Images source directory not found');
+    logger.error('CRITICAL: Image source directory not found. Cannot copy images.');
   }
 }
 
