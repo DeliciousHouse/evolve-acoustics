@@ -12,7 +12,7 @@ RUN apk add --no-cache alpine-sdk autoconf automake libtool git python3 nasm
 # Add sharp, cheerio, fs-extra, html-minifier, csso-cli, uglify-js, imagemin etc.
 # to your package.json devDependencies.
 COPY package*.json ./
-RUN npm install
+RUN npm install esbuild esbuild-plugin-imagemin esbuild-copy-static-files --save-dev
 
 # Copy the rest of the application source code
 COPY . .
