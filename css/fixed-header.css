@@ -26,7 +26,7 @@ header {
 
     /* Base styling */
     height: 70px !important;
-    background-color: rgba(30, 50, 60, 0.95) !important;
+    /* The background-color was removed from this rule to allow the style.css background-image to show. */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
 
     /* Layout */
@@ -87,7 +87,7 @@ header .nav-links nav ul li a {
 /* Header shrink effect */
 header.header-shrink {
     height: 55px !important;
-    background-color: rgba(25, 40, 50, 0.98) !important;
+    background-color: rgba(25, 40, 50, 0.98) !important; /* This background-color applies only on scroll */
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2) !important;
 }
 
