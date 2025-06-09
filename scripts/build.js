@@ -555,7 +555,6 @@ function addDeferToScripts() {
       .replace(/<script src="js\/utilities\.js"><\/script>/g, '<script src="js/utilities.js" defer></script>')
       .replace(/<script src="js\/main\.js"><\/script>/g, '<script src="js/main.js" defer></script>')
       .replace(/<script src="js\/evolve-visual-fixes\.js"><\/script>/g, '<script src="js/evolve-visual-fixes.js" defer></script>')
-      .replace(/<script src="js\/image-optimization\.js"><\/script>/g, '<script src="js/image-optimization.js" defer></script>')
       .replace(/<script src="js\/visual-issue-detector\.js"><\/script>/g, '<script src="js/visual-issue-detector.js" defer></script>')
       .replace(/<script src="js\/performance-monitor\.js"><\/script>/g, '<script src="js/performance-monitor.js" defer></script>');
 
@@ -571,7 +570,6 @@ function addDeferToScripts() {
       .replace(/<script src="..\/js\/utilities\.js"><\/script>/g, '<script src="../js/utilities.js" defer></script>')
       .replace(/<script src="..\/js\/main\.js"><\/script>/g, '<script src="../js/main.js" defer></script>')
       .replace(/<script src="..\/js\/evolve-visual-fixes\.js"><\/script>/g, '<script src="../js/evolve-visual-fixes.js" defer></script>')
-      .replace(/<script src="..\/js\/image-optimization\.js"><\/script>/g, '<script src="../js/image-optimization.js" defer></script>')
       .replace(/<script src="..\/js\/visual-issue-detector\.js"><\/script>/g, '<script src="../js/visual-issue-detector.js" defer></script>')
       .replace(/<script src="..\/js\/performance-monitor\.js"><\/script>/g, '<script src="../js/performance-monitor.js" defer></script>')
       .replace(/<script src="..\/js\/fixed-header\.js"><\/script>/g, '<script src="../js/fixed-header.js" defer></script>')
@@ -589,7 +587,6 @@ function addDeferToScripts() {
       .replace(/<script src="..\/..\/js\/utilities\.js"><\/script>/g, '<script src="../../js/utilities.js" defer></script>')
       .replace(/<script src="..\/..\/js\/main\.js"><\/script>/g, '<script src="../../js/main.js" defer></script>')
       .replace(/<script src="..\/..\/js\/evolve-visual-fixes\.js"><\/script>/g, '<script src="../../js/evolve-visual-fixes.js" defer></script>')
-      .replace(/<script src="..\/..\/js\/image-optimization\.js"><\/script>/g, '<script src="../../js/image-optimization.js" defer></script>')
       .replace(/<script src="..\/..\/js\/visual-issue-detector\.js"><\/script>/g, '<script src="../../js/visual-issue-detector.js" defer></script>')
       .replace(/<script src="..\/..\/js\/performance-monitor\.js"><\/script>/g, '<script src="../../js/performance-monitor.js" defer></script>');
 
