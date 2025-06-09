@@ -8,6 +8,11 @@
         max-width: 70%;
         max-height: 350px;
     }
+
+    .hero-tagline {
+        font-size: 26px;
+        padding: 8px 20px;
+    }
 }
 
 @media (max-width: 992px) {
@@ -109,6 +114,11 @@
 
     .benefit-item {
         font-size: 1rem;
+    }
+
+    .hero-tagline {
+        font-size: 24px;
+        padding: 8px 18px;
     }
 }
 
@@ -293,6 +303,11 @@
     .benefit-item i {
         font-size: 1.1rem;
     }
+
+    .hero-tagline {
+        font-size: 22px;
+        padding: 6px 15px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -424,6 +439,13 @@
 
     .cta-button i {
         margin-right: 6px;
+    }
+
+    .hero-tagline {
+        font-size: 20px;
+        padding: 6px 15px;
+        border-left-width: 3px;
+        border-right-width: 3px;
     }
 }
 

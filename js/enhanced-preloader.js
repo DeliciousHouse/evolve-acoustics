@@ -11,11 +11,11 @@
 // While {passive: true} has minimal impact on 'DOMContentLoaded' for scroll performance (as it's not a scroll-blocking input event),
 // it's harmless and aligns with the intent if the listener doesn't call preventDefault().
 document.addEventListener('DOMContentLoaded', function() {
-    // Add preloader CSS
+    // Add preloader CSS (now part of visual-enhancements.css)
     function loadPreloaderCSS() {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = getBasePath() + 'css/enhanced-preloader.css'; // Make sure enhanced-preloader.css is also included in your Docker build output css/ folder
+        link.href = getBasePath() + 'css/visual-enhancements.css'; // Using consolidated CSS file
         document.head.appendChild(link);
     }
 

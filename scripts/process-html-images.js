@@ -29,7 +29,7 @@ const config = {
     // Default sizes attribute for different image types
     defaultSizes: {
         'hero-image': '100vw',
-        'logo-img': '200px',
+        'logo-img': '450px', /* Increased by 1.5x from 300px */
         'blog-image': '(min-width: 1200px) 1100px, (min-width: 768px) 700px, 100vw',
         'service-item img': '(min-width: 992px) 33vw, (min-width: 768px) 50vw, 100vw',
         'testimonial img': '(min-width: 992px) 25vw, (min-width: 768px) 33vw, 100vw',

@@ -77,46 +77,6 @@ function createRequiredCSSFiles() {
   logger.step('Creating required CSS files');
 
   const cssFiles = {
-    'visual-fixes.css': `/* Visual fixes CSS - Created during build */
-
-.blog-grid {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
-.blog-card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}`,
-
-    'enhanced-visual-fixes.css': `/* Enhanced visual fixes CSS - Created during build */
-
-.button:hover,
-.btn:hover,
-a.cta-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-a:focus,
-button:focus,
-input:focus,
-textarea:focus {
-  outline: 2px solid #4a90e2;
-  outline-offset: 2px;
-}
-
-.animated-element {
-  transition: all 0.3s ease-in-out;
-}`,
 
     'anti-jitter.css': `/**
  * Anti-Jitter CSS
@@ -203,63 +163,11 @@ body {
 }
 
 .header-shrink .logo-img {
-  height: 150px; /* Reduce logo size when scrolling */
+  height: 337.5px; /* Reduce logo size when scrolling (1.5x from 225px) */
   transition: height 0.3s ease;
 }`,
 
-    'enhanced-preloader.css': `/* Enhanced preloader CSS - Created during build */
-
-.evolve-preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #171717;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.5s ease-out, visibility 0.5s;
-}
-
-.evolve-preloader.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.logo-container {
-  margin-bottom: 20px;
-}
-
-.logo {
-  max-width: 200px;
-  height: auto;
-}
-
-.progress-container {
-  width: 80%;
-  max-width: 300px;
-  height: 4px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 100%;
-  background-color: #f7f7f7;
-  width: 0;
-  transition: width 0.3s ease;
-}
-
-.loading-text {
-  color: #f7f7f7;
-  margin-top: 10px;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-}`
+    /* No individual enhanced-preloader.css here - it's been consolidated into visual-enhancements.css */
   };
 
   // Write each CSS file

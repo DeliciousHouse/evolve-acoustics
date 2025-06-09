@@ -38,9 +38,8 @@ window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
         console.log('Visual fixes CSS loaded: ' + href);
     }
 
-    // Load our visual fixes CSS files with relative paths
-    loadCSS(getBasePath() + 'css/visual-fixes.css');
-    loadCSS(getBasePath() + 'css/enhanced-visual-fixes.css');
+    // Load our consolidated visual enhancements CSS file with relative path
+    loadCSS(getBasePath() + 'css/visual-enhancements.css');
 
     // Fix for blog grid layout - especially on page 1
     const fixBlogGrid = function() {

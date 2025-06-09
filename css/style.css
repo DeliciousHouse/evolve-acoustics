@@ -79,7 +79,7 @@ header::after {
 }
 
 .logo-img {
-    height: 200px; /* Increased from 50px (5x larger) */
+    height: 300px; /* Increased from 200px (1.5x larger) */
     width: auto;
     object-fit: contain;
     margin-right: 20px; /* Add some spacing between logo and navigation */
@@ -275,6 +275,48 @@ nav ul li a:hover {
     margin-top: 20px;
     margin-bottom: 30px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Tagline styling for hero section */
+.hero-tagline {
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #f5f5f5;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    background: rgba(30, 30, 30, 0.7);
+    display: inline-block;
+    padding: 10px 25px;
+    margin: 20px auto;
+    border-left: 4px solid #4fd5ff;
+    border-right: 4px solid #4fd5ff;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+}
+
+.hero-tagline::before, .hero-tagline::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right,
+        rgba(79, 213, 255, 0.1),
+        rgba(79, 213, 255, 0.8) 50%,
+        rgba(79, 213, 255, 0.1)
+    );
+}
+
+.hero-tagline::before {
+    top: 0;
+    left: 0;
+}
+
+.hero-tagline::after {
+    bottom: 0;
+    top: auto;
+    left: 0;
 }
 
 /* Services Section */
