@@ -30,7 +30,7 @@ body::before {
     background-image: url('../assets/images/mahogany_texture.webp');
     background-blend-mode: multiply; /* Multiply can darken and enrich the fabric */
     opacity: 0.1; /* Adjust this for subtlety */
-    z-index: -1;
+    z-index: -999;
 }
 
 /* Add acoustic panel pattern with small perforations */
