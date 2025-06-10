@@ -52,18 +52,6 @@ img.lazy-load.loaded {
   aspect-ratio: 16 / 10;
 }
 
-/* Add subtle loading animation */
-@keyframes imageLoadingPulse {
-  0% { opacity: 0.6; }
-  50% { opacity: 0.8; }
-  100% { opacity: 0.6; }
-}
-
-img:not([loading="eager"]):not(.loaded):not(.logo-img) {
-  animation: imageLoadingPulse 1.5s ease-in-out infinite;
-  background-color: #f0f0f0;
-}
-
 /* Style for image figure captions */
 figure {
   margin: 0;

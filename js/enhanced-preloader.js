@@ -110,35 +110,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // When everything is loaded
     window.addEventListener('load', function() {
-        // Clear the interval
+        // Clear the interval that simulates progress
         clearInterval(progressInterval);
 
         const preloader = document.querySelector('.evolve-preloader');
-        console.log('Preloader element found:', preloader !== null);
         const progressBar = document.querySelector('.evolve-preloader .progress');
 
-        // Ensure progress bar completes
+        // 1. Animate progress bar to 100%
         if (progressBar) {
             progressBar.style.width = '100%';
         }
 
-        // Immediately remove js-loading class again
-        document.documentElement.classList.remove('js-loading');
-        console.log('js-loading class removed (load event)');
-
-        // Simplified preloader handling
-        if (preloader) {
-            preloader.classList.add('hidden');
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 800); // Match transition time
-        }
-
-        // Reveal the page content
+        // 2. Wait a moment so the user can see the "100%" state
         setTimeout(() => {
-            document.body.classList.remove('loading');
-            document.body.classList.add('loaded');
-        }, 100);
+            if (preloader) {
+                // 3. Start fading out the entire preloader
+                preloader.classList.add('hidden');
+
+                // 4. Listen for the fade-out transition to completely finish
+                preloader.addEventListener('transitionend', function onTransitionEnd() {
+                    // 5. NOW that the preloader is gone, reveal the page content
+                    document.body.classList.remove('loading');
+                    document.body.classList.add('loaded');
+
+                    // Clean up by removing the preloader element from the page
+                    if (preloader.parentNode) {
+                        preloader.parentNode.removeChild(preloader);
+                    }
+
+                    // Remove this event listener so it doesn't fire again
+                    preloader.removeEventListener('transitionend', onTransitionEnd);
+                });
+            }
+        }, 400); // A 400ms delay feels more deliberate than 100ms
     });
 
 }, { passive: true }); // Added {passive: true} to the DOMContentLoaded listener
