@@ -22,6 +22,10 @@ COPY . .
 # This script handles all minification, image processing, and HTML modifications.
 RUN npm run build
 
+# FIX: Correct the image directory structure after the build script runs
+RUN mv /app/dist/assets/images/responsive/blogs/* /app/dist/assets/images/responsive/ \
+    && rmdir /app/dist/assets/images/responsive/blogs
+
 # =================================================================
 # Stage 2: Serve Statically with Nginx
 # =================================================================
@@ -29,10 +33,6 @@ FROM nginx:1.25-alpine
 
 # Remove default Nginx website
 RUN rm -rf /usr/share/nginx/html/*
-
-# FIX: Correct the image directory structure after the build script runs
-RUN mv /app/dist/assets/images/responsive/blogs/* /app/dist/assets/images/responsive/ \
-    && rmdir /app/dist/assets/images/responsive/blogs
 
 # Copy the optimized assets from the builder stage
 # The build script in the previous stage should output to a `/app/dist` directory.
