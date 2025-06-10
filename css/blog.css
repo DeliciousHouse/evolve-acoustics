@@ -1211,7 +1211,6 @@
 /* FINAL BLOG CARD FIX - Comprehensive solution for all display issues */
 .blog-card {
   position: relative !important;
-  width: 100% !important;
   height: 350px !important; /* Reduced height for better proportions */
   min-height: 300px !important;
   max-height: 380px !important;
