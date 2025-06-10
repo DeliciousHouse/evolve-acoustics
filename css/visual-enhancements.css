@@ -507,3 +507,17 @@ body.loaded main {
 header .logo-img {
     transition: none !important;
 }
+
+/*
+ * ===================================================================
+ * HEADER ANIMATION OVERRIDE (FINAL)
+ * Force-disables all animations on the header and its logo.
+ * ===================================================================
+ */
+ header,
+ header .logo-img {
+     transition-property: none !important;
+     transition-duration: 0s !important;
+     transition-timing-function: unset !important;
+     animation: none !important;
+ }
