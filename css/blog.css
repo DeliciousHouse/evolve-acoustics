@@ -3,9 +3,10 @@
  * This file combines:
  * - blog-list.css
  * - blog-image-enhancements.css
- * - blog-social-enhancements.css
  * - blog-wood-panels.css
  * - single-blog-post.css
+ *
+ * Note: blog-social-enhancements.css has been removed as social buttons are no longer used
  */
 
 /* ========== BLOG LIST PAGE STYLES ========== */
@@ -102,21 +103,7 @@
     transition: color 0.3s ease;
 }
 
-/* Handle click events on social links */
-.blog-social {
-    position: relative;
-    z-index: 10; /* Higher z-index to prevent card click */
-}
 
-.blog-social a {
-    position: relative;
-    z-index: 10;
-    transition: all 0.2s ease;
-}
-
-.blog-social a:hover {
-    transform: scale(1.2);
-}
 
 /* Blog card image styles consolidated here - removed duplicate */
 
@@ -173,16 +160,7 @@
     transform: translateX(3px);
 }
 
-/* Make the social sharing links pop through the parent link */
-.blog-card-wrapper .blog-social a::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-}
+
 
 /* Style for the read more link that is now a span */
 .blog-card span.read-more {
@@ -445,140 +423,7 @@
     text-align: center;
 }
 
-/* ========== BLOG SOCIAL ENHANCEMENTS ========== */
-/* Styled social sharing buttons */
-.blog-share {
-    display: flex;
-    align-items: center;
-    margin: 1.5rem 0;
-    flex-wrap: wrap;
-}
 
-.blog-share span {
-    margin-right: 0.75rem;
-    font-weight: 500;
-    color: #e0e0e0;
-}
-
-.blog-share a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    line-height: 1;
-    text-align: center;
-    background-color: rgba(38, 70, 83, 0.7);
-    color: #e0e0e0;
-    border-radius: 50%;
-    margin-right: 0.75rem;
-    margin-bottom: 0.5rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Hover effects for social buttons */
-.blog-share a:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Different color on hover for each social network */
-.blog-share a[aria-label="Share on Facebook"]:hover {
-    background-color: #4267B2;
-    color: #ffffff;
-}
-
-.blog-share a[aria-label="Share on Twitter"]:hover {
-    background-color: #1DA1F2;
-    color: #ffffff;
-}
-
-.blog-share a[aria-label="Share on LinkedIn"]:hover {
-    background-color: #0077B5;
-    color: #ffffff;
-}
-
-.blog-share a[aria-label="Share on Pinterest"]:hover {
-    background-color: #E60023;
-    color: #ffffff;
-}
-
-.blog-share a[aria-label="Share on Reddit"]:hover {
-    background-color: #FF4500;
-    color: #ffffff;
-}
-
-.blog-share a[aria-label="Share via Email"]:hover {
-    background-color: #4fd5ff;
-    color: #264653;
-}
-
-/* Ripple effect on button click */
-.blog-share a::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: all 0.6s ease;
-}
-
-.blog-share a:active::after {
-    width: 100px;
-    height: 100px;
-    opacity: 1;
-    transition: 0s;
-}
-
-/* Enhanced floating share bar for desktop */
-.blog-share-floating {
-    position: fixed;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    z-index: 10;
-    background-color: rgba(38, 70, 83, 0.8);
-    border-radius: 30px;
-    padding: 10px 5px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.blog-share-floating a {
-    margin: 8px 0;
-}
-
-/* Share button with text label for clearer UX */
-.share-button-with-label {
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 15px;
-    background-color: rgba(38, 70, 83, 0.7);
-    color: #e0e0e0;
-    border-radius: 25px;
-    margin-right: 0.75rem;
-    margin-bottom: 0.5rem;
-    transition: all 0.3s ease;
-}
-
-.share-button-with-label i {
-    margin-right: 8px;
-}
-
-.share-button-with-label:hover {
-    background-color: #4fd5ff;
-    color: #264653;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
 
 /* ========== BLOG WOOD PANELS ========== */
 /* Wood panel background for blog content cards */
@@ -972,7 +817,7 @@
     color: #ffffff;
     display: -webkit-box;
     -webkit-line-clamp: 2;
-    line-clamp: 2; /* Add this line to silence the warning */
+    line-clamp: 2; /* Standard property for compatibility */
     -webkit-box-orient: vertical;
     overflow: hidden;
     height: auto;
@@ -1008,12 +853,7 @@
 }
 
 /* ========== RESPONSIVE STYLES ========== */
-/* Hide floating share bar on smaller screens */
-@media (max-width: 1200px) {
-    .blog-share-floating {
-        display: none;
-    }
-}
+
 
 /* Responsive styles for blog grid */
 @media (max-width: 1100px) {
@@ -1040,16 +880,7 @@
         font-size: 2rem;
     }
 
-    .blog-share {
-        justify-content: center;
-    }
 
-    .blog-share span {
-        display: block;
-        width: 100%;
-        text-align: center;
-        margin-bottom: 0.5rem;
-    }
 
     .blog-content figure {
         margin: 1.5rem auto;
@@ -1178,11 +1009,6 @@
     .blog-content blockquote {
         padding: 1.25rem;
     }
-
-    .blog-share a {
-        width: 34px;
-        height: 34px;
-    }
 }
 
 /* Fix blog-featured-image alignment on desktop */
@@ -1287,6 +1113,7 @@
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 3; /* Limit to 3 lines */
+      line-clamp: 3; /* Standard property for compatibility */
       overflow: hidden;
       text-overflow: ellipsis;
   }
@@ -1299,6 +1126,7 @@
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 3; /* Limit to 3 lines */
+      line-clamp: 3; /* Standard property for compatibility */
       overflow: hidden;
       text-overflow: ellipsis;
   }
