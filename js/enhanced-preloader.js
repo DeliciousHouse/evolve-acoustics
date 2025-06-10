@@ -131,12 +131,14 @@ document.addEventListener('DOMContentLoaded', function() {
             preloader.classList.add('hidden');
             setTimeout(() => {
                 preloader.style.display = 'none';
-                }, 800); // Match transition time
-            }
-        };
+            }, 800); // Match transition time
+        }
 
-        // Execute reveal sooner
-        setTimeout(revealPage, 100);
+        // Reveal the page content
+        setTimeout(() => {
+            document.body.classList.remove('loading');
+            document.body.classList.add('loaded');
+        }, 100);
     });
 
 }, { passive: true }); // Added {passive: true} to the DOMContentLoaded listener
