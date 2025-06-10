@@ -13,6 +13,13 @@
     visibility: hidden;
 }
 
+/* Add smooth transition effect when showing content */
+body {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease-in-out;
+}
+
 /* ========== VISUAL FIXES ========== */
 /* Remove dark blue underlines under text elements - comprehensive fix */
 .blog-content p strong,

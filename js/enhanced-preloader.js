@@ -149,6 +149,13 @@ setTimeout(() => {
         preloader.classList.add('hidden');
         document.body.classList.remove('loading');
         document.body.classList.add('loaded');
-        // Consider also removing the preloader element itself after a delay here too
+        // Remove the js-loading class to ensure content is always displayed
+        document.documentElement.classList.remove('js-loading');
+        // Remove the preloader element after animation completes
+        setTimeout(() => {
+            if (preloader) {
+                preloader.style.display = 'none';
+            }
+        }, 1000);
     }
 }, 8000);
