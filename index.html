@@ -165,5 +165,21 @@
 <script src="js/visual-issue-detector.js" defer></script>
 <!-- Performance monitoring script -->
 <script src="js/performance-monitor.js" defer></script>
+
+<script>
+  // Immediate check for js-loading class
+  if (document.documentElement.classList.contains("js-loading")) {
+    console.log("Initial check: removing js-loading class");
+    document.documentElement.classList.remove("js-loading");
+  }
+
+  // Guaranteed failsafe for visibility
+  setTimeout(function() {
+    document.documentElement.classList.remove("js-loading");
+    document.body.style.opacity = "1";
+    document.body.style.visibility = "visible";
+    console.log("Failsafe visibility fix applied");
+  }, 1000);
+</script>
 </body>
 </html>

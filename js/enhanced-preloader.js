@@ -11,6 +11,10 @@
 // While {passive: true} has minimal impact on 'DOMContentLoaded' for scroll performance (as it's not a scroll-blocking input event),
 // it's harmless and aligns with the intent if the listener doesn't call preventDefault().
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, will remove js-loading class');
+
+    // Remove loading class immediately on DOMContentLoaded
+    document.documentElement.classList.remove('js-loading');
     // Add preloader CSS (now part of visual-enhancements.css)
     function loadPreloaderCSS() {
         const link = document.createElement('link');
@@ -106,6 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // When everything is loaded
     window.addEventListener('load', function() {
+        // Clear the interval
+        clearInterval(progressInterval);
+
         const preloader = document.querySelector('.evolve-preloader');
         console.log('Preloader element found:', preloader !== null);
         const progressBar = document.querySelector('.evolve-preloader .progress');
@@ -115,16 +122,15 @@ document.addEventListener('DOMContentLoaded', function() {
             progressBar.style.width = '100%';
         }
 
-        // Simplified revealPage logic
-        const revealPage = () => {
-            // Always remove js-loading to show content
-            document.documentElement.classList.remove('js-loading');
-            console.log('js-loading class removed');
-            // Fade out preloader if it exists
-            if (preloader) {
-                preloader.classList.add('hidden');
-                setTimeout(() => {
-                    preloader.style.display = 'none';
+        // Immediately remove js-loading class again
+        document.documentElement.classList.remove('js-loading');
+        console.log('js-loading class removed (load event)');
+
+        // Simplified preloader handling
+        if (preloader) {
+            preloader.classList.add('hidden');
+            setTimeout(() => {
+                preloader.style.display = 'none';
                 }, 800); // Match transition time
             }
         };
