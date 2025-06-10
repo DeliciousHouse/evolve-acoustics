@@ -70,7 +70,21 @@
                     <p>Our acoustic consulting services help identify and solve complex acoustic challenges in any environment. We analyze spaces, measure sound characteristics, and provide expert recommendations to achieve ideal sound performance.</p>
                     <p>The example below showcases one of our projects for Death & Co, where we provided acoustic consulting and treatment. Our custom solutions created an optimal balance between sound reflection and absorption, ensuring clear conversation while maintaining the venue's distinctive atmosphere.</p>
                 </div>
-                <img src="../assets/images/death_and_co.webp" alt="Death & Co with Acoustic Treatment" />
+                <picture>
+                    <source
+                        type="image/avif"
+                        srcset="../assets/images/responsive/death_and_co-320w.avif 320w, ../assets/images/responsive/death_and_co-640w.avif 640w, ../assets/images/responsive/death_and_co-960w.avif 960w"
+                        sizes="(max-width: 768px) 100vw, 50vw">
+                    <source
+                        type="image/webp"
+                        srcset="../assets/images/responsive/death_and_co-320w.webp 320w, ../assets/images/responsive/death_and_co-640w.webp 640w, ../assets/images/responsive/death_and_co-960w.webp 960w"
+                        sizes="(max-width: 768px) 100vw, 50vw">
+                    <img
+                        src="../assets/images/death_and_co.webp"
+                        alt="Death & Co with Acoustic Treatment"
+                        class="service-intro-image"
+                        loading="eager">
+                </picture>
             </div>
 
             <div class="service-section">

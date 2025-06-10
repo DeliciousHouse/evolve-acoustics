@@ -174,7 +174,21 @@
                     <p class="service-tagline">Where functionality meets aesthetic appeal to create beautiful sound environments that transform spaces.</p>
                 </div>
                 <figure class="service-intro-figure">
-                    <img src="../assets/images/Conference-room.webp" alt="Modern conference room with elegant ceiling acoustic treatments and sound-absorbing wall panels" class="service-intro-image" loading="eager" />
+                    <picture>
+                        <source
+                            type="image/avif"
+                            srcset="../assets/images/responsive/Conference-room-320w.avif 320w, ../assets/images/responsive/Conference-room-640w.avif 640w, ../assets/images/responsive/Conference-room-960w.avif 960w"
+                            sizes="(max-width: 768px) 100vw, 50vw">
+                        <source
+                            type="image/webp"
+                            srcset="../assets/images/responsive/Conference-room-320w.webp 320w, ../assets/images/responsive/Conference-room-640w.webp 640w, ../assets/images/responsive/Conference-room-960w.webp 960w"
+                            sizes="(max-width: 768px) 100vw, 50vw">
+                        <img
+                            src="../assets/images/Conference-room.webp"
+                            alt="Modern conference room with elegant ceiling acoustic treatments and sound-absorbing wall panels"
+                            class="service-intro-image"
+                            loading="eager">
+                    </picture>
                     <figcaption>Professional conference room with custom-designed sound absorption solutions for crystal-clear presentations and meetings</figcaption>
                 </figure>
             </div>
