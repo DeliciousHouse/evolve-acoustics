@@ -21,7 +21,7 @@ header {
     padding: 0 20px;
 
     /* Performance & Animation */
-    transition: height 0.3s ease-out, background-color 0.3s ease-out;
+    /* transition: height 0.3s ease-out, background-color 0.3s ease-out; */
     transform: translateZ(0); /* Apply transform to the header only */
     -webkit-font-smoothing: antialiased;
 }

@@ -10,3 +10,4 @@ testfile
 *.bin
 *.zip
 node_modules/
+*.md
