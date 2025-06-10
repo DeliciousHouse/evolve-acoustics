@@ -499,15 +499,7 @@ nav ul li a:hover {
     transform: translateY(-5px);
 }
 
-.service-list li:before {
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    position: absolute;
-    left: 1.2rem;
-    top: 1.2rem;
-    color: #4fd5ff;
-    font-size: 1.5rem;
-}
+/* Removed conflicting .service-list li:before rule to prevent interference with service-pages.css */
 
 /* Custom icons for each list item */
 .service-list li:nth-child(1):before { content: "\f500"; } /* measurement icon */
