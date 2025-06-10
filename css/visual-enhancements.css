@@ -7,6 +7,12 @@
  * - section-header-enhancements.css
  */
 
+/* Hide content during page load */
+.js-loading body {
+    opacity: 0;
+    visibility: hidden;
+}
+
 /* ========== VISUAL FIXES ========== */
 /* Remove dark blue underlines under text elements - comprehensive fix */
 .blog-content p strong,

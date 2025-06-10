@@ -105,33 +105,40 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300);
 
     // When everything is loaded
-    // CORRECTED: Use standard addEventListener for the window 'load' event.
-    // Similar to DOMContentLoaded, {passive: true} here is more about intent than critical scroll performance.
     window.addEventListener('load', function() {
         // Clear the interval
         clearInterval(progressInterval);
 
-        // Set to 100% and fade out
-        if (progressBarElement) { // Check if progressBarElement exists
-            loadingProgress = 100;
-            progressBarElement.style.width = '100%';
+        const preloader = document.querySelector('.evolve-preloader');
+        const progressBar = document.querySelector('.evolve-preloader .progress');
+
+        // Ensure progress bar completes
+        if (progressBar) {
+            progressBar.style.width = '100%';
         }
 
-        // Wait a bit before hiding the preloader
-        setTimeout(() => {
-            const preloader = document.querySelector('.evolve-preloader');
+        // Function to reveal the page
+        const revealPage = () => {
+            // Check if the preloader exists and hide it
             if (preloader) {
-                preloader.classList.add('hidden');
-                document.body.classList.remove('loading');
-                document.body.classList.add('loaded');
+                preloader.classList.add('hidden'); // This starts the 0.8s fade-out
 
-                // Remove preloader after animation completes
-                setTimeout(() => {
-                    preloader.remove();
-                }, 1000);
+                // Listen for the end of the fade-out animation
+                preloader.addEventListener('transitionend', function() {
+                    preloader.style.display = 'none'; // Fully remove the preloader
+                    // Remove the hiding class to show the page content
+                    document.documentElement.classList.remove('js-loading');
+                }, { once: true }); // Ensure the event runs only once
+
+            } else {
+                // If there's no preloader for some reason, just show the page
+                document.documentElement.classList.remove('js-loading');
             }
-        }, 500);
-    }, { passive: true });
+        };
+
+        // Wait a brief moment for the progress bar to animate, then start revealing
+        setTimeout(revealPage, 300);
+    });
 
 }, { passive: true }); // Added {passive: true} to the DOMContentLoaded listener
 
