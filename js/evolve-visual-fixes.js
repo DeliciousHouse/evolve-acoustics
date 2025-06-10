@@ -73,21 +73,6 @@ window.addPassiveEventListener(document, 'DOMContentLoaded', function() {
                 imageContainer.style.overflow = 'hidden';
             }
         });
-
-        // If we're on page 1, apply special handling for the larger number of items
-        const paginationLinks = document.querySelectorAll('.pagination a');
-        const isPageOne = !paginationLinks.length ||
-                         Array.from(paginationLinks).some(link => link.textContent === '1' && link.classList.contains('active')) ||
-                         window.location.href.indexOf('page=1') > -1 ||
-                         !window.location.href.match(/page=[2-9]/);
-
-        if (isPageOne) {
-            console.log('Detected page 1, applying special grid fixes');
-            blogGrid.style.display = 'grid';
-            blogGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
-            blogGrid.style.gap = '30px';
-            blogGrid.style.gridAutoRows = '1fr';
-        }
     };
 
     // Image lazy loading implementation
