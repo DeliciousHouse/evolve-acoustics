@@ -3,11 +3,9 @@
 *.bak*
 css_archive/
 css_backup/
-html_backup_*/
-assets/placeholders/
+html_backup*/
 *.backup*
 testfile
 *.bin
 *.zip
-node_modules/
 *.md
