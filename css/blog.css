@@ -1423,3 +1423,18 @@
     pointer-events: none;
     z-index: 1;
 }
+
+/* --- Overlay Banner Style --- */
+.blog-card-image .blog-category {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    z-index: 2;
+    background-color: #4fd5ff;
+    color: #1a262c;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 0 0 8px 8px; /* Rounds the bottom corners */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}

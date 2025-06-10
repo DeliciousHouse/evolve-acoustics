@@ -91,17 +91,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle anchor links to account for fixed header
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                const headerHeight = header.offsetHeight;
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-                const offsetPosition = targetPosition - headerHeight - 20; // Extra 20px padding
+            const href = this.getAttribute('href');
 
-                window.scrollTo({
+            // Check if href is a valid selector (skip empty, just "#", or invalid selectors)
+            if (!href || href === '#' || href.length < 2) {
+                return;
+            }
+
+            try {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = targetPosition - headerHeight - 20; // Extra 20px padding
+
+                    window.scrollTo({
                     top: offsetPosition,
                     behavior: 'smooth'
-                });
+                    });
+                }
+            } catch (error) {
+                console.warn('Invalid selector in href:', href, error.message);
             }
         });
     });
