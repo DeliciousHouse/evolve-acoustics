@@ -1200,214 +1200,135 @@
 }
 
 /* =================================================================== */
-/* NEW & IMPROVED - ENGAGING BLOG CARD DESIGN (REVISED)         */
+/* === FINAL & COMPLETE BLOG CARD LAYOUT FIX === */
+/* This block handles grid layout, equal card heights, and text wrapping. */
 /* =================================================================== */
 
-.blog-card {
-    position: relative;
-    height: 350px;
-    min-height: 300px;
-    max-height: 380px;
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(38, 70, 83, 0.5);
-    border-radius: 12px; /* Softer, more modern corners */
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 20px;
-}
+/* The main grid container */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    /* The grid will automatically align items to be the same height */
+  }
 
-.blog-card:hover {
-    transform: translateY(-8px); /* A more noticeable hover effect */
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-}
+  /* The Card Container */
+  .blog-card {
+      background-color: rgba(38, 70, 83, 0.5);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column; /* This is crucial for the internal layout */
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
 
-.blog-card-image {
-    position: relative;
-    height: 220px; /* Taller image for more visual impact */
-    overflow: hidden;
-}
+  .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  }
 
-.blog-card-image .blog-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-}
+  /* Image Container and Overlay Banner */
+  .blog-card-image {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+  }
 
-.blog-card:hover .blog-image {
-    transform: scale(1.05); /* Subtle zoom on hover */
-}
+  .blog-card-image .blog-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+  }
 
-/* --- Overlay Banner Style for Category --- */
-.blog-card-image .blog-category {
-    position: absolute;
-    top: 0;
-    left: 1rem; /* 16px */
-    z-index: 2; /* This is the key to bringing it in front */
-    background-color: #4fd5ff;
-    color: #1a262c;
-    padding: 6px 12px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-radius: 0 0 8px 8px; /* Rounds the bottom corners for a banner feel */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
+  .blog-card:hover .blog-image {
+      transform: scale(1.05);
+  }
 
-.blog-card-content {
-    padding: 1.5rem; /* Standardized padding */
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* Allows footer to stick to the bottom */
-}
+  .blog-card-image .blog-category {
+      position: absolute;
+      top: 0;
+      left: 1rem;
+      z-index: 2;
+      background-color: #4fd5ff;
+      color: #1a262c;
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
 
-.blog-card .blog-date {
-    font-size: 0.8rem;
-    color: #b3e0ff;
-    margin-bottom: 0.5rem;
-}
+  /* The Content Area - This will grow to fill available space */
+  .blog-card-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1; /* This is KEY: It makes this area expand. */
+  }
 
-.blog-card h2 {
-    font-size: 1.3rem; /* Larger, more engaging title */
-    font-weight: 700; /* Bolder for more impact */
-    line-height: 1.4;
-    color: #ffffff;
-    margin-top: 0;
-    margin-bottom: 0.75rem;
+  .blog-card .blog-date {
+      font-size: 0.8rem;
+      color: #b3e0ff;
+      margin-bottom: 0.5rem;
+  }
 
-    /* Fixed title styling with strict line clamping */
-    max-height: 3.9rem; /* Exactly 3 lines of text */
-    white-space: normal; /* Ensures proper text wrapping */
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-}
+  /* Title and Paragraph with Text Truncation */
+  .blog-card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #ffffff;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3; /* Limit to 3 lines */
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
 
-.blog-card p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #e0e0e0;
-    margin-bottom: 1.5rem;
-    flex-grow: 1;
+  .blog-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #e0e0e0;
+      margin-bottom: 1.5rem;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3; /* Limit to 3 lines */
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
 
-    /* Description text with consistent truncation */
-    max-height: 4.5rem; /* Exactly 3 lines */
-    white-space: normal; /* Ensures proper text wrapping */
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-}
+  /* The Footer - Pushed to the bottom of the card */
+  .blog-card-footer {
+      margin-top: auto; /* This is KEY: Pushes the footer down. */
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
 
-.blog-card-footer {
-    margin-top: auto; /* Pushes the footer to the bottom */
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
+  .blog-card-footer .read-more {
+      display: inline-block;
+      background-color: rgba(79, 213, 255, 0.2);
+      color: #8be0ff;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+  }
 
-/* Redesigned "Read More" button */
-.blog-card-footer .read-more {
-    display: inline-block;
-    background-color: rgba(79, 213, 255, 0.2);
-    color: #8be0ff;
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
+  .blog-card-footer .read-more:hover {
+      background-color: #4fd5ff;
+      color: #1a262c;
+      transform: translateX(3px);
+  }
 
-.blog-card-footer .read-more:hover {
-    background-color: #4fd5ff;
-    color: #1a262c;
-    transform: translateX(3px);
-}
+  .blog-card-footer .read-more i {
+      margin-left: 5px;
+  }
 
-.blog-card-footer .read-more i {
-    margin-left: 5px;
-}
 
-/* ========== BLOG CARD IMAGE ENHANCEMENTS ========== */
-.blog-card-image {
-    position: relative;
-    width: 100%;
-    height: 180px;
-    overflow: hidden;
-    border-radius: 8px 8px 0 0;
-    background-color: #1a1a1a;
-}
-
-.blog-card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    opacity: 0.95;
-}
-
-/* Subtle zoom effect on hover */
-.blog-card:hover .blog-card-image img {
-    transform: scale(1.05);
-    opacity: 1;
-}
-
-/* Image loading state styling */
-.blog-card-image.loading {
-    background-color: #242424;
-    position: relative;
-}
-
-.blog-card-image.loading::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    margin: -20px 0 0 -20px;
-    border: 2px solid transparent;
-    border-top-color: #4fd5ff;
-    border-radius: 50%;
-    animation: blogImageLoaderSpin 1s linear infinite;
-}
-
-@keyframes blogImageLoaderSpin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Image placeholder gradient for cards without images */
-.blog-card-image.no-image {
-    background: linear-gradient(135deg, #2a3b4c 0%, #121a23 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.blog-card-image.no-image::after {
-    content: 'Evolve Acoustics';
-    color: rgba(255, 255, 255, 0.15);
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-/* Add subtle vignette to images */
-.blog-card-image::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.3) 100%);
-    pointer-events: none;
-    z-index: 1;
-}
