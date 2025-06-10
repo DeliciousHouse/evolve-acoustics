@@ -1204,15 +1204,19 @@
 /* =================================================================== */
 
 .blog-card {
+    position: relative;
+    height: 350px;
+    min-height: 300px;
+    max-height: 380px;
+    display: flex;
+    flex-direction: column;
     background-color: rgba(38, 70, 83, 0.5);
     border-radius: 12px; /* Softer, more modern corners */
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Ensures cards in a row have equal height */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
 }
 
 .blog-card:hover {
@@ -1237,19 +1241,19 @@
     transform: scale(1.05); /* Subtle zoom on hover */
 }
 
-/* --- Overlay Banner Style for Category (Option 2 from previous step) --- */
+/* --- Overlay Banner Style for Category --- */
 .blog-card-image .blog-category {
     position: absolute;
     top: 0;
-    left: 1rem;
-    z-index: 2;
+    left: 1rem; /* 16px */
+    z-index: 2; /* This is the key to bringing it in front */
     background-color: #4fd5ff;
     color: #1a262c;
     padding: 6px 12px;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
-    border-radius: 0 0 8px 8px; /* Rounded bottom corners for a banner feel */
+    border-radius: 0 0 8px 8px; /* Rounds the bottom corners for a banner feel */
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
@@ -1273,13 +1277,14 @@
     color: #ffffff;
     margin-top: 0;
     margin-bottom: 0.75rem;
-    /* Allow for more text */
-    max-height: 5.46rem; /* Approx. 3 lines */
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    display: -webkit-box;
+
+    /* Fixed title styling with strict line clamping */
+    max-height: 3.9rem; /* Exactly 3 lines of text */
+    white-space: normal; /* Ensures proper text wrapping */
     overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     text-overflow: ellipsis;
 }
 
@@ -1289,13 +1294,14 @@
     color: #e0e0e0;
     margin-bottom: 1.5rem;
     flex-grow: 1;
-     /* Allow for more words to grab attention */
-    max-height: 4.56rem; /* Approx. 3 lines */
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    display: -webkit-box;
+
+    /* Description text with consistent truncation */
+    max-height: 4.5rem; /* Exactly 3 lines */
+    white-space: normal; /* Ensures proper text wrapping */
     overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     text-overflow: ellipsis;
 }
 
@@ -1404,19 +1410,4 @@
     background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.3) 100%);
     pointer-events: none;
     z-index: 1;
-}
-
-/* --- Overlay Banner Style --- */
-.blog-card-image .blog-category {
-    position: absolute;
-    top: 0;
-    left: 12px;
-    z-index: 2;
-    background-color: #4fd5ff;
-    color: #1a262c;
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    border-radius: 0 0 8px 8px; /* Rounds the bottom corners */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }

@@ -971,22 +971,7 @@ main img {
     transform: scale(1.05);
 }
 
-.blog-category {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-}
-
-.blog-category span {
-    background-color: #4fd5ff;
-    color: #1a1a1a;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
+/* Blog category styling moved to blog.css */
 
 .blog-card-content {
     padding: 1.5rem;
