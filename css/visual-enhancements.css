@@ -499,3 +499,11 @@ body.loaded main {
         width: 60px;
     }
 }
+
+/*
+ * Force-disable all animations on the header logo to prevent unwanted
+ * transitions during header shrink/expand.
+ */
+header .logo-img {
+    transition: none !important;
+}

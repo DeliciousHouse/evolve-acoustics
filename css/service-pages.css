@@ -285,6 +285,8 @@
     text-align: center;
     margin: 0;
     font-size: 0.95rem;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 /* Service List */
