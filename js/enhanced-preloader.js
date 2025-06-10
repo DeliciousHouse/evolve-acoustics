@@ -106,10 +106,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // When everything is loaded
     window.addEventListener('load', function() {
-        // Clear the interval
-        clearInterval(progressInterval);
-
         const preloader = document.querySelector('.evolve-preloader');
+        console.log('Preloader element found:', preloader !== null);
         const progressBar = document.querySelector('.evolve-preloader .progress');
 
         // Ensure progress bar completes
@@ -117,27 +115,22 @@ document.addEventListener('DOMContentLoaded', function() {
             progressBar.style.width = '100%';
         }
 
-        // Function to reveal the page
+        // Simplified revealPage logic
         const revealPage = () => {
-            // Check if the preloader exists and hide it
+            // Always remove js-loading to show content
+            document.documentElement.classList.remove('js-loading');
+            console.log('js-loading class removed');
+            // Fade out preloader if it exists
             if (preloader) {
-                preloader.classList.add('hidden'); // This starts the 0.8s fade-out
-
-                // Listen for the end of the fade-out animation
-                preloader.addEventListener('transitionend', function() {
-                    preloader.style.display = 'none'; // Fully remove the preloader
-                    // Remove the hiding class to show the page content
-                    document.documentElement.classList.remove('js-loading');
-                }, { once: true }); // Ensure the event runs only once
-
-            } else {
-                // If there's no preloader for some reason, just show the page
-                document.documentElement.classList.remove('js-loading');
+                preloader.classList.add('hidden');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 800); // Match transition time
             }
         };
 
-        // Wait a brief moment for the progress bar to animate, then start revealing
-        setTimeout(revealPage, 300);
+        // Execute reveal sooner
+        setTimeout(revealPage, 100);
     });
 
 }, { passive: true }); // Added {passive: true} to the DOMContentLoaded listener
@@ -159,3 +152,11 @@ setTimeout(() => {
         }, 1000);
     }
 }, 8000);
+
+// Failsafe: Always show content after 5 seconds max
+setTimeout(function() {
+    if (document.documentElement.classList.contains('js-loading')) {
+        console.log('Failsafe activated: removing js-loading class');
+        document.documentElement.classList.remove('js-loading');
+    }
+}, 5000);
