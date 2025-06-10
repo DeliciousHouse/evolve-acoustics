@@ -79,7 +79,7 @@ header::after {
 }
 
 .logo-img {
-    height: 300px; /* Increased from 200px (1.5x larger) */
+    height: 130px;
     width: auto;
     object-fit: contain;
     margin-right: 20px; /* Add some spacing between logo and navigation */
